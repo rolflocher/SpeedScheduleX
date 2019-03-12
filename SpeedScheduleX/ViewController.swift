@@ -14,6 +14,9 @@ class ViewController: UIViewController {
     
     @IBOutlet var dayScrollView: UIScrollView!
     
+    @IBOutlet var fullScheduleButton: UIImageView!
+    
+    
     var colors:[UIColor] = [.lightGray, .gray]
     
     @IBOutlet var longProgressView0: longProgressView!
@@ -75,9 +78,16 @@ class ViewController: UIViewController {
         dayScrollView.isScrollEnabled = true
         
         dayScrollView.contentSize = CGSize(width:128, height:710)
+        
+        let fullScheduleTap = UITapGestureRecognizer(target: self, action: #selector(fullScheduleTapped))
+        fullScheduleButton.addGestureRecognizer(fullScheduleTap)
     }
 
-    
+    @objc func fullScheduleTapped() {
+        //let secondViewController: ScheduleViewController = ScheduleViewController()
+        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "scheduleView") as UIViewController
+        self.present(viewController, animated: true, completion: nil)
+    }
 
 
 }

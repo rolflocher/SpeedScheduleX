@@ -27,6 +27,7 @@
 		4C33CA412237190000A52E0A /* Aller_Std_Rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C33CA3E2237190000A52E0A /* Aller_Std_Rg.ttf */; };
 		4C33CA432237252800A52E0A /* singleDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33CA422237252800A52E0A /* singleDayView.swift */; };
 		4C33CA452237253D00A52E0A /* singleDayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C33CA442237253D00A52E0A /* singleDayView.xib */; };
+		4C33CA4722374BDB00A52E0A /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33CA4622374BDB00A52E0A /* ScheduleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		4C33CA3E2237190000A52E0A /* Aller_Std_Rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Aller_Std_Rg.ttf; sourceTree = "<group>"; };
 		4C33CA422237252800A52E0A /* singleDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = singleDayView.swift; sourceTree = "<group>"; };
 		4C33CA442237253D00A52E0A /* singleDayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = singleDayView.xib; sourceTree = "<group>"; };
+		4C33CA4622374BDB00A52E0A /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				4C33C9FE2236A73D00A52E0A /* AppDelegate.swift */,
 				4C33CA002236A73D00A52E0A /* ViewController.swift */,
 				4C33CA022236A73D00A52E0A /* Main.storyboard */,
+				4C33CA4622374BDB00A52E0A /* ScheduleViewController.swift */,
 				4C33CA422237252800A52E0A /* singleDayView.swift */,
 				4C33CA442237253D00A52E0A /* singleDayView.xib */,
 				4C33CA382237081500A52E0A /* longProgressView.swift */,
@@ -313,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C33CA4722374BDB00A52E0A /* ScheduleViewController.swift in Sources */,
 				4C33CA012236A73D00A52E0A /* ViewController.swift in Sources */,
 				4C33CA432237252800A52E0A /* singleDayView.swift in Sources */,
 				4C33C9FF2236A73D00A52E0A /* AppDelegate.swift in Sources */,
