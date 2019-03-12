@@ -64,25 +64,31 @@
                                         </constraints>
                                     </view>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZ5-xA-Vbs">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="610"/>
+                                        <rect key="frame" x="0.0" y="37" width="128" height="573"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="128" id="gaB-eq-YgF"/>
                                         </constraints>
                                     </scrollView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XBE-AM-ZdP">
+                                        <rect key="frame" x="0.0" y="7" width="128" height="22"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="XBE-AM-ZdP" firstAttribute="leading" secondItem="K23-uB-Abh" secondAttribute="leading" id="1QR-Ft-Tnx"/>
                                     <constraint firstItem="PuR-Up-YCb" firstAttribute="top" secondItem="K23-uB-Abh" secondAttribute="top" constant="7" id="Cph-m6-KQT"/>
                                     <constraint firstAttribute="trailing" secondItem="PuR-Up-YCb" secondAttribute="trailing" constant="7" id="D3z-dR-lfb"/>
                                     <constraint firstAttribute="bottom" secondItem="cs0-ZK-4au" secondAttribute="bottom" constant="8" id="Dbq-fA-8PH"/>
                                     <constraint firstAttribute="bottom" secondItem="SZ5-xA-Vbs" secondAttribute="bottom" id="QgR-eF-3rM"/>
                                     <constraint firstItem="SZ5-xA-Vbs" firstAttribute="leading" secondItem="K23-uB-Abh" secondAttribute="leading" id="Rxy-ja-RzV"/>
                                     <constraint firstItem="cs0-ZK-4au" firstAttribute="top" secondItem="PuR-Up-YCb" secondAttribute="bottom" constant="7" id="X6x-Yy-xKG"/>
+                                    <constraint firstItem="XBE-AM-ZdP" firstAttribute="top" secondItem="K23-uB-Abh" secondAttribute="top" constant="7" id="ZTU-7X-iGS"/>
                                     <constraint firstItem="PuR-Up-YCb" firstAttribute="leading" secondItem="SZ5-xA-Vbs" secondAttribute="trailing" constant="7" id="a7h-Na-6Hi"/>
                                     <constraint firstItem="PuR-Up-YCb" firstAttribute="top" secondItem="K23-uB-Abh" secondAttribute="top" constant="7" id="deR-jv-Rdl"/>
                                     <constraint firstAttribute="trailing" secondItem="cs0-ZK-4au" secondAttribute="trailing" constant="7" id="eST-Cz-X92"/>
-                                    <constraint firstItem="SZ5-xA-Vbs" firstAttribute="top" secondItem="K23-uB-Abh" secondAttribute="top" id="w7i-29-zgN"/>
+                                    <constraint firstItem="SZ5-xA-Vbs" firstAttribute="top" secondItem="XBE-AM-ZdP" secondAttribute="bottom" constant="7" id="pnG-eZ-aiH"/>
+                                    <constraint firstItem="PuR-Up-YCb" firstAttribute="leading" secondItem="XBE-AM-ZdP" secondAttribute="trailing" constant="7" id="vJV-le-O8l"/>
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="universityTitle" translatesAutoresizingMaskIntoConstraints="NO" id="bjx-gr-fnz">
