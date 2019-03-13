@@ -81,6 +81,8 @@ class ViewController: UIViewController {
         
         let fullScheduleTap = UITapGestureRecognizer(target: self, action: #selector(fullScheduleTapped))
         fullScheduleButton.addGestureRecognizer(fullScheduleTap)
+        
+        
     }
 
     @objc func fullScheduleTapped() {

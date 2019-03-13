@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C17F3C42239604D00061154 /* addClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17F3C32239604D00061154 /* addClassView.swift */; };
+		4C17F3C6223960A000061154 /* addClassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C17F3C5223960A000061154 /* addClassView.xib */; };
 		4C33C9FF2236A73D00A52E0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33C9FE2236A73D00A52E0A /* AppDelegate.swift */; };
 		4C33CA012236A73D00A52E0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33CA002236A73D00A52E0A /* ViewController.swift */; };
 		4C33CA042236A73D00A52E0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C33CA022236A73D00A52E0A /* Main.storyboard */; };
@@ -74,6 +76,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4C17F3C32239604D00061154 /* addClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addClassView.swift; sourceTree = "<group>"; };
+		4C17F3C5223960A000061154 /* addClassView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = addClassView.xib; sourceTree = "<group>"; };
 		4C33C9FB2236A73D00A52E0A /* SpeedScheduleX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedScheduleX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C33C9FE2236A73D00A52E0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C33CA002236A73D00A52E0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 		4C33C9FD2236A73D00A52E0A /* SpeedScheduleX */ = {
 			isa = PBXGroup;
 			children = (
+				4C17F3C32239604D00061154 /* addClassView.swift */,
+				4C17F3C5223960A000061154 /* addClassView.xib */,
 				4C33CA4A223836A000A52E0A /* classView.swift */,
 				4C33C9FE2236A73D00A52E0A /* AppDelegate.swift */,
 				4C33CA002236A73D00A52E0A /* ViewController.swift */,
@@ -287,6 +293,7 @@
 				4C33CA3F2237190000A52E0A /* Aller_Std_Rg.ttf in Resources */,
 				4C33CA452237253D00A52E0A /* singleDayView.xib in Resources */,
 				4C33CA092236A73D00A52E0A /* LaunchScreen.storyboard in Resources */,
+				4C17F3C6223960A000061154 /* addClassView.xib in Resources */,
 				4C33CA3D22370A5D00A52E0A /* longProgressView.xib in Resources */,
 				4C33CA062236A73D00A52E0A /* Assets.xcassets in Resources */,
 				4C33CA042236A73D00A52E0A /* Main.storyboard in Resources */,
@@ -323,6 +330,7 @@
 				4C33CA012236A73D00A52E0A /* ViewController.swift in Sources */,
 				4C33CA432237252800A52E0A /* singleDayView.swift in Sources */,
 				4C33CA4B223836A000A52E0A /* classView.swift in Sources */,
+				4C17F3C42239604D00061154 /* addClassView.swift in Sources */,
 				4C33C9FF2236A73D00A52E0A /* AppDelegate.swift in Sources */,
 				4C33CA392237081500A52E0A /* longProgressView.swift in Sources */,
 			);

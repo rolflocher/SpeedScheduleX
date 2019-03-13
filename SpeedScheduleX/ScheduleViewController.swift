@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScheduleViewController: UIViewController {
+class ScheduleViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var timeLabelView: UIView!
     
@@ -22,17 +22,74 @@ class ScheduleViewController: UIViewController {
     
     @IBOutlet var fridayLongView: UIView!
     
+    @IBOutlet var addButton: UIImageView!
     
     @IBOutlet var returnButton: UIImageView!
+    
+    @IBOutlet var addClassView0: addClassView!
+    
+    
+    
+    
+    var usableHeight : CGFloat = 593
+    var usableWidth : CGFloat = 61.67
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addClassView0.nameLabel.delegate = self
+        
+        let addNameTap = UITapGestureRecognizer(target: self, action: #selector(addNameTapped))
+        addClassView0.nameLabel.addGestureRecognizer(addNameTap)
+        //addClassView0.nameLabel.keyboardType = .default
+        addClassView0.nameLabel.returnKeyType = .done
+        
         setupLabels()
+        setupLines()
 
         let returnTap = UITapGestureRecognizer(target: self, action: #selector(returnTapped))
         returnButton.addGestureRecognizer(returnTap)
-        // Do any additional setup after loading the view.
+        
+        let addTap = UITapGestureRecognizer(target: self, action: #selector(addTapped))
+        addButton.addGestureRecognizer(addTap)
+        
+        var classList = [[String:Any]]()
+        var classInfo = [String:Any]()
+        classInfo["name"] = "CPE II"
+        classInfo["start"] = 30
+        classInfo["end"] = 80
+        classInfo["day"] = 2
+        classInfo["room"] = "Tol 305"
+        classInfo["id"] = 9345
+        classInfo["color"] = UIColor.cyan
+        classList.append(classInfo)
+        
+        drawClasses(classList: classList)
+        
+        self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+//        if let count = textField.text?.count {
+//            if count > 20 {
+//                self.addClassNameTextView.text = "20 char limit"
+//            }
+//        }
+        UIView.animate(withDuration: 0.2, animations: {
+            self.addClassView0.frame = CGRect(x: 0, y: 420, width: self.view.frame.width, height: self.addClassView0.frame.height)
+            self.view.setNeedsLayout()
+        })
+        
+        return true
+    }
+    
+    @objc func addNameTapped () {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.addClassView0.frame = CGRect(x: 0, y: 83, width: self.view.frame.width, height: self.addClassView0.frame.height)
+            self.view.setNeedsLayout()
+        })
+        addClassView0.nameLabel.becomeFirstResponder()
     }
     
     @objc func returnTapped () {
@@ -40,32 +97,45 @@ class ScheduleViewController: UIViewController {
         self.present(viewController, animated: true, completion: nil)
     }
     
+    @objc func addTapped () {
+        //self.view.removeConstraint(self.hideAddClassView)
+        self.view.setNeedsLayout()
+        UIView.animate(withDuration: 1, animations: {
+            self.addClassView0.frame = CGRect(x: 0, y: 420, width: self.view.frame.width, height: self.addClassView0.frame.height)
+            self.view.setNeedsLayout()
+            })
+    }
+    
+    func drawClasses (classList : [[String:Any]]) {
+        if classList.count == 0 {
+            return
+        }
+        
+        for classInfo in classList {
+            
+            let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int))/780
+            let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int))/780
+            
+            let classView0 = ClassView(frame: CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight)))
+            classView0.drawClass(name: classInfo["name"] as! String, room: classInfo["room"] as! String, start: classInfo["start"] as! Int, end: classInfo["end"] as! Int, color: classInfo["color"] as! UIColor)
+            mondayLongView.addSubview(classView0)
+        }
+    }
+    
     func setupLines () {
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 50, y: 0))
-        path.addLine(to: CGPoint(x: 50, y: 700))
         
-        path.move(to: CGPoint(x: 127, y: 0))
-        path.addLine(to: CGPoint(x: 127, y: 700))
-        
-        let lineLayer = CAShapeLayer()
-        lineLayer.path = path.cgPath
-        lineLayer.fillColor = UIColor.clear.cgColor
-        lineLayer.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
-        lineLayer.lineWidth = 2
-        
-        timeLabelView.layer.addSublayer(lineLayer)
 
     }
     
     func setupLabels () {
         
-        let usableHeight : CGFloat = 650
+        
         var startOffset = 2 * (7-8)
         startOffset += (30-30) / 30
         
         var numSegments = 2 * (21 - 7)
         numSegments += (30 - 30) / 30
+        numSegments = 25
         
         for x in 1...numSegments+1 {
             let height = CGFloat((usableHeight/CGFloat(numSegments+1)) * CGFloat(x))
@@ -74,16 +144,63 @@ class ScheduleViewController: UIViewController {
                 print("time label drawer thinks height is \(usableHeight)")
             }
             
+            print("height: \(height)")
+            
+            if x % 2 == 0  {
+                let path = UIBezierPath()
+                path.move(to: CGPoint(x: -100, y: height))
+                path.addLine(to: CGPoint(x: 100, y: height))
+                
+                let lineLayer = CAShapeLayer()
+                lineLayer.path = path.cgPath
+                lineLayer.fillColor = UIColor.clear.cgColor
+                lineLayer.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
+                lineLayer.lineWidth = 1
+                
+                let lineLayer0 = CAShapeLayer()
+                lineLayer0.path = path.cgPath
+                lineLayer0.fillColor = UIColor.clear.cgColor
+                lineLayer0.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
+                lineLayer0.lineWidth = 1
+                
+                let lineLayer1 = CAShapeLayer()
+                lineLayer1.path = path.cgPath
+                lineLayer1.fillColor = UIColor.clear.cgColor
+                lineLayer1.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
+                lineLayer1.lineWidth = 1
+                
+                let lineLayer2 = CAShapeLayer()
+                lineLayer2.path = path.cgPath
+                lineLayer2.fillColor = UIColor.clear.cgColor
+                lineLayer2.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
+                lineLayer2.lineWidth = 1
+                
+                let lineLayer3 = CAShapeLayer()
+                lineLayer3.path = path.cgPath
+                lineLayer3.fillColor = UIColor.clear.cgColor
+                lineLayer3.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
+                lineLayer3.lineWidth = 1
+                
+                mondayLongView.layer.addSublayer(lineLayer)
+                tuesdayLongView.layer.addSublayer(lineLayer0)
+                wednesdayLongView.layer.addSublayer(lineLayer1)
+                thursdayLongView.layer.addSublayer(lineLayer2)
+                fridayLongView.layer.addSublayer(lineLayer3)
+            }
+            
+            
+            
             let textLayer = CATextLayer()
-            textLayer.frame = CGRect(x: 0, y: 0, width: timeLabelView.frame.width, height: usableHeight)
+            textLayer.frame = CGRect(x: 0, y: 0, width: timeLabelView.frame.width, height: 20) //usableheight
                 //timeLabelView.frame // may need to hardcode
             textLayer.backgroundColor = UIColor.clear.cgColor
             textLayer.foregroundColor = #colorLiteral(red: 0.2041128576, green: 0.2041538656, blue: 0.2041074634, alpha: 0.9130996919)
             textLayer.fontSize = 14
             
-            let switchInt = x+startOffset
+            //let switchInt = x+startOffset
             
-            switch (switchInt) {
+            switch (x) {
+            
             case 1:
                 print("")
             case 2:
@@ -135,13 +252,13 @@ class ScheduleViewController: UIViewController {
             case 25:
                 print("")
             case 26:
-                textLayer.string = "9 PM"
+                textLayer.string = ""
             default:
                 print("f")
             }
             textLayer.alignmentMode = .right
             //if (deviceSize == 667.0) {
-            textLayer.position = CGPoint(x:15,y:height+250)
+            textLayer.position = CGPoint(x:15,y:height)
             //}
             //            else if (deviceSize == 736.0) {
             //                textLayer.position = CGPoint(x:17,y:height+168)

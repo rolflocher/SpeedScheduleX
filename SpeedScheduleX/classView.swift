@@ -15,6 +15,8 @@ protocol ClassTapDelegate : class {
 class ClassView: UIView {
     
     var name : String
+    var room : String
+    var time : String
     var id : Int
     
     weak var classDelegate : ClassTapDelegate?
@@ -23,16 +25,40 @@ class ClassView: UIView {
         let nameLabel = UILabel()
         nameLabel.textAlignment = .center
         nameLabel.numberOfLines = 0
-        nameLabel.font = UIFont.systemFont(ofSize: 10, weight: .medium)
+        nameLabel.font = UIFont(name:"Aller",size:10)//UIFont.systemFont(ofSize: 10, weight: .medium)
         nameLabel.adjustsFontForContentSizeCategory = true
         nameLabel.text = name
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         return nameLabel
     }()
     
+    lazy var timeLabel: UILabel = {
+        let timeLabel = UILabel()
+        timeLabel.textAlignment = .center
+        timeLabel.numberOfLines = 0
+        timeLabel.font = UIFont(name:"Aller",size:10)//UIFont.systemFont(ofSize: 10, weight: .medium)
+        timeLabel.adjustsFontForContentSizeCategory = true
+        timeLabel.text = time
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        return timeLabel
+    }()
+    
+    lazy var roomLabel: UILabel = {
+        let roomLabel = UILabel()
+        roomLabel.textAlignment = .center
+        roomLabel.numberOfLines = 0
+        roomLabel.font = UIFont(name:"Aller",size:10)//UIFont.systemFont(ofSize: 10, weight: .medium)
+        roomLabel.adjustsFontForContentSizeCategory = true
+        roomLabel.text = room
+        roomLabel.translatesAutoresizingMaskIntoConstraints = false
+        return roomLabel
+    }()
+    
     override init(frame: CGRect) {
         name = "temp"
         id = 0
+        room = "temp"
+        time = "temp - temp"
         super.init(frame: frame)
         setupView()
         setupLayout()
@@ -41,6 +67,8 @@ class ClassView: UIView {
     required init?(coder aDecoder: NSCoder) {
         name = "temp"
         id = 0
+        room = "temp"
+        time = "temp - temp"
         super.init(coder: aDecoder)
         setupView()
         setupLayout()
@@ -48,6 +76,8 @@ class ClassView: UIView {
     
     private func setupView() {
         addSubview(nameLabel)
+        addSubview(timeLabel)
+        addSubview(roomLabel)
         
         let classTap = UITapGestureRecognizer(target: self, action: #selector(classTapped))
         self.addGestureRecognizer(classTap)
@@ -55,14 +85,35 @@ class ClassView: UIView {
     }
     
     private func setupLayout() {
+        self.layer.cornerRadius = 5.0
+        self.clipsToBounds = true
         NSLayoutConstraint.activate([
             nameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            nameLabel.widthAnchor.constraint(equalToConstant: self.frame.size.width-4)
+            //nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            nameLabel.widthAnchor.constraint(equalToConstant: self.frame.size.width-1),
+            nameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 2),
+            
+            timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            timeLabel.widthAnchor.constraint(equalToConstant: self.frame.size.width-1),
+            //timeLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
+            
+            roomLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            //nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            roomLabel.widthAnchor.constraint(equalToConstant: self.frame.size.width-1),
+            roomLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -2)
             ])
     }
     
+    func drawClass (name: String, room: String, start: Int, end: Int, color: UIColor) {
+        nameLabel.text = name
+        roomLabel.text = room
+        self.backgroundColor = color
+        
+        timeLabel.text = String(Int(floor(Double(start/60)))+8) + ":" + String(start % 60) + " - " + String(Int(floor(Double(end/60))+8)) + ":" + String(end % 60)
+    }
+    
     @objc func classTapped() {
-        classDelegate?.classTapped(id: id)
+        //classDelegate?.classTapped(id: id)
     }
 }
