@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="buildingWheelView" customModule="SpeedScheduleX" customModuleProvider="target">
+            <connections>
+                <outlet property="blurView" destination="hUl-vc-EaX" id="jHQ-zL-kZk"/>
+                <outlet property="buildingPicker" destination="TOK-eW-Es9" id="qpt-qL-GSZ"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="AHA-x8-4qd"/>
+                <outlet property="hyphenLabel" destination="kcf-QP-ECG" id="WWw-ES-lKF"/>
+                <outlet property="timePicker" destination="M3Q-f6-Dm1" id="7lW-ZW-2zr"/>
+                <outlet property="timePicker1" destination="miD-yo-uRk" id="76d-gF-AUY"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="260" height="128"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUl-vc-EaX">
+                    <rect key="frame" x="0.0" y="0.0" width="260" height="128"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="BFe-FQ-vZd">
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="128"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="light"/>
+                </visualEffectView>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TOK-eW-Es9">
+                    <rect key="frame" x="-30" y="-17" width="320" height="162"/>
+                </pickerView>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M3Q-f6-Dm1" customClass="timeView" customModule="SpeedScheduleX" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="-17" width="130" height="162"/>
+                </pickerView>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="miD-yo-uRk" customClass="timeView" customModule="SpeedScheduleX" customModuleProvider="target">
+                    <rect key="frame" x="130" y="-17" width="130" height="162"/>
+                </pickerView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcf-QP-ECG">
+                    <rect key="frame" x="120" y="50.5" width="20" height="27"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="27" id="Gcj-h8-2jW"/>
+                        <constraint firstAttribute="width" constant="20" id="Ne4-l5-1NO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="hUl-vc-EaX" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="6f5-9E-2dI"/>
+                <constraint firstItem="hUl-vc-EaX" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="7XS-Uv-hyE"/>
+                <constraint firstItem="M3Q-f6-Dm1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="IIX-ur-dTD"/>
+                <constraint firstItem="miD-yo-uRk" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Okm-KS-iH5"/>
+                <constraint firstItem="kcf-QP-ECG" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="PVq-u6-5I5"/>
+                <constraint firstItem="hUl-vc-EaX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Pgn-cz-4ei"/>
+                <constraint firstItem="M3Q-f6-Dm1" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Qed-BX-o0J"/>
+                <constraint firstItem="hUl-vc-EaX" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Rop-I4-Btx"/>
+                <constraint firstItem="miD-yo-uRk" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ZlW-tc-wMH"/>
+                <constraint firstItem="kcf-QP-ECG" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="af7-fV-Yy4"/>
+                <constraint firstItem="miD-yo-uRk" firstAttribute="leading" secondItem="M3Q-f6-Dm1" secondAttribute="trailing" id="kb2-C7-vdN"/>
+                <constraint firstItem="miD-yo-uRk" firstAttribute="width" secondItem="M3Q-f6-Dm1" secondAttribute="width" id="pfW-rz-7OI"/>
+                <constraint firstItem="TOK-eW-Es9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="smd-ip-Vy2"/>
+                <constraint firstItem="TOK-eW-Es9" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uyB-Ns-xQf"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="52.799999999999997" y="48.575712143928037"/>
+        </view>
+    </objects>
+</document>

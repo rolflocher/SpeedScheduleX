@@ -101,7 +101,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forwardFullSchedule" translatesAutoresizingMaskIntoConstraints="NO" id="cQZ-6f-T4q">
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fullScheduleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="cQZ-6f-T4q">
                                 <rect key="frame" x="27" y="48" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="nAC-FB-u6v"/>
@@ -357,9 +357,9 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brought to you by Speed Schedule" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7AI-On-e0T">
-                                <rect key="frame" x="54" y="760.66666666666663" width="267" height="15.333333333333371"/>
+                                <rect key="frame" x="39" y="760.66666666666663" width="297" height="15.333333333333371"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="267" id="tue-g9-u4N"/>
+                                    <constraint firstAttribute="width" constant="297" id="tue-g9-u4N"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -373,9 +373,25 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1kC-6l-rab" customClass="addClassView" customModule="SpeedScheduleX" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="812" width="375" height="430"/>
+                                <rect key="frame" x="0.0" y="812" width="375" height="420"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.069100178778171539" green="0.19653338193893433" blue="0.38041257858276367" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gjT-Bu-dmq">
+                                <rect key="frame" x="0.0" y="0.0" width="88" height="96"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="88" id="MdH-ua-st3"/>
+                                    <constraint firstAttribute="height" constant="96" id="Wx9-ds-epF"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQV-ef-YGo">
+                                <rect key="frame" x="287" y="0.0" width="88" height="96"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="88" id="LuS-rO-Xka"/>
+                                    <constraint firstAttribute="height" constant="96" id="Rvt-Hc-DEE"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.069394700229167938" green="0.19630476832389832" blue="0.38433441519737244" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -388,17 +404,23 @@
                             <constraint firstItem="dCy-h7-1lF" firstAttribute="centerX" secondItem="BbX-OC-rqj" secondAttribute="centerX" id="Hjk-GY-fWX"/>
                             <constraint firstItem="l53-a6-Yhq" firstAttribute="top" secondItem="O5m-0S-hTd" secondAttribute="top" constant="4" id="Oaw-sV-G5p"/>
                             <constraint firstItem="2KE-tz-lPV" firstAttribute="leading" secondItem="O5m-0S-hTd" secondAttribute="leading" id="PTe-xh-4FN"/>
+                            <constraint firstItem="gjT-Bu-dmq" firstAttribute="top" secondItem="BbX-OC-rqj" secondAttribute="top" id="RQc-jy-vmd"/>
                             <constraint firstItem="O5m-0S-hTd" firstAttribute="bottom" secondItem="2KE-tz-lPV" secondAttribute="bottom" constant="62" id="ZTe-CS-dXn"/>
+                            <constraint firstItem="gjT-Bu-dmq" firstAttribute="leading" secondItem="O5m-0S-hTd" secondAttribute="leading" id="ZjL-9s-va0"/>
+                            <constraint firstItem="CQV-ef-YGo" firstAttribute="trailing" secondItem="O5m-0S-hTd" secondAttribute="trailing" id="f5M-kj-aYf"/>
                             <constraint firstItem="O5m-0S-hTd" firstAttribute="trailing" secondItem="pFO-nb-3He" secondAttribute="trailing" constant="27" id="fgh-tN-Jk5"/>
                             <constraint firstItem="pFO-nb-3He" firstAttribute="top" secondItem="O5m-0S-hTd" secondAttribute="top" constant="4" id="jFn-c8-oZX"/>
+                            <constraint firstItem="CQV-ef-YGo" firstAttribute="top" secondItem="BbX-OC-rqj" secondAttribute="top" id="moZ-fe-MwC"/>
                             <constraint firstItem="2KE-tz-lPV" firstAttribute="top" secondItem="l53-a6-Yhq" secondAttribute="bottom" constant="19" id="xni-M1-qdS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O5m-0S-hTd"/>
                     </view>
                     <connections>
                         <outlet property="addButton" destination="pFO-nb-3He" id="lHM-T7-xaE"/>
+                        <outlet property="addButtonView" destination="CQV-ef-YGo" id="jdu-GA-6NR"/>
                         <outlet property="addClassView0" destination="1kC-6l-rab" id="D8f-5e-8Yj"/>
                         <outlet property="fridayLongView" destination="TaO-jw-FCx" id="To7-cg-Jhg"/>
+                        <outlet property="homeButtonView" destination="gjT-Bu-dmq" id="T8K-pV-tvw"/>
                         <outlet property="mondayLongView" destination="gkZ-pK-Njd" id="i1f-2r-P2u"/>
                         <outlet property="returnButton" destination="l53-a6-Yhq" id="tDT-3Y-GLl"/>
                         <outlet property="thursdayLongView" destination="gGT-q1-uLK" id="AKh-aV-Oqc"/>
@@ -414,7 +436,7 @@
     </scenes>
     <resources>
         <image name="addButton" width="1366" height="768"/>
-        <image name="forwardFullSchedule" width="1024" height="768"/>
+        <image name="fullScheduleIcon" width="1366" height="768"/>
         <image name="home" width="539" height="539"/>
         <image name="settings" width="500" height="500"/>
         <image name="universityTitle" width="1024" height="243"/>

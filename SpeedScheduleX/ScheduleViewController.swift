@@ -8,8 +8,80 @@
 
 import UIKit
 
-class ScheduleViewController: UIViewController, UITextFieldDelegate {
-
+class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDelegate {
+    
+    
+    func canAddClass(classInfo: [String:Any], day: Int) -> Bool {
+        for classX in classListGlobal {
+            if (classX["day"] as! Int) == day {
+                if (classInfo["start"] as! Int) > (classX["start"] as! Int) && (classInfo["start"] as! Int) < (classX["end"] as! Int) {
+                    return false
+                }
+                if (classInfo["end"] as! Int) > (classX["start"] as! Int) && (classInfo["end"] as! Int) < (classX["end"] as! Int) {
+                    return false
+                }
+                if (classInfo["start"] as! Int) < (classX["start"] as! Int) && (classInfo["end"] as! Int) > (classX["end"] as! Int) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    
+    func doneButtonTapped() {
+//        addClassPickerView0.isHidden = true
+//        addClassPickerView0.hyphenLabel.isHidden = true
+//
+//        if addClassPickerView0.timePicker0.lastHour != 8 || addClassPickerView0.timePicker0.lastMin != 20 || addClassPickerView0.timePicker1.lastHour != 8 || addClassPickerView0.timePicker1.lastMin != 20 {
+//            addClassView0.timeLabel.text = String(addClassPickerView0.timePicker0.lastHour) + ":" + String(addClassPickerView0.timePicker0.lastMin) + " " + String(addClassPickerView0.timePicker1.lastHour) + ":" + String(addClassPickerView0.timePicker1.lastMin)
+//        }
+//        print(addClassPickerView0.timePicker0.lastHour)
+//        print(addClassPickerView0.timePicker0.lastMin)
+//        print(addClassPickerView0.timePicker1.lastHour)
+//        print(addClassPickerView0.timePicker1.lastMin)
+//        60*(lastHour-8)+lastMin
+    }
+    
+    func pickerDidChange(isBuilding: Bool, building: String, num0: String, num1: String, num2: String, let0: String) {
+        addClassView0.buildingLabel.text = building + " " + num0 + num1 + num2 + let0
+    }
+    
+    
+    func addClassTimeTapped() {
+        
+        
+//        addClassPickerView0.isHidden = false
+//
+//        addClassPickerView0.buildingPicker0.isHidden = true
+//        addClassPickerView0.timePicker0.isHidden = false
+//        addClassPickerView0.timePicker1.isHidden = false
+//        addClassPickerView0.hyphenLabel.isHidden = false
+    }
+    
+    func addClassBuildingTapped() {
+//        addClassView0.cancelButton.isHidden = true
+//        addClassView0.enterButton.isHidden = true
+        
+//        addClassPickerView0.isHidden = false
+//
+//        addClassPickerView0.buildingPicker0.isHidden = false
+//        addClassPickerView0.timePicker0.isHidden = true
+//        addClassPickerView0.timePicker1.isHidden = true
+    }
+    
+    func addClassEnterTapped(name: String, start: Int, end: Int, room: String, repeat: [Int]) {
+        
+    }
+    
+    func addClassCancelTapped() {
+        UIView.animate(withDuration: 1, animations: {
+            self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
+            self.view.setNeedsLayout()
+        })
+    }
+    
+    //@IBOutlet var buildingScrollView: buildingWheelView!
+    
     @IBOutlet var timeLabelView: UIView!
     
     @IBOutlet var mondayLongView: UIView!
@@ -28,15 +100,41 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var addClassView0: addClassView!
     
+    @IBOutlet var homeButtonView: UIView!
+    
+    @IBOutlet var addButtonView: UIView!
     
     
-    
+    var timePickerClass : timeView!
+    var buildingPickerClass : buildingView!
     var usableHeight : CGFloat = 593
     var usableWidth : CGFloat = 61.67
+    
+    var classListGlobal = [[String:Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        timePickerClass = timeView()
+        buildingPickerClass = buildingView()
+        
+        addClassView0.addClassPickerView0.timePicker0.delegate = timePickerClass
+        addClassView0.addClassPickerView0.timePicker0.dataSource = timePickerClass
+
+        addClassView0.addClassPickerView0.timePicker1.delegate = timePickerClass
+        addClassView0.addClassPickerView0.timePicker1.dataSource = timePickerClass
+
+        addClassView0.addClassPickerView0.buildingPicker0.delegate = buildingPickerClass
+        addClassView0.addClassPickerView0.buildingPicker0.dataSource = buildingPickerClass
+        
+//        addClassView0.addClassPickerView0.timePicker0.time// = addClassView0
+//        addClassView0.addClassPickerView0.timePicker1.timePickerDelegate0 = addClassView0.addClassPickerView0
+//        addClassView0.addClassPickerView0.buildingPicker0.buildingPickerDelegate0 = addClassView0
+        
+//        addClassPickerView0.timePicker0.id = true
+//        addClassPickerView0.timePicker1.id = false
+
+        addClassView0.addDelegate = self
         addClassView0.nameLabel.delegate = self
         
         let addNameTap = UITapGestureRecognizer(target: self, action: #selector(addNameTapped))
@@ -48,10 +146,12 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate {
         setupLines()
 
         let returnTap = UITapGestureRecognizer(target: self, action: #selector(returnTapped))
-        returnButton.addGestureRecognizer(returnTap)
+        homeButtonView.addGestureRecognizer(returnTap)
+        homeButtonView.isUserInteractionEnabled = true
         
         let addTap = UITapGestureRecognizer(target: self, action: #selector(addTapped))
-        addButton.addGestureRecognizer(addTap)
+        addButtonView.addGestureRecognizer(addTap)
+        addButtonView.isUserInteractionEnabled = true
         
         var classList = [[String:Any]]()
         var classInfo = [String:Any]()
@@ -63,10 +163,12 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate {
         classInfo["id"] = 9345
         classInfo["color"] = UIColor.cyan
         classList.append(classInfo)
+        classListGlobal = classList
         
         drawClasses(classList: classList)
         
         self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
+        self.addClassView0.setupTaps()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -76,6 +178,8 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate {
 //                self.addClassNameTextView.text = "20 char limit"
 //            }
 //        }
+        addClassView0.cancelButton.isHidden = false
+        addClassView0.enterButton.isHidden = false
         UIView.animate(withDuration: 0.2, animations: {
             self.addClassView0.frame = CGRect(x: 0, y: 420, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
@@ -89,6 +193,8 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate {
             self.addClassView0.frame = CGRect(x: 0, y: 83, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
         })
+        addClassView0.cancelButton.isHidden = true
+        addClassView0.enterButton.isHidden = true
         addClassView0.nameLabel.becomeFirstResponder()
     }
     
