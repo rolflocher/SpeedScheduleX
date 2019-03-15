@@ -8,9 +8,76 @@
 
 import UIKit
 
-class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDelegate {
+class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDelegate, ClassTapDelegate {
     
+    var colorList = [#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)]
     
+    func classTapped(id: Int) {
+        
+        for classX in classListGlobal {
+            if id == classX["id"] as! Int {
+                
+                
+                UIView.animate(withDuration: 1, animations: {
+                    self.addClassView0.frame = CGRect(x: 0, y: 420, width: self.view.frame.width, height: self.addClassView0.frame.height)
+                    self.view.setNeedsLayout()
+                })
+                
+                for classX in classListGlobal {
+                    if colorList.contains(classX["color"] as! UIColor) {
+                        addClassView0.colorList.removeAll{ $0 == (classX["color"] as! UIColor)}
+                    }
+                }
+                addClassView0.nameLabel.text = classX["name"] as? String
+                addClassView0.buildingLabel.text = classX["room"] as? String
+                addClassView0.timeLabel.text = String((classX["start"] as! Int)/60 + 8) + ":" + String((classX["start"] as! Int)%60) + String((classX["end"] as! Int)/60 + 8) + ":" + String((classX["end"] as! Int)%60)
+                addClassView0.previewView.backgroundColor = classX["color"] as? UIColor
+                addClassView0.nameLabel.textColor = UIColor.black
+                addClassView0.buildingLabel.textColor = UIColor.black
+                addClassView0.timeLabel.textColor = UIColor.black
+                
+                switch (classX["day"] as! Int){
+                case 2 :
+                    addClassView0.mView.backgroundColor = UIColor.white
+                    addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                case 3 :
+                    addClassView0.tView.backgroundColor = UIColor.white
+                    addClassView0.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                case 4 :
+                    addClassView0.wView.backgroundColor = UIColor.white
+                    addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                case 5 :
+                    addClassView0.thView.backgroundColor = UIColor.white
+                    addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                default :
+                    addClassView0.mView.backgroundColor = UIColor.white
+                    addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                }
+                
+                
+            }
+        }
+        
+        
+        
+        
+        
+    }
     
     func canAddClass(classInfo: [String:Any], day: Int) -> Bool {
         for classX in classListGlobal {
@@ -45,7 +112,26 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
 
     }
     
-    func addClassEnterTapped(name: String, start: Int, end: Int, room: String, repeat0: [Int]) {
+    var randomConv = 0
+    //var isRandom = true
+    
+    func randomId() -> Int {
+        var isRandom = true
+        randomConv = Int(arc4random_uniform(9999))
+        for classX in classListGlobal {
+            if randomConv == classX["id"] as! Int {
+                isRandom = false
+            }
+        }
+        if isRandom {
+            return randomConv
+        }
+        else {
+            return randomId()
+        }
+    }
+    
+    func addClassEnterTapped(name: String, start: Int, end: Int, room: String, repeat0: [Int], color: UIColor) {
         var classInfo = [String:Any]()
         classInfo["name"] = name
         classInfo["start"] = start
@@ -53,10 +139,12 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         classInfo["room"] = room
         classInfo["repeat"] = repeat0
         
-        classInfo["color"] = #colorLiteral(red: 0.6881129742, green: 0.8274291754, blue: 0.9999005198, alpha: 1)
+        classInfo["color"] = color
         
         for x in repeat0 {
             classInfo["day"] = x
+            print(randomId())
+            classInfo["id"] = randomId()
             classListGlobal.append(classInfo)
         }
         
@@ -150,6 +238,11 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         addButtonView.addGestureRecognizer(addTap)
         addButtonView.isUserInteractionEnabled = true
         
+//        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+//            let encodedDic: Data = try! NSKeyedArchiver.archivedData(withRootObject: [], requiringSecureCoding: false)
+//            userDefaults.set(encodedDic, forKey: "classList")
+//            userDefaults.synchronize()
+//        }
         
         if hasPreviousData() {
             drawClasses(classList: classListGlobal)
@@ -181,7 +274,12 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             if let classListData = userDefaults.object(forKey: "classList") as? Data {
                 let classListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(classListData) as! [[String:Any]]
                 classListGlobal = classListDecoded!
-                return true
+                if classListGlobal.count != 0 {
+                    return true
+                }
+                else {
+                    return false
+                }
             }
             
         }
@@ -226,11 +324,18 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     
     @objc func addTapped () {
         //self.view.removeConstraint(self.hideAddClassView)
-        self.view.setNeedsLayout()
+        //self.view.setNeedsLayout()
         UIView.animate(withDuration: 1, animations: {
             self.addClassView0.frame = CGRect(x: 0, y: 420, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
             })
+        
+        for classX in classListGlobal {
+            if colorList.contains(classX["color"] as! UIColor) {
+                addClassView0.colorList.removeAll{ $0 == (classX["color"] as! UIColor)}
+            }
+        }
+        
     }
     
     func drawClasses (classList : [[String:Any]]) {
@@ -261,6 +366,10 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             
             let classView0 = ClassView(frame: CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight)))
             classView0.drawClass(name: classInfo["name"] as! String, room: classInfo["room"] as! String, start: classInfo["start"] as! Int, end: classInfo["end"] as! Int, color: classInfo["color"] as! UIColor)
+            
+            classView0.id = classInfo["id"] as! Int
+            classView0.classDelegate = self
+            
             switch ( classInfo["day"] as! Int ) {
             case 2:
                 mondayLongView.addSubview(classView0)

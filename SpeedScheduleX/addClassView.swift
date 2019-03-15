@@ -10,7 +10,7 @@ import UIKit
 import AudioToolbox
 
 protocol AddClassDelegate : class {
-    func addClassEnterTapped(name: String, start: Int, end: Int, room: String, repeat0: [Int])
+    func addClassEnterTapped(name: String, start: Int, end: Int, room: String, repeat0: [Int], color: UIColor)
     func addClassCancelTapped()
     func addClassTimeTapped()
     func addClassBuildingTapped()
@@ -68,7 +68,16 @@ class addClassView: UIView{
     var lastStart = 0
     var lastEnd = 0
     
-    var colorList = [#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)]
+    var colorList = [#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)] {
+        didSet {
+            print("color list was set")
+        }
+        willSet {
+            print("color list will set")
+        }
+    }
+    
+    
     
     //var timeView0 : timeView!
     //var builldingView0 : buildingView!
@@ -96,14 +105,6 @@ class addClassView: UIView{
         if timeLabel.text == "Enter Class Time" {
             return
         }
-        if previewView.backgroundColor==UIColor.white {
-            if colorList.count != 0 {
-                previewView.backgroundColor = colorList.first
-            }
-            else {
-                previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
-            }
-        }
         
         if mView.backgroundColor == UIColor.white {
             mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
@@ -127,8 +128,6 @@ class addClassView: UIView{
             return
         }
         
-        
-        
         var classInfo = [String:Any]()
         classInfo["start"] = addClassPickerView0.timePicker0.selectedRow(inComponent: 0)*60 + addClassPickerView0.timePicker0.selectedRow(inComponent: 1)*5
         classInfo["end"] = addClassPickerView0.timePicker1.selectedRow(inComponent: 0)*60 + addClassPickerView0.timePicker1.selectedRow(inComponent: 1)*5
@@ -136,6 +135,14 @@ class addClassView: UIView{
         
         if (addDelegate?.canAddClass(classInfo: classInfo, day: 2)) ?? false {
             mView.backgroundColor = UIColor.white
+            if previewView.backgroundColor==UIColor.white {
+                if colorList.count != 0 {
+                    previewView.backgroundColor = colorList.first
+                }
+                else {
+                    previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+                }
+            }
         }
         else {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -145,15 +152,6 @@ class addClassView: UIView{
     @objc func tTapped() {
         if timeLabel.text == "Enter Class Time" {
             return
-        }
-        
-        if previewView.backgroundColor==UIColor.white {
-            if colorList.count != 0 {
-                previewView.backgroundColor = colorList.first
-            }
-            else {
-                previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
-            }
         }
         
         if tView.backgroundColor == UIColor.white {
@@ -185,6 +183,14 @@ class addClassView: UIView{
         
         if (addDelegate?.canAddClass(classInfo: classInfo, day: 3)) ?? false {
             tView.backgroundColor = UIColor.white
+            if previewView.backgroundColor==UIColor.white {
+                if colorList.count != 0 {
+                    previewView.backgroundColor = colorList.first
+                }
+                else {
+                    previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+                }
+            }
         }
         else {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -194,15 +200,6 @@ class addClassView: UIView{
     @objc func wTapped() {
         if timeLabel.text == "Enter Class Time" {
             return
-        }
-        
-        if previewView.backgroundColor==UIColor.white {
-            if colorList.count != 0 {
-                previewView.backgroundColor = colorList.first
-            }
-            else {
-                previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
-            }
         }
         
         if wView.backgroundColor == UIColor.white {
@@ -234,6 +231,14 @@ class addClassView: UIView{
         
         if (addDelegate?.canAddClass(classInfo: classInfo, day: 4)) ?? false {
             wView.backgroundColor = UIColor.white
+            if previewView.backgroundColor==UIColor.white {
+                if colorList.count != 0 {
+                    previewView.backgroundColor = colorList.first
+                }
+                else {
+                    previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+                }
+            }
         }
         else {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -243,15 +248,6 @@ class addClassView: UIView{
     @objc func thTapped() {
         if timeLabel.text == "Enter Class Time" {
             return
-        }
-        
-        if previewView.backgroundColor==UIColor.white {
-            if colorList.count != 0 {
-                previewView.backgroundColor = colorList.first
-            }
-            else {
-                previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
-            }
         }
         
         if thView.backgroundColor == UIColor.white {
@@ -283,6 +279,14 @@ class addClassView: UIView{
         
         if (addDelegate?.canAddClass(classInfo: classInfo, day: 5)) ?? false {
             thView.backgroundColor = UIColor.white
+            if previewView.backgroundColor==UIColor.white {
+                if colorList.count != 0 {
+                    previewView.backgroundColor = colorList.first
+                }
+                else {
+                    previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+                }
+            }
         }
         else {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -293,15 +297,6 @@ class addClassView: UIView{
     @objc func fTapped() {
         if timeLabel.text == "Enter Class Time" {
             return
-        }
-        
-        if previewView.backgroundColor==UIColor.white {
-            if colorList.count != 0 {
-                previewView.backgroundColor = colorList.first
-            }
-            else {
-                previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
-            }
         }
         
         if fView.backgroundColor == UIColor.white {
@@ -333,6 +328,14 @@ class addClassView: UIView{
         
         if (addDelegate?.canAddClass(classInfo: classInfo, day: 6)) ?? false {
             fView.backgroundColor = UIColor.white
+            if previewView.backgroundColor==UIColor.white {
+                if colorList.count != 0 {
+                    previewView.backgroundColor = colorList.first
+                }
+                else {
+                    previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+                }
+            }
         }
         else {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -408,16 +411,36 @@ class addClassView: UIView{
                 if !(addDelegate?.canAddClass(classInfo: classInfo, day: 2))! { mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
             }
             if tView.backgroundColor == UIColor.white{
-                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 3))! { mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
+                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 3))! { tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
             }
             if wView.backgroundColor == UIColor.white{
-                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 4))! { mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
+                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 4))! { wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
             }
             if thView.backgroundColor == UIColor.white{
-                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 5))! { mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
+                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 5))! { thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
             }
             if fView.backgroundColor == UIColor.white{
-                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 6))! { mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
+                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 6))! { fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
+            }
+            var r1: CGFloat = 0
+            var g1: CGFloat = 0
+            var b1: CGFloat = 0
+            var a1: CGFloat = 0
+            mView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+            if a1 < 0.8 {
+                tView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                if a1 < 0.8 {
+                    wView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                    if a1 < 0.8 {
+                        fView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                        if a1 < 0.8 {
+                            thView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                            if a1 < 0.8 {
+                                previewView.backgroundColor=UIColor.white
+                            }
+                        }
+                    }
+                }
             }
         }
         else {
@@ -492,6 +515,12 @@ class addClassView: UIView{
             self.previewNameLabel.text = ""
             self.previewRoomLabel.text = ""
             self.previewTimeLabel.text = ""
+            
+            self.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
         }
         
     }
@@ -536,11 +565,26 @@ class addClassView: UIView{
         if fView.backgroundColor == UIColor.white {
             repeatList.append(6)
         }
+        
+        var sentColor : UIColor
+        
+        if colorList.count != 0 {
+            sentColor = colorList.first!
+            colorList.removeFirst()
+        }
+        else {
+            sentColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+        }
+        
+        previewView.backgroundColor = UIColor.white
+        
 
-        addDelegate?.addClassEnterTapped(name: nameLabel.text!, start: startTime, end: endTime, room: buildingLabel.text!, repeat0: repeatList)
+        addDelegate?.addClassEnterTapped(name: nameLabel.text!, start: startTime, end: endTime, room: buildingLabel.text!, repeat0: repeatList, color: sentColor)
+        
+        
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.nameLabel.text = "Enter Class Name"
+            self.nameLabel.text = ""
             self.nameLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
             self.timeLabel.text = "Enter Class Time"
             self.timeLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
@@ -549,7 +593,13 @@ class addClassView: UIView{
             self.previewNameLabel.text = ""
             self.previewRoomLabel.text = ""
             self.previewTimeLabel.text = ""
+            self.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
         }
+        
     }
     
     

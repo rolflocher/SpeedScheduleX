@@ -116,6 +116,6 @@ class ClassView: UIView {
     }
     
     @objc func classTapped() {
-        //classDelegate?.classTapped(id: id)
+        classDelegate?.classTapped(id: id)
     }
 }
