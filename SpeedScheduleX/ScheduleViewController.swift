@@ -103,6 +103,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                     
                     addClassView0.id = id
                     addClassView0.isEditing = true
+                    addClassView0.lockedDay = classListGlobal[ classListGlobal.firstIndex(where: {$0["id"] as! Int == addClassView0.id})! ]["day"] as! Int
                     
                     addClassView0.linkButton.isHidden = false
                     addClassView0.deleteButton.isHidden = false
@@ -172,7 +173,11 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     
     func canAddClass(classInfo: [String:Any], day: Int) -> Bool {
         for classX in classListGlobal {
+            if classX["id"] as! Int == addClassView0.id && addClassView0.isEditing {
+                continue
+            }
             if (classX["day"] as! Int) == day {
+                
                 if (classInfo["start"] as! Int) >= (classX["start"] as! Int) && (classInfo["start"] as! Int) <= (classX["end"] as! Int) {
                     return false
                 }

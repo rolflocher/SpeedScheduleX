@@ -85,6 +85,8 @@ class addClassView: UIView{
     
     var id = 0
     
+    var lockedDay = 0
+    
     //var timeView0 : timeView!
     //var builldingView0 : buildingView!
     
@@ -144,7 +146,7 @@ class addClassView: UIView{
         if timeLabel.text == "Enter Class Time" {
             return
         }
-        if isEditing {
+        if lockedDay == 2 {
             return
         }
         
@@ -195,8 +197,7 @@ class addClassView: UIView{
         if timeLabel.text == "Enter Class Time" {
             return
         }
-        
-        if isEditing {
+        if lockedDay == 3 {
             return
         }
         
@@ -248,7 +249,7 @@ class addClassView: UIView{
             return
         }
         
-        if isEditing {
+        if lockedDay == 4 {
             return
         }
         
@@ -300,7 +301,7 @@ class addClassView: UIView{
             return
         }
         
-        if isEditing {
+        if lockedDay == 5 {
             return
         }
         
@@ -353,7 +354,7 @@ class addClassView: UIView{
             return
         }
         
-        if isEditing {
+        if lockedDay == 6 {
             return
         }
         
