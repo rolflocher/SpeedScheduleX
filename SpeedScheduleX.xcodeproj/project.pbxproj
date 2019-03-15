@@ -10,8 +10,6 @@
 		4C0EADE4223AB19100F14D27 /* buildingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EADE3223AB19100F14D27 /* buildingView.swift */; };
 		4C17F3C42239604D00061154 /* addClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17F3C32239604D00061154 /* addClassView.swift */; };
 		4C17F3C6223960A000061154 /* addClassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C17F3C5223960A000061154 /* addClassView.xib */; };
-		4C17F3C82239A1C500061154 /* buildingWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17F3C72239A1C500061154 /* buildingWheelView.swift */; };
-		4C17F3CA2239A1D800061154 /* buildingWheelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C17F3C92239A1D800061154 /* buildingWheelView.xib */; };
 		4C33C9FF2236A73D00A52E0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33C9FE2236A73D00A52E0A /* AppDelegate.swift */; };
 		4C33CA012236A73D00A52E0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33CA002236A73D00A52E0A /* ViewController.swift */; };
 		4C33CA042236A73D00A52E0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C33CA022236A73D00A52E0A /* Main.storyboard */; };
@@ -85,8 +83,6 @@
 		4C0EADE3223AB19100F14D27 /* buildingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buildingView.swift; sourceTree = "<group>"; };
 		4C17F3C32239604D00061154 /* addClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addClassView.swift; sourceTree = "<group>"; };
 		4C17F3C5223960A000061154 /* addClassView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = addClassView.xib; sourceTree = "<group>"; };
-		4C17F3C72239A1C500061154 /* buildingWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buildingWheelView.swift; sourceTree = "<group>"; };
-		4C17F3C92239A1D800061154 /* buildingWheelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = buildingWheelView.xib; sourceTree = "<group>"; };
 		4C33C9FB2236A73D00A52E0A /* SpeedScheduleX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedScheduleX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C33C9FE2236A73D00A52E0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C33CA002236A73D00A52E0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -163,8 +159,6 @@
 				4CA0D2C2223A0B130072A9E3 /* timeView.swift */,
 				4CA0D2C6223AA75B0072A9E3 /* addClassPickerView.xib */,
 				4CA0D2C4223AA72F0072A9E3 /* addClassPickerView.swift */,
-				4C17F3C92239A1D800061154 /* buildingWheelView.xib */,
-				4C17F3C72239A1C500061154 /* buildingWheelView.swift */,
 				4C17F3C5223960A000061154 /* addClassView.xib */,
 				4C17F3C32239604D00061154 /* addClassView.swift */,
 				4C33CA4622374BDB00A52E0A /* ScheduleViewController.swift */,
@@ -313,7 +307,6 @@
 				4C33CA452237253D00A52E0A /* singleDayView.xib in Resources */,
 				4C33CA092236A73D00A52E0A /* LaunchScreen.storyboard in Resources */,
 				4C17F3C6223960A000061154 /* addClassView.xib in Resources */,
-				4C17F3CA2239A1D800061154 /* buildingWheelView.xib in Resources */,
 				4C33CA3D22370A5D00A52E0A /* longProgressView.xib in Resources */,
 				4C33CA062236A73D00A52E0A /* Assets.xcassets in Resources */,
 				4C33CA042236A73D00A52E0A /* Main.storyboard in Resources */,
@@ -346,7 +339,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C17F3C82239A1C500061154 /* buildingWheelView.swift in Sources */,
 				4C33CA4722374BDB00A52E0A /* ScheduleViewController.swift in Sources */,
 				4C33CA012236A73D00A52E0A /* ViewController.swift in Sources */,
 				4C33CA432237252800A52E0A /* singleDayView.swift in Sources */,

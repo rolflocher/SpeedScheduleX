@@ -29,17 +29,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     }
     
     func doneButtonTapped() {
-//        addClassPickerView0.isHidden = true
-//        addClassPickerView0.hyphenLabel.isHidden = true
-//
-//        if addClassPickerView0.timePicker0.lastHour != 8 || addClassPickerView0.timePicker0.lastMin != 20 || addClassPickerView0.timePicker1.lastHour != 8 || addClassPickerView0.timePicker1.lastMin != 20 {
-//            addClassView0.timeLabel.text = String(addClassPickerView0.timePicker0.lastHour) + ":" + String(addClassPickerView0.timePicker0.lastMin) + " " + String(addClassPickerView0.timePicker1.lastHour) + ":" + String(addClassPickerView0.timePicker1.lastMin)
-//        }
-//        print(addClassPickerView0.timePicker0.lastHour)
-//        print(addClassPickerView0.timePicker0.lastMin)
-//        print(addClassPickerView0.timePicker1.lastHour)
-//        print(addClassPickerView0.timePicker1.lastMin)
-//        60*(lastHour-8)+lastMin
+
     }
     
     func pickerDidChange(isBuilding: Bool, building: String, num0: String, num1: String, num2: String, let0: String) {
@@ -49,28 +39,29 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     
     func addClassTimeTapped() {
         
-        
-//        addClassPickerView0.isHidden = false
-//
-//        addClassPickerView0.buildingPicker0.isHidden = true
-//        addClassPickerView0.timePicker0.isHidden = false
-//        addClassPickerView0.timePicker1.isHidden = false
-//        addClassPickerView0.hyphenLabel.isHidden = false
     }
     
     func addClassBuildingTapped() {
-//        addClassView0.cancelButton.isHidden = true
-//        addClassView0.enterButton.isHidden = true
-        
-//        addClassPickerView0.isHidden = false
-//
-//        addClassPickerView0.buildingPicker0.isHidden = false
-//        addClassPickerView0.timePicker0.isHidden = true
-//        addClassPickerView0.timePicker1.isHidden = true
+
     }
     
-    func addClassEnterTapped(name: String, start: Int, end: Int, room: String, repeat: [Int]) {
+    func addClassEnterTapped(name: String, start: Int, end: Int, room: String, repeat0: [Int]) {
+        var classInfo = [String:Any]()
+        classInfo["name"] = name
+        classInfo["start"] = start
+        classInfo["end"] = end
+        classInfo["room"] = room
+        classInfo["repeat"] = repeat0
         
+        classInfo["color"] = #colorLiteral(red: 0.6881129742, green: 0.8274291754, blue: 0.9999005198, alpha: 1)
+        
+        for x in repeat0 {
+            classInfo["day"] = x
+            classListGlobal.append(classInfo)
+        }
+        
+        classListGlobal.sort(by: { ($0["start"] as! Int) + 1440 * ($0["day"] as! Int) > ($1["start"] as! Int)  + 1440 * ($1["day"] as! Int) })
+        drawClasses(classList: classListGlobal)
     }
     
     func addClassCancelTapped() {
@@ -78,6 +69,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
         })
+        
     }
     
     //@IBOutlet var buildingScrollView: buildingWheelView!
@@ -224,7 +216,20 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             
             let classView0 = ClassView(frame: CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight)))
             classView0.drawClass(name: classInfo["name"] as! String, room: classInfo["room"] as! String, start: classInfo["start"] as! Int, end: classInfo["end"] as! Int, color: classInfo["color"] as! UIColor)
-            mondayLongView.addSubview(classView0)
+            switch ( classInfo["day"] as! Int ) {
+            case 2:
+                mondayLongView.addSubview(classView0)
+            case 3:
+                tuesdayLongView.addSubview(classView0)
+            case 4:
+                wednesdayLongView.addSubview(classView0)
+            case 5:
+                thursdayLongView.addSubview(classView0)
+            default:
+                fridayLongView.addSubview(classView0)
+            }
+            
+            
         }
     }
     

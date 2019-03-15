@@ -10,7 +10,7 @@ import UIKit
 import AudioToolbox
 
 protocol AddClassDelegate : class {
-    func addClassEnterTapped(name: String, start: Int, end: Int, room: String, repeat: [Int])
+    func addClassEnterTapped(name: String, start: Int, end: Int, room: String, repeat0: [Int])
     func addClassCancelTapped()
     func addClassTimeTapped()
     func addClassBuildingTapped()
@@ -86,9 +86,12 @@ class addClassView: UIView{
 //    }
     
     @objc func mTapped() {
+        if timeLabel.text == "Enter Class Time" {
+            return
+        }
+        
         if mView.backgroundColor == UIColor.white {
             mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-            #colorLiteral(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.6994113116)
             return
         }
         
@@ -106,6 +109,10 @@ class addClassView: UIView{
     }
     
     @objc func tTapped() {
+        if timeLabel.text == "Enter Class Time" {
+            return
+        }
+        
         if tView.backgroundColor == UIColor.white {
             tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             return
@@ -125,6 +132,10 @@ class addClassView: UIView{
     }
     
     @objc func wTapped() {
+        if timeLabel.text == "Enter Class Time" {
+            return
+        }
+        
         if wView.backgroundColor == UIColor.white {
             wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             return
@@ -144,6 +155,10 @@ class addClassView: UIView{
     }
     
     @objc func thTapped() {
+        if timeLabel.text == "Enter Class Time" {
+            return
+        }
+        
         if thView.backgroundColor == UIColor.white {
             thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             return
@@ -164,6 +179,10 @@ class addClassView: UIView{
     
     
     @objc func fTapped() {
+        if timeLabel.text == "Enter Class Time" {
+            return
+        }
+        
         if fView.backgroundColor == UIColor.white {
             fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             return
@@ -181,7 +200,6 @@ class addClassView: UIView{
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
     }
-    
     
     
     @IBAction func doneButton0Tapped(_ sender: Any) {
@@ -230,6 +248,11 @@ class addClassView: UIView{
             
             timeLabel.text = String(addClassPickerView0.timePicker0.hourData[addClassPickerView0.timePicker0.selectedRow(inComponent: 0)]) + ":" + String(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)]) + " " + String(addClassPickerView0.timePicker0.hourData[addClassPickerView0.timePicker1.selectedRow(inComponent: 0)]) + ":" + String(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker1.selectedRow(inComponent: 1)])
             timeLabel.textColor = UIColor.black
+            
+            startTime = addClassPickerView0.timePicker0.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)])!
+            endTime = addClassPickerView0.timePicker1.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker1.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)])!
+            print(startTime)
+            print(endTime)
         }
         else {
             timeLabel.text = "Enter Class Time"
@@ -306,35 +329,50 @@ class addClassView: UIView{
     
     @objc func enterTapped() {
         if nameLabel?.text != nil {
-            if (nameLabel?.text!.count)! < 25 {
-                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            if nameLabel.text == "Enter Class Name" {
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 return
             }
         }
-        if startTime == -1 {
+        else {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             return
         }
-        if endTime == -1 {
+        if timeLabel.text == "Enter Class Time" {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             return
         }
-        if startTime > endTime {
+        if buildingLabel.text == "Enter Building and Room" {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             return
         }
-        if endTime - startTime < 50 {
+        if mView.backgroundColor == UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) && tView.backgroundColor == UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) && wView.backgroundColor == UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) && thView.backgroundColor == UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) && fView.backgroundColor == UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             return
         }
         
-        
+        var repeatList = [Int]()
+        if mView.backgroundColor == UIColor.white {
+            repeatList.append(2)
+        }
+        if tView.backgroundColor == UIColor.white {
+            repeatList.append(3)
+        }
+        if wView.backgroundColor == UIColor.white {
+            repeatList.append(4)
+        }
+        if thView.backgroundColor == UIColor.white {
+            repeatList.append(5)
+        }
+        if fView.backgroundColor == UIColor.white {
+            repeatList.append(6)
+        }
+        print(repeatList)
 //
 //            (self.nameLabel.text?.count) > 25 {
 //            return
 //        }
-        
-        //addDelegate?.addClassEnterTapped(name: <#T##String#>, start: <#T##Int#>, end: <#T##Int#>, room: <#T##String#>, repeat: <#T##[Int]#>)
+        addDelegate?.addClassEnterTapped(name: nameLabel.text!, start: startTime, end: endTime, room: buildingLabel.text!, repeat0: repeatList)
     }
     
     
@@ -414,3 +452,4 @@ class addClassView: UIView{
     }
 
 }
+
