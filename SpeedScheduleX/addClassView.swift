@@ -11,11 +11,14 @@ import AudioToolbox
 
 protocol AddClassDelegate : class {
     func addClassEnterTapped(name: String, start: Int, end: Int, room: String, repeat0: [Int], color: UIColor)
+    func addClassEditEnterTapped(name: String, start: Int, end: Int, room: String, repeat0: [Int], color: UIColor, id: Int)
     func addClassCancelTapped()
     func addClassTimeTapped()
     func addClassBuildingTapped()
     func doneButtonTapped()
     func canAddClass(classInfo: [String:Any], day: Int) -> Bool
+    func deleteClass(id: Int)
+    func link()
 }
 
 class addClassView: UIView{
@@ -62,6 +65,9 @@ class addClassView: UIView{
     
     @IBOutlet var previewRoomLabel: UILabel!
     
+    @IBOutlet var menuTitleLabel: UILabel!
+    
+    
     var startTime = -1
     var endTime = -1
     
@@ -77,7 +83,7 @@ class addClassView: UIView{
         }
     }
     
-    
+    var id = 0
     
     //var timeView0 : timeView!
     //var builldingView0 : buildingView!
@@ -101,8 +107,44 @@ class addClassView: UIView{
 ////        timeLabel.text = String(Int(floor(Double(lastStart/60)))+8) + ":" + String(lastStart % 60) + " - " + String(Int(floor(Double(lastEnd/60))+8)) + ":" + String(lastEnd % 60)
 //    }
     
+    var isEditing = false
+    var editStart = 0
+    var editEnd = 0
+    
+    @IBAction func linkButtonPressed(_ sender: Any) {
+        addDelegate?.link()
+    }
+    
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        addDelegate?.deleteClass(id: id)
+        self.nameLabel.resignFirstResponder()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.nameLabel.text = ""
+            self.nameLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
+            self.timeLabel.text = "Enter Class Time"
+            self.timeLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
+            self.buildingLabel.text = "Enter Building and Room"
+            self.buildingLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
+            self.previewNameLabel.text = ""
+            self.previewRoomLabel.text = ""
+            self.previewTimeLabel.text = ""
+            self.previewView.backgroundColor = UIColor.white
+            
+            self.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            self.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+        }
+    }
+    
+    
+    
     @objc func mTapped() {
         if timeLabel.text == "Enter Class Time" {
+            return
+        }
+        if isEditing {
             return
         }
         
@@ -154,6 +196,10 @@ class addClassView: UIView{
             return
         }
         
+        if isEditing {
+            return
+        }
+        
         if tView.backgroundColor == UIColor.white {
             tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             var r1: CGFloat = 0
@@ -199,6 +245,10 @@ class addClassView: UIView{
     
     @objc func wTapped() {
         if timeLabel.text == "Enter Class Time" {
+            return
+        }
+        
+        if isEditing {
             return
         }
         
@@ -250,6 +300,10 @@ class addClassView: UIView{
             return
         }
         
+        if isEditing {
+            return
+        }
+        
         if thView.backgroundColor == UIColor.white {
             thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             var r1: CGFloat = 0
@@ -296,6 +350,10 @@ class addClassView: UIView{
     
     @objc func fTapped() {
         if timeLabel.text == "Enter Class Time" {
+            return
+        }
+        
+        if isEditing {
             return
         }
         
@@ -442,6 +500,8 @@ class addClassView: UIView{
                     }
                 }
             }
+            editStart = addClassPickerView0.timePicker0.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)])!
+            editEnd = addClassPickerView0.timePicker1.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker1.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)])!
         }
         else {
             timeLabel.text = "Enter Class Time"
@@ -476,6 +536,10 @@ class addClassView: UIView{
     }
     
     @objc func timeTapped() {
+        if nameLabel.isFirstResponder {
+            nameLabel.resignFirstResponder()
+            
+        }
         //addDelegate?.addClassTimeTapped()
         cancelButton.isHidden = true
         enterButton.isHidden = true
@@ -490,6 +554,7 @@ class addClassView: UIView{
     }
     
     @objc func buildingTapped() {
+        nameLabel.resignFirstResponder()
         //addDelegate?.addClassBuildingTapped()
         doneButton0.isHidden = false
         cancelButton.isHidden = true
@@ -505,8 +570,11 @@ class addClassView: UIView{
     @objc func cancelTapped() {
         addDelegate?.addClassCancelTapped()
         self.nameLabel.resignFirstResponder()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.nameLabel.text = "Enter Class Name"
+        
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.nameLabel.text = ""
             self.nameLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
             self.timeLabel.text = "Enter Class Time"
             self.timeLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
@@ -515,12 +583,14 @@ class addClassView: UIView{
             self.previewNameLabel.text = ""
             self.previewRoomLabel.text = ""
             self.previewTimeLabel.text = ""
+            self.previewView.backgroundColor = UIColor.white
             
             self.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             self.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             self.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             self.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             self.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            
         }
         
     }
@@ -544,9 +614,26 @@ class addClassView: UIView{
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             return
         }
-        if mView.backgroundColor == UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) && tView.backgroundColor == UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) && wView.backgroundColor == UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) && thView.backgroundColor == UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) && fView.backgroundColor == UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) {
-            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-            return
+        var r1: CGFloat = 0
+        var g1: CGFloat = 0
+        var b1: CGFloat = 0
+        var a1: CGFloat = 0
+        tView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+        if a1 < 0.8 {
+            wView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+            if a1 < 0.8 {
+                thView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                if a1 < 0.8 {
+                    fView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                    if a1 < 0.8 {
+                        mView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                        if a1 < 0.8 {
+                            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                            return
+                        }
+                    }
+                }
+            }
         }
         
         var repeatList = [Int]()
@@ -578,14 +665,23 @@ class addClassView: UIView{
         
         previewView.backgroundColor = UIColor.white
         
-
-        addDelegate?.addClassEnterTapped(name: nameLabel.text!, start: startTime, end: endTime, room: buildingLabel.text!, repeat0: repeatList, color: sentColor)
+        if isEditing {
+            
+            for x in repeatList {
+                addDelegate?.addClassEditEnterTapped(name: nameLabel.text!, start: editStart, end: editEnd, room: buildingLabel.text!, repeat0: [x], color: sentColor, id: id)
+            }
+            
+        }
+        else {
+            addDelegate?.addClassEnterTapped(name: nameLabel.text!, start: startTime, end: endTime, room: buildingLabel.text!, repeat0: repeatList, color: sentColor)
+        }
+        
         
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.nameLabel.text = ""
-            self.nameLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
+            self.nameLabel.textColor = UIColor.black
             self.timeLabel.text = "Enter Class Time"
             self.timeLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
             self.buildingLabel.text = "Enter Building and Room"
@@ -654,7 +750,15 @@ class addClassView: UIView{
         fView?.addGestureRecognizer(fTap)
         fView?.isUserInteractionEnabled = true
         
+//        linkButton.layer.cornerRadius = 7.5
+//        linkButton.clipsToBounds = true
+//        linkButton.layer.borderColor = UIColor.white.cgColor
+//        linkButton.layer.borderWidth = 1
     }
+    
+    @IBOutlet var linkButton: UIButton!
+    
+    @IBOutlet var deleteButton: UIButton!
     
     func commonInit() {
         

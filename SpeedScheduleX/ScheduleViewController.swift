@@ -12,64 +12,155 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     
     var colorList = [#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)]
     
+    var isLinking = false
+    
+    func deleteClass(id: Int) {
+        
+        classListGlobal.remove(at: classListGlobal.firstIndex(where: {$0["id"] as! Int == id})!)
+        
+        drawClasses(classList: classListGlobal)
+        
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            let encodedDic: Data = try! NSKeyedArchiver.archivedData(withRootObject: classListGlobal, requiringSecureCoding: false)
+            userDefaults.set(encodedDic, forKey: "classList")
+            userDefaults.synchronize()
+        }
+        
+        UIView.animate(withDuration: 1, animations: {
+            self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
+            self.view.setNeedsLayout()
+        })
+    }
+    
+    func addClassEditEnterTapped(name: String, start: Int, end: Int, room: String, repeat0: [Int], color: UIColor, id: Int) {
+        var classInfo = [String:Any]()
+        classInfo["name"] = name
+        classInfo["start"] = start
+        classInfo["end"] = end
+        classInfo["room"] = room
+        classInfo["repeat"] = repeat0
+        classInfo["color"] = color
+        print(repeat0)
+        
+        var isUsed = false
+        for classX in classListGlobal {
+            if (id == classX["id"] as! Int) && (classX["day"] as! Int == repeat0.first!) {
+                classInfo["day"] = repeat0.first!
+                classInfo["id"] = id
+                classListGlobal[classListGlobal.firstIndex(where: {$0["id"] as! Int == id})!] = classInfo
+                isUsed = true
+            }
+        }
+        if !isUsed {
+            classInfo["day"] = repeat0.first!
+            classInfo["id"] = randomId()
+            classListGlobal.append(classInfo)
+        }
+        
+        classListGlobal.sort(by: { ($0["start"] as! Int) + 1440 * ($0["day"] as! Int) > ($1["start"] as! Int)  + 1440 * ($1["day"] as! Int) })
+        drawClasses(classList: classListGlobal)
+        
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            let encodedDic: Data = try! NSKeyedArchiver.archivedData(withRootObject: classListGlobal, requiringSecureCoding: false)
+            userDefaults.set(encodedDic, forKey: "classList")
+            userDefaults.synchronize()
+        }
+        
+        UIView.animate(withDuration: 1, animations: {
+            self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
+            self.view.setNeedsLayout()
+        })
+    }
+    
+    func link() {
+        isLinking = true
+        UIView.animate(withDuration: 0.7, animations: {
+            self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
+            self.view.setNeedsLayout()
+        })
+        // show link help text
+    }
+    
     func classTapped(id: Int) {
         
         for classX in classListGlobal {
             if id == classX["id"] as! Int {
                 
-                
-                UIView.animate(withDuration: 1, animations: {
-                    self.addClassView0.frame = CGRect(x: 0, y: 420, width: self.view.frame.width, height: self.addClassView0.frame.height)
-                    self.view.setNeedsLayout()
-                })
-                
-                for classX in classListGlobal {
-                    if colorList.contains(classX["color"] as! UIColor) {
-                        addClassView0.colorList.removeAll{ $0 == (classX["color"] as! UIColor)}
+                if isLinking {
+                    addClassView0.previewView.backgroundColor = classX["color"] as? UIColor
+                    addClassView0.colorList.insert((classX["color"] as! UIColor), at: 0)
+                    UIView.animate(withDuration: 1, animations: {
+                        self.addClassView0.frame = CGRect(x: 0, y: 420, width: self.view.frame.width, height: self.addClassView0.frame.height)
+                        self.view.setNeedsLayout()
+                    })
+                    isLinking = false
+                    
+                    classListGlobal[ classListGlobal.firstIndex(where: {$0["id"] as! Int == addClassView0.id})! ]["color"] = classX["color"] as! UIColor
+                    drawClasses(classList: classListGlobal)
+                }
+                else {
+                    addClassView0.menuTitleLabel.text = "Edit a Class"
+                    
+                    addClassView0.id = id
+                    addClassView0.isEditing = true
+                    
+                    addClassView0.linkButton.isHidden = false
+                    addClassView0.deleteButton.isHidden = false
+                    UIView.animate(withDuration: 1, animations: {
+                        self.addClassView0.frame = CGRect(x: 0, y: 420, width: self.view.frame.width, height: self.addClassView0.frame.height)
+                        self.view.setNeedsLayout()
+                    })
+                    
+                    for classX in classListGlobal {
+                        if colorList.contains(classX["color"] as! UIColor) {
+                            addClassView0.colorList.removeAll{ $0 == (classX["color"] as! UIColor)}
+                        }
+                        if classX["id"] as! Int == id {
+                            addClassView0.editStart = classX["start"] as! Int
+                            addClassView0.editEnd = classX["end"] as! Int
+                        }
+                    }
+                    addClassView0.nameLabel.text = classX["name"] as? String
+                    addClassView0.buildingLabel.text = classX["room"] as? String
+                    addClassView0.timeLabel.text = String((classX["start"] as! Int)/60 + 8) + ":" + String((classX["start"] as! Int)%60) + String((classX["end"] as! Int)/60 + 8) + ":" + String((classX["end"] as! Int)%60)
+                    addClassView0.previewView.backgroundColor = classX["color"] as? UIColor
+                    addClassView0.nameLabel.textColor = UIColor.black
+                    addClassView0.buildingLabel.textColor = UIColor.black
+                    addClassView0.timeLabel.textColor = UIColor.black
+                    
+                    switch (classX["day"] as! Int){
+                    case 2 :
+                        addClassView0.mView.backgroundColor = UIColor.white
+                        addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    case 3 :
+                        addClassView0.tView.backgroundColor = UIColor.white
+                        addClassView0.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    case 4 :
+                        addClassView0.wView.backgroundColor = UIColor.white
+                        addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    case 5 :
+                        addClassView0.thView.backgroundColor = UIColor.white
+                        addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                    default :
+                        addClassView0.mView.backgroundColor = UIColor.white
+                        addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
                     }
                 }
-                addClassView0.nameLabel.text = classX["name"] as? String
-                addClassView0.buildingLabel.text = classX["room"] as? String
-                addClassView0.timeLabel.text = String((classX["start"] as! Int)/60 + 8) + ":" + String((classX["start"] as! Int)%60) + String((classX["end"] as! Int)/60 + 8) + ":" + String((classX["end"] as! Int)%60)
-                addClassView0.previewView.backgroundColor = classX["color"] as? UIColor
-                addClassView0.nameLabel.textColor = UIColor.black
-                addClassView0.buildingLabel.textColor = UIColor.black
-                addClassView0.timeLabel.textColor = UIColor.black
-                
-                switch (classX["day"] as! Int){
-                case 2 :
-                    addClassView0.mView.backgroundColor = UIColor.white
-                    addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                case 3 :
-                    addClassView0.tView.backgroundColor = UIColor.white
-                    addClassView0.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                case 4 :
-                    addClassView0.wView.backgroundColor = UIColor.white
-                    addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                case 5 :
-                    addClassView0.thView.backgroundColor = UIColor.white
-                    addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                default :
-                    addClassView0.mView.backgroundColor = UIColor.white
-                    addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                    addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                }
-                
-                
             }
         }
         
@@ -169,6 +260,14 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
         })
+        for x in self.view.subviews {
+            x.isUserInteractionEnabled = false
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            for x in self.view.subviews {
+                x.isUserInteractionEnabled = true
+            }
+        }
         
     }
     
@@ -325,12 +424,17 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     @objc func addTapped () {
         //self.view.removeConstraint(self.hideAddClassView)
         //self.view.setNeedsLayout()
+        addClassView0.isEditing = false
+        addClassView0.menuTitleLabel.text = "Add a Class"
+        addClassView0.linkButton.isHidden = true
+        addClassView0.deleteButton.isHidden = true
         UIView.animate(withDuration: 1, animations: {
             self.addClassView0.frame = CGRect(x: 0, y: 420, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
             })
-        
+        addClassView0.colorList = colorList
         for classX in classListGlobal {
+            
             if colorList.contains(classX["color"] as! UIColor) {
                 addClassView0.colorList.removeAll{ $0 == (classX["color"] as! UIColor)}
             }
