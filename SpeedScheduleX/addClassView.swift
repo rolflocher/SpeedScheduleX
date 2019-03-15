@@ -56,12 +56,19 @@ class addClassView: UIView{
     
     @IBOutlet var doneButton0: UIButton!
     
+    @IBOutlet var previewNameLabel: UILabel!
+    
+    @IBOutlet var previewTimeLabel: UILabel!
+    
+    @IBOutlet var previewRoomLabel: UILabel!
     
     var startTime = -1
     var endTime = -1
     
     var lastStart = 0
     var lastEnd = 0
+    
+    var colorList = [#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)]
     
     //var timeView0 : timeView!
     //var builldingView0 : buildingView!
@@ -89,11 +96,38 @@ class addClassView: UIView{
         if timeLabel.text == "Enter Class Time" {
             return
         }
+        if previewView.backgroundColor==UIColor.white {
+            if colorList.count != 0 {
+                previewView.backgroundColor = colorList.first
+            }
+            else {
+                previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+            }
+        }
         
         if mView.backgroundColor == UIColor.white {
             mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            var r1: CGFloat = 0
+            var g1: CGFloat = 0
+            var b1: CGFloat = 0
+            var a1: CGFloat = 0
+            tView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+            if a1 < 0.8 {
+                wView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                if a1 < 0.8 {
+                    thView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                    if a1 < 0.8 {
+                        fView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                        if a1 < 0.8 {
+                            previewView.backgroundColor=UIColor.white
+                        }
+                    }
+                }
+            }
             return
         }
+        
+        
         
         var classInfo = [String:Any]()
         classInfo["start"] = addClassPickerView0.timePicker0.selectedRow(inComponent: 0)*60 + addClassPickerView0.timePicker0.selectedRow(inComponent: 1)*5
@@ -113,8 +147,34 @@ class addClassView: UIView{
             return
         }
         
+        if previewView.backgroundColor==UIColor.white {
+            if colorList.count != 0 {
+                previewView.backgroundColor = colorList.first
+            }
+            else {
+                previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+            }
+        }
+        
         if tView.backgroundColor == UIColor.white {
             tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            var r1: CGFloat = 0
+            var g1: CGFloat = 0
+            var b1: CGFloat = 0
+            var a1: CGFloat = 0
+            mView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+            if a1 < 0.8 {
+                wView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                if a1 < 0.8 {
+                    thView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                    if a1 < 0.8 {
+                        fView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                        if a1 < 0.8 {
+                            previewView.backgroundColor=UIColor.white
+                        }
+                    }
+                }
+            }
             return
         }
         
@@ -136,8 +196,34 @@ class addClassView: UIView{
             return
         }
         
+        if previewView.backgroundColor==UIColor.white {
+            if colorList.count != 0 {
+                previewView.backgroundColor = colorList.first
+            }
+            else {
+                previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+            }
+        }
+        
         if wView.backgroundColor == UIColor.white {
             wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            var r1: CGFloat = 0
+            var g1: CGFloat = 0
+            var b1: CGFloat = 0
+            var a1: CGFloat = 0
+            mView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+            if a1 < 0.8 {
+                tView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                if a1 < 0.8 {
+                    thView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                    if a1 < 0.8 {
+                        fView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                        if a1 < 0.8 {
+                            previewView.backgroundColor=UIColor.white
+                        }
+                    }
+                }
+            }
             return
         }
         
@@ -159,8 +245,34 @@ class addClassView: UIView{
             return
         }
         
+        if previewView.backgroundColor==UIColor.white {
+            if colorList.count != 0 {
+                previewView.backgroundColor = colorList.first
+            }
+            else {
+                previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+            }
+        }
+        
         if thView.backgroundColor == UIColor.white {
             thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            var r1: CGFloat = 0
+            var g1: CGFloat = 0
+            var b1: CGFloat = 0
+            var a1: CGFloat = 0
+            mView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+            if a1 < 0.8 {
+                tView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                if a1 < 0.8 {
+                    wView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                    if a1 < 0.8 {
+                        fView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                        if a1 < 0.8 {
+                            previewView.backgroundColor=UIColor.white
+                        }
+                    }
+                }
+            }
             return
         }
         
@@ -183,8 +295,34 @@ class addClassView: UIView{
             return
         }
         
+        if previewView.backgroundColor==UIColor.white {
+            if colorList.count != 0 {
+                previewView.backgroundColor = colorList.first
+            }
+            else {
+                previewView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+            }
+        }
+        
         if fView.backgroundColor == UIColor.white {
             fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            var r1: CGFloat = 0
+            var g1: CGFloat = 0
+            var b1: CGFloat = 0
+            var a1: CGFloat = 0
+            mView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+            if a1 < 0.8 {
+                tView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                if a1 < 0.8 {
+                    thView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                    if a1 < 0.8 {
+                        wView.backgroundColor!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+                        if a1 < 0.8 {
+                            previewView.backgroundColor=UIColor.white
+                        }
+                    }
+                }
+            }
             return
         }
         
@@ -230,6 +368,15 @@ class addClassView: UIView{
         }
         buildingLabel.text = buildingS + " " + numberS + letterS
         buildingLabel.textColor = UIColor.black
+        
+        if buildingLabel.text != "Enter Building and Room" {
+            previewRoomLabel.text = buildingS + " " + numberS + letterS
+        }
+        else {
+            previewRoomLabel.text = ""
+        }
+        
+        
     }
     
     
@@ -249,10 +396,29 @@ class addClassView: UIView{
             timeLabel.text = String(addClassPickerView0.timePicker0.hourData[addClassPickerView0.timePicker0.selectedRow(inComponent: 0)]) + ":" + String(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)]) + " " + String(addClassPickerView0.timePicker0.hourData[addClassPickerView0.timePicker1.selectedRow(inComponent: 0)]) + ":" + String(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker1.selectedRow(inComponent: 1)])
             timeLabel.textColor = UIColor.black
             
+            previewTimeLabel.text = timeLabel.text
+            
             startTime = addClassPickerView0.timePicker0.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)])!
             endTime = addClassPickerView0.timePicker1.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker1.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)])!
-            print(startTime)
-            print(endTime)
+            
+            var classInfo = [String:Any]()
+            classInfo["start"] = startTime
+            classInfo["end"] = endTime
+            if mView.backgroundColor == UIColor.white{
+                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 2))! { mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
+            }
+            if tView.backgroundColor == UIColor.white{
+                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 3))! { mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
+            }
+            if wView.backgroundColor == UIColor.white{
+                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 4))! { mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
+            }
+            if thView.backgroundColor == UIColor.white{
+                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 5))! { mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
+            }
+            if fView.backgroundColor == UIColor.white{
+                if !(addDelegate?.canAddClass(classInfo: classInfo, day: 6))! { mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7) }
+            }
         }
         else {
             timeLabel.text = "Enter Class Time"
@@ -323,6 +489,9 @@ class addClassView: UIView{
             self.timeLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
             self.buildingLabel.text = "Enter Building and Room"
             self.buildingLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
+            self.previewNameLabel.text = ""
+            self.previewRoomLabel.text = ""
+            self.previewTimeLabel.text = ""
         }
         
     }
@@ -367,12 +536,20 @@ class addClassView: UIView{
         if fView.backgroundColor == UIColor.white {
             repeatList.append(6)
         }
-        print(repeatList)
-//
-//            (self.nameLabel.text?.count) > 25 {
-//            return
-//        }
+
         addDelegate?.addClassEnterTapped(name: nameLabel.text!, start: startTime, end: endTime, room: buildingLabel.text!, repeat0: repeatList)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.nameLabel.text = "Enter Class Name"
+            self.nameLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
+            self.timeLabel.text = "Enter Class Time"
+            self.timeLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
+            self.buildingLabel.text = "Enter Building and Room"
+            self.buildingLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
+            self.previewNameLabel.text = ""
+            self.previewRoomLabel.text = ""
+            self.previewTimeLabel.text = ""
+        }
     }
     
     

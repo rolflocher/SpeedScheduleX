@@ -11,16 +11,17 @@ import UIKit
 class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDelegate {
     
     
+    
     func canAddClass(classInfo: [String:Any], day: Int) -> Bool {
         for classX in classListGlobal {
             if (classX["day"] as! Int) == day {
-                if (classInfo["start"] as! Int) > (classX["start"] as! Int) && (classInfo["start"] as! Int) < (classX["end"] as! Int) {
+                if (classInfo["start"] as! Int) >= (classX["start"] as! Int) && (classInfo["start"] as! Int) <= (classX["end"] as! Int) {
                     return false
                 }
-                if (classInfo["end"] as! Int) > (classX["start"] as! Int) && (classInfo["end"] as! Int) < (classX["end"] as! Int) {
+                if (classInfo["end"] as! Int) >= (classX["start"] as! Int) && (classInfo["end"] as! Int) <= (classX["end"] as! Int) {
                     return false
                 }
-                if (classInfo["start"] as! Int) < (classX["start"] as! Int) && (classInfo["end"] as! Int) > (classX["end"] as! Int) {
+                if (classInfo["start"] as! Int) <= (classX["start"] as! Int) && (classInfo["end"] as! Int) >= (classX["end"] as! Int) {
                     return false
                 }
             }
@@ -29,7 +30,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     }
     
     func doneButtonTapped() {
-
     }
     
     func pickerDidChange(isBuilding: Bool, building: String, num0: String, num1: String, num2: String, let0: String) {
@@ -62,6 +62,18 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         
         classListGlobal.sort(by: { ($0["start"] as! Int) + 1440 * ($0["day"] as! Int) > ($1["start"] as! Int)  + 1440 * ($1["day"] as! Int) })
         drawClasses(classList: classListGlobal)
+        
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            let encodedDic: Data = try! NSKeyedArchiver.archivedData(withRootObject: classListGlobal, requiringSecureCoding: false)
+            userDefaults.set(encodedDic, forKey: "classList")
+            userDefaults.synchronize()
+        }
+        
+        UIView.animate(withDuration: 1, animations: {
+            self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
+            self.view.setNeedsLayout()
+        })
+        
     }
     
     func addClassCancelTapped() {
@@ -118,13 +130,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
 
         addClassView0.addClassPickerView0.buildingPicker0.delegate = buildingPickerClass
         addClassView0.addClassPickerView0.buildingPicker0.dataSource = buildingPickerClass
-        
-//        addClassView0.addClassPickerView0.timePicker0.time// = addClassView0
-//        addClassView0.addClassPickerView0.timePicker1.timePickerDelegate0 = addClassView0.addClassPickerView0
-//        addClassView0.addClassPickerView0.buildingPicker0.buildingPickerDelegate0 = addClassView0
-        
-//        addClassPickerView0.timePicker0.id = true
-//        addClassPickerView0.timePicker1.id = false
 
         addClassView0.addDelegate = self
         addClassView0.nameLabel.delegate = self
@@ -145,22 +150,42 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         addButtonView.addGestureRecognizer(addTap)
         addButtonView.isUserInteractionEnabled = true
         
-        var classList = [[String:Any]]()
-        var classInfo = [String:Any]()
-        classInfo["name"] = "CPE II"
-        classInfo["start"] = 30
-        classInfo["end"] = 80
-        classInfo["day"] = 2
-        classInfo["room"] = "Tol 305"
-        classInfo["id"] = 9345
-        classInfo["color"] = UIColor.cyan
-        classList.append(classInfo)
-        classListGlobal = classList
         
-        drawClasses(classList: classList)
+        if hasPreviousData() {
+            drawClasses(classList: classListGlobal)
+        }
+        
+//        var classList = [[String:Any]]()
+//        var classInfo = [String:Any]()
+//        classInfo["name"] = "CPE II"
+//        classInfo["start"] = 30
+//        classInfo["end"] = 80
+//        classInfo["day"] = 2
+//        classInfo["room"] = "Tol 305"
+//        classInfo["id"] = 9345
+//        classInfo["color"] = UIColor.cyan
+//        classList.append(classInfo)
+//        classListGlobal = classList
+//
+//        drawClasses(classList: classList)
         
         self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
         self.addClassView0.setupTaps()
+        
+        
+    }
+    
+    func hasPreviousData () -> Bool {
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            
+            if let classListData = userDefaults.object(forKey: "classList") as? Data {
+                let classListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(classListData) as! [[String:Any]]
+                classListGlobal = classListDecoded!
+                return true
+            }
+            
+        }
+        return false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -170,6 +195,10 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
 //                self.addClassNameTextView.text = "20 char limit"
 //            }
 //        }
+        if addClassView0.nameLabel.text != "Enter Class Name" {
+            addClassView0.previewNameLabel.text = addClassView0.nameLabel.text
+        }
+        
         addClassView0.cancelButton.isHidden = false
         addClassView0.enterButton.isHidden = false
         UIView.animate(withDuration: 0.2, animations: {
@@ -207,6 +236,22 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     func drawClasses (classList : [[String:Any]]) {
         if classList.count == 0 {
             return
+        }
+        
+        for view in mondayLongView.subviews {
+            view.removeFromSuperview()
+        }
+        for view in tuesdayLongView.subviews {
+            view.removeFromSuperview()
+        }
+        for view in wednesdayLongView.subviews {
+            view.removeFromSuperview()
+        }
+        for view in thursdayLongView.subviews {
+            view.removeFromSuperview()
+        }
+        for view in fridayLongView.subviews {
+            view.removeFromSuperview()
         }
         
         for classInfo in classList {
