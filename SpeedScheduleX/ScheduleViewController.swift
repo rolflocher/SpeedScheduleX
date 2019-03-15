@@ -310,7 +310,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         timePickerClass = timeView()
         buildingPickerClass = buildingView()
         
