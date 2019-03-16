@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C0EADE4223AB19100F14D27 /* buildingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EADE3223AB19100F14D27 /* buildingView.swift */; };
 		4C0EADE8223C6B1200F14D27 /* colorFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EADE7223C6B1200F14D27 /* colorFile.swift */; };
+		4C0EADEA223CABD500F14D27 /* reference.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4C0EADE9223CABD400F14D27 /* reference.rtf */; };
 		4C17F3C42239604D00061154 /* addClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17F3C32239604D00061154 /* addClassView.swift */; };
 		4C17F3C6223960A000061154 /* addClassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C17F3C5223960A000061154 /* addClassView.xib */; };
 		4C33C9FF2236A73D00A52E0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33C9FE2236A73D00A52E0A /* AppDelegate.swift */; };
@@ -85,6 +86,7 @@
 		4C0EADE5223B4AB700F14D27 /* SpeedScheduleX WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SpeedScheduleX WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		4C0EADE6223B4B0600F14D27 /* SpeedScheduleX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeedScheduleX.entitlements; sourceTree = "<group>"; };
 		4C0EADE7223C6B1200F14D27 /* colorFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorFile.swift; sourceTree = "<group>"; };
+		4C0EADE9223CABD400F14D27 /* reference.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = reference.rtf; sourceTree = "<group>"; };
 		4C17F3C32239604D00061154 /* addClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addClassView.swift; sourceTree = "<group>"; };
 		4C17F3C5223960A000061154 /* addClassView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = addClassView.xib; sourceTree = "<group>"; };
 		4C33C9FB2236A73D00A52E0A /* SpeedScheduleX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedScheduleX.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +140,7 @@
 		4C33C9F22236A73D00A52E0A = {
 			isa = PBXGroup;
 			children = (
+				4C0EADE9223CABD400F14D27 /* reference.rtf */,
 				4C33CA3E2237190000A52E0A /* Aller_Std_Rg.ttf */,
 				4C33C9FD2236A73D00A52E0A /* SpeedScheduleX */,
 				4C33CA112236A73D00A52E0A /* SpeedScheduleX WatchKit App */,
@@ -322,6 +325,7 @@
 				4C33CA3F2237190000A52E0A /* Aller_Std_Rg.ttf in Resources */,
 				4CA0D2C7223AA75B0072A9E3 /* addClassPickerView.xib in Resources */,
 				4C33CA452237253D00A52E0A /* singleDayView.xib in Resources */,
+				4C0EADEA223CABD500F14D27 /* reference.rtf in Resources */,
 				4C33CA092236A73D00A52E0A /* LaunchScreen.storyboard in Resources */,
 				4C17F3C6223960A000061154 /* addClassView.xib in Resources */,
 				4C33CA3D22370A5D00A52E0A /* longProgressView.xib in Resources */,

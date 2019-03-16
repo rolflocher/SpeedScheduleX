@@ -13,9 +13,9 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     var colorList = [#colorLiteral(red: 0.7019607843, green: 0.9450980392, blue: 0.6823529412, alpha: 0.7022289787),#colorLiteral(red: 1, green: 0.537254902, blue: 0.5176470588, alpha: 0.7011316044),#colorLiteral(red: 1, green: 0.7764705882, blue: 0.6588235294, alpha: 0.7041519008),#colorLiteral(red: 0.937254902, green: 0.8352941176, blue: 1, alpha: 0.7004067332),#colorLiteral(red: 0.4941176471, green: 0.8078431373, blue: 0.9882352941, alpha: 0.7031652706),#colorLiteral(red: 0.1294117647, green: 0.5254901961, blue: 0.768627451, alpha: 0.7040713595)]
     var colorListRead = colorList0()
         
-//        [#colorLiteral(red: 0.4156862745, green: 0.8784313725, blue: 0.7725490196, alpha: 1),#colorLiteral(red: 1, green: 0.537254902, blue: 0.5176470588, alpha: 1),#colorLiteral(red: 1, green: 0.7764705882, blue: 0.6588235294, alpha: 1),#colorLiteral(red: 0.937254902, green: 0.9215686275, blue: 0.6156862745, alpha: 1),#colorLiteral(red: 0.4941176471, green: 0.8078431373, blue: 0.9882352941, alpha: 1),#colorLiteral(red: 0.1294117647, green: 0.5254901961, blue: 0.768627451, alpha: 1),#colorLiteral(red: 0.6980392157, green: 0.9450980392, blue: 0.5882352941, alpha: 1)]
+   // var F = [#colorLiteral(red: 0.4156862745, green: 0.8784313725, blue: 0.7725490196, alpha: 1),#colorLiteral(red: 1, green: 0.537254902, blue: 0.5176470588, alpha: 1),#colorLiteral(red: 1, green: 0.7764705882, blue: 0.6588235294, alpha: 1),#colorLiteral(red: 0.937254902, green: 0.9215686275, blue: 0.6156862745, alpha: 1),#colorLiteral(red: 0.4941176471, green: 0.8078431373, blue: 0.9882352941, alpha: 1),#colorLiteral(red: 0.1294117647, green: 0.5254901961, blue: 0.768627451, alpha: 1),#colorLiteral(red: 0.6980392157, green: 0.9450980392, blue: 0.5882352941, alpha: 1)]
     
-    //[#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)]
+//    [#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)]
     
     var isLinking = false
     
@@ -117,6 +117,30 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                     
                     addClassView0.addClassPickerView0.timePicker1.selectRow(Int(floor(Double((classX["end"] as! Int))/60.0)), inComponent: 0, animated: true)
                     addClassView0.addClassPickerView0.timePicker1.selectRow(((classX["end"] as! Int))%60, inComponent: 1, animated: true)
+                    
+                    
+                    var buildingS = (classX["room"] as! String).split(separator: " ")
+                    
+                    addClassView0.addClassPickerView0.buildingPicker0.selectRow(addClassView0.addClassPickerView0.buildingPicker0.pickerData.firstIndex(of: String(buildingS.removeFirst()))!, inComponent: 0, animated: true)
+                    
+                    if buildingS.count > 0 {
+                        var format0 = Array(String(buildingS.removeFirst()))
+                        if format0.count == 3 {
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 1, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(0, inComponent: 2, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(0, inComponent: 3, animated: true)
+                        }
+                        else {
+                            
+                        }
+                        
+                        
+                        
+                        
+                        addClassView0.addClassPickerView0.buildingPicker0.selectRow(0, inComponent: 4, animated: true)
+                    }
+                    
+                    
                     
                     addClassView0.menuTitleLabel.text = "Edit a Class"
                     
@@ -484,6 +508,11 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         addClassView0.addClassPickerView0.timePicker0.selectRow(0, inComponent: 1, animated: true)
         addClassView0.addClassPickerView0.timePicker1.selectRow(0, inComponent: 0, animated: true)
         addClassView0.addClassPickerView0.timePicker1.selectRow(0, inComponent: 1, animated: true)
+        addClassView0.addClassPickerView0.buildingPicker0.selectRow(0, inComponent: 0, animated: true)
+        addClassView0.addClassPickerView0.buildingPicker0.selectRow(0, inComponent: 1, animated: true)
+        addClassView0.addClassPickerView0.buildingPicker0.selectRow(0, inComponent: 2, animated: true)
+        addClassView0.addClassPickerView0.buildingPicker0.selectRow(0, inComponent: 3, animated: true)
+        addClassView0.addClassPickerView0.buildingPicker0.selectRow(0, inComponent: 4, animated: true)
         UIView.animate(withDuration: 1, animations: {
             self.addClassView0.frame = CGRect(x: 0, y: 420, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
