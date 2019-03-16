@@ -175,6 +175,7 @@ class addClassView: UIView{
         }
         
         var classInfo = [String:Any]()
+        
         classInfo["start"] = addClassPickerView0.timePicker0.selectedRow(inComponent: 0)*60 + addClassPickerView0.timePicker0.selectedRow(inComponent: 1)*5
         classInfo["end"] = addClassPickerView0.timePicker1.selectedRow(inComponent: 0)*60 + addClassPickerView0.timePicker1.selectedRow(inComponent: 1)*5
         classInfo["day"] = 2
@@ -544,17 +545,16 @@ class addClassView: UIView{
         }
         if !isEditing && timeLabel.text == "Enter Class Time" {
             addClassPickerView0.timePicker0.selectRow(0, inComponent: 0, animated: true)
-            addClassPickerView0.timePicker0.selectRow(0, inComponent: 1, animated: true)
-            
-            addClassPickerView0.timePicker1.selectRow(0, inComponent: 0, animated: true)
-            addClassPickerView0.timePicker1.selectRow(10, inComponent: 1, animated: true)
+            addClassPickerView0.timePicker0.selectRow(6, inComponent: 1, animated: true)
+            addClassPickerView0.timePicker1.selectRow(1, inComponent: 0, animated: true)
+            addClassPickerView0.timePicker1.selectRow(4, inComponent: 1, animated: true)
         }
         else if isEditing {
-            addClassPickerView0.timePicker0.selectRow(Int(floor(Double(editStart)/60.0)), inComponent: 0, animated: true)
-            addClassPickerView0.timePicker0.selectRow((editStart)%60, inComponent: 1, animated: true)
-            
-            addClassPickerView0.timePicker1.selectRow(Int(floor(Double(editEnd)/60.0)), inComponent: 0, animated: true)
-            addClassPickerView0.timePicker1.selectRow((editStart)%60, inComponent: 1, animated: true)
+//            addClassPickerView0.timePicker0.selectRow(Int(floor(Double(editStart)/60.0)), inComponent: 0, animated: true)
+//            addClassPickerView0.timePicker0.selectRow((editStart)%60, inComponent: 1, animated: true)
+//            
+//            addClassPickerView0.timePicker1.selectRow(Int(floor(Double(editEnd)/60.0)), inComponent: 0, animated: true)
+//            addClassPickerView0.timePicker1.selectRow((editStart)%60, inComponent: 1, animated: true)
             
         }
         
