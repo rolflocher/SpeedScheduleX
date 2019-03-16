@@ -20,7 +20,8 @@
                 <outlet property="addClassPickerView0" destination="S7b-VF-DVA" id="XJt-Xn-ArC"/>
                 <outlet property="buildingLabel" destination="SZT-fr-GbB" id="YjU-Jq-ue9"/>
                 <outlet property="buildingView" destination="LQb-JV-lsD" id="rHm-yb-vPn"/>
-                <outlet property="cancelButton" destination="lxq-sR-Owd" id="2Pp-Ri-tNP"/>
+                <outlet property="cancelButton" destination="lxq-sR-Owd" id="n2P-dg-yhy"/>
+                <outlet property="cancelPickerButton" destination="KSs-uU-sD5" id="s1Q-O1-OVz"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="maz-Dl-r3T"/>
                 <outlet property="deleteButton" destination="ljg-mh-6bq" id="RkL-Oh-t1Y"/>
                 <outlet property="doneButton" destination="YPS-f1-4PL" id="weW-aX-BdV"/>
@@ -278,6 +279,20 @@
                         <action selector="deleteButtonPressed:" destination="-1" eventType="primaryActionTriggered" id="uKd-OL-NwU"/>
                     </connections>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KSs-uU-sD5">
+                    <rect key="frame" x="19" y="18" width="57" height="33"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="57" id="Dxn-A2-xi1"/>
+                        <constraint firstAttribute="height" constant="33" id="tD5-xg-fUt"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="17"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelPickerButton:" destination="-1" eventType="primaryActionTriggered" id="oMO-cd-U01"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.069100178779999993" green="0.1965333819" blue="0.3804125786" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
@@ -314,6 +329,7 @@
                 <constraint firstItem="ljg-mh-6bq" firstAttribute="top" secondItem="dnm-9y-ZAi" secondAttribute="bottom" constant="3" id="lQI-Hm-xaJ"/>
                 <constraint firstItem="hwD-Ss-Rdn" firstAttribute="width" secondItem="Aaw-3i-Voh" secondAttribute="width" id="mxS-ku-Im3"/>
                 <constraint firstItem="jt2-em-wOZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nXT-mn-SNT"/>
+                <constraint firstItem="KSs-uU-sD5" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="18" id="qYf-HO-BgC"/>
                 <constraint firstItem="jt2-em-wOZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rM0-zV-DZU"/>
                 <constraint firstItem="dnm-9y-ZAi" firstAttribute="top" secondItem="hJK-eo-CH4" secondAttribute="bottom" constant="14" id="s8M-J7-QuW"/>
                 <constraint firstItem="PaM-0c-C0W" firstAttribute="top" secondItem="dnm-9y-ZAi" secondAttribute="bottom" constant="27.5" id="sJT-ne-yPO"/>
@@ -324,6 +340,7 @@
                 <constraint firstItem="8Np-7Y-rHk" firstAttribute="top" secondItem="LQb-JV-lsD" secondAttribute="bottom" constant="14" id="w8U-JZ-Jji"/>
                 <constraint firstItem="hJK-eo-CH4" firstAttribute="width" secondItem="Aaw-3i-Voh" secondAttribute="width" id="wac-sb-pnu"/>
                 <constraint firstItem="6kJ-dJ-cSk" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="xWT-ru-BTj"/>
+                <constraint firstItem="KSs-uU-sD5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="19" id="xuU-A8-7AV"/>
                 <constraint firstItem="lxq-sR-Owd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="18" id="yqO-32-2pH"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="PaM-0c-C0W" secondAttribute="bottom" constant="40" id="zqZ-nA-JvB"/>
             </constraints>

@@ -440,8 +440,22 @@ class addClassView: UIView{
         else {
             previewRoomLabel.text = ""
         }
+        cancelPickerButton.isHidden = true
         
+    }
+    
+    @IBOutlet var cancelPickerButton: UIButton!
+    
+    @IBAction func cancelPickerButton(_ sender: Any) {
+        doneButton.isHidden = true
+        cancelButton.isHidden = false
+        enterButton.isHidden = false
+        cancelPickerButton.isHidden = true
+        doneButton.isHidden = true
+        doneButton0.isHidden = true
         
+        addClassPickerView0.isHidden = true
+        addClassPickerView0.hyphenLabel.isHidden = true
     }
     
     
@@ -458,13 +472,13 @@ class addClassView: UIView{
                 return
             }
             
-            timeLabel.text = String(addClassPickerView0.timePicker0.hourData[addClassPickerView0.timePicker0.selectedRow(inComponent: 0)]) + ":" + String(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)]) + " " + String(addClassPickerView0.timePicker0.hourData[addClassPickerView0.timePicker1.selectedRow(inComponent: 0)]) + ":" + String(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker1.selectedRow(inComponent: 1)])
+            timeLabel.text = String(addClassPickerView0.timePicker0.hourData[addClassPickerView0.timePicker0.selectedRow(inComponent: 0)]) + ":" + String(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)]) + " - " + String(addClassPickerView0.timePicker0.hourData[addClassPickerView0.timePicker1.selectedRow(inComponent: 0)]) + ":" + String(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker1.selectedRow(inComponent: 1)])
             timeLabel.textColor = UIColor.black
             
             previewTimeLabel.text = timeLabel.text
             
             startTime = addClassPickerView0.timePicker0.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)])!
-            endTime = addClassPickerView0.timePicker1.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker1.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)])!
+            endTime = addClassPickerView0.timePicker1.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker1.minuteData[addClassPickerView0.timePicker1.selectedRow(inComponent: 1)])!
             
             var classInfo = [String:Any]()
             classInfo["start"] = startTime
@@ -523,6 +537,7 @@ class addClassView: UIView{
         addClassPickerView0.isHidden = true
         addClassPickerView0.hyphenLabel.isHidden = true
         
+        cancelPickerButton.isHidden = true
         //60*(lastHour-8)+lastMin
 
         
@@ -540,6 +555,7 @@ class addClassView: UIView{
     }
     
     @objc func timeTapped() {
+        cancelPickerButton.isHidden = false
         if nameLabel.isFirstResponder {
             nameLabel.resignFirstResponder()
         }
@@ -575,9 +591,11 @@ class addClassView: UIView{
     @objc func buildingTapped() {
     
         //addDelegate?.addClassBuildingTapped()
+        
         doneButton0.isHidden = false
         cancelButton.isHidden = true
         enterButton.isHidden = true
+        cancelPickerButton.isHidden = false
         
         addClassPickerView0.isHidden = false
         

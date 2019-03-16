@@ -10,7 +10,10 @@ import UIKit
 
 class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDelegate, ClassTapDelegate {
     
-    var colorList = [#colorLiteral(red: 0.4156862745, green: 0.8784313725, blue: 0.7725490196, alpha: 1),#colorLiteral(red: 1, green: 0.537254902, blue: 0.5176470588, alpha: 1),#colorLiteral(red: 1, green: 0.7764705882, blue: 0.6588235294, alpha: 1),#colorLiteral(red: 0.937254902, green: 0.9215686275, blue: 0.6156862745, alpha: 1),#colorLiteral(red: 0.4941176471, green: 0.8078431373, blue: 0.9882352941, alpha: 1),#colorLiteral(red: 0.1294117647, green: 0.5254901961, blue: 0.768627451, alpha: 1),#colorLiteral(red: 0.6980392157, green: 0.9450980392, blue: 0.5882352941, alpha: 1)]
+    var colorList = [#colorLiteral(red: 0.7019607843, green: 0.9450980392, blue: 0.6823529412, alpha: 0.7022289787),#colorLiteral(red: 1, green: 0.537254902, blue: 0.5176470588, alpha: 0.7011316044),#colorLiteral(red: 1, green: 0.7764705882, blue: 0.6588235294, alpha: 0.7041519008),#colorLiteral(red: 0.937254902, green: 0.8352941176, blue: 1, alpha: 0.7004067332),#colorLiteral(red: 0.4941176471, green: 0.8078431373, blue: 0.9882352941, alpha: 0.7031652706),#colorLiteral(red: 0.1294117647, green: 0.5254901961, blue: 0.768627451, alpha: 0.7040713595)]
+        
+//        [#colorLiteral(red: 0.4156862745, green: 0.8784313725, blue: 0.7725490196, alpha: 1),#colorLiteral(red: 1, green: 0.537254902, blue: 0.5176470588, alpha: 1),#colorLiteral(red: 1, green: 0.7764705882, blue: 0.6588235294, alpha: 1),#colorLiteral(red: 0.937254902, green: 0.9215686275, blue: 0.6156862745, alpha: 1),#colorLiteral(red: 0.4941176471, green: 0.8078431373, blue: 0.9882352941, alpha: 1),#colorLiteral(red: 0.1294117647, green: 0.5254901961, blue: 0.768627451, alpha: 1),#colorLiteral(red: 0.6980392157, green: 0.9450980392, blue: 0.5882352941, alpha: 1)]
+    
     //[#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)]
     
     var isLinking = false
@@ -25,7 +28,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     func deleteClass(id: Int) {
         
         classListGlobal.remove(at: classListGlobal.firstIndex(where: {$0["id"] as! Int == id})!)
-        
+        addClassView0.lockedDay = 0
         drawClasses(classList: classListGlobal)
         
         if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
@@ -141,7 +144,21 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                     }
                     addClassView0.nameLabel.text = classX["name"] as? String
                     addClassView0.buildingLabel.text = classX["room"] as? String
-                    addClassView0.timeLabel.text = String((classX["start"] as! Int)/60 + 8) + ":" + String((classX["start"] as! Int)%60) + String((classX["end"] as! Int)/60 + 8) + ":" + String((classX["end"] as! Int)%60)
+                    
+                    
+                    var startMin = String(Int(classX["start"] as! Int%60))
+                    var endMin = String(Int(classX["end"] as! Int%60))
+                    if startMin.count == 1 {
+                        startMin = "0" + startMin
+                    }
+                    if endMin.count == 1 {
+                        endMin = "0" + endMin
+                    }
+                    
+                    addClassView0.timeLabel.text = String(Int(floor(Double((classX["start"] as! Int)/60)))+8) + ":" + startMin + " - " + String(Int(floor(Double((classX["end"] as! Int)/60))+8)) + ":" + endMin
+                    
+                    
+//                    addClassView0.timeLabel.text = String((classX["start"] as! Int)/60 + 8) + ":" + String((classX["start"] as! Int)%60) + " - " + String((classX["end"] as! Int)/60 + 8) + ":" + String((classX["end"] as! Int)%60)
                     addClassView0.previewView.backgroundColor = classX["color"] as? UIColor
                     addClassView0.nameLabel.textColor = UIColor.black
                     addClassView0.buildingLabel.textColor = UIColor.black
@@ -173,11 +190,11 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                         addClassView0.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
                         addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
                     default :
-                        addClassView0.mView.backgroundColor = UIColor.white
+                        addClassView0.fView.backgroundColor = UIColor.white
                         addClassView0.tView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
                         addClassView0.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
                         addClassView0.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
-                        addClassView0.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+                        addClassView0.mView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
                     }
                 }
             }
@@ -286,7 +303,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         for x in self.view.subviews {
             x.isUserInteractionEnabled = false
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
             for x in self.view.subviews {
                 x.isUserInteractionEnabled = true
             }
@@ -479,9 +496,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     }
     
     func drawClasses (classList : [[String:Any]]) {
-        if classList.count == 0 {
-            return
-        }
         
         for view in mondayLongView.subviews {
             view.removeFromSuperview()
@@ -499,6 +513,10 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             view.removeFromSuperview()
         }
         
+        if classList.count == 0 {
+            return
+        }
+        
         for classInfo in classList {
             
             let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int))/780
@@ -506,6 +524,103 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             
             let classView0 = ClassView(frame: CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight)))
             classView0.drawClass(name: classInfo["name"] as! String, room: classInfo["room"] as! String, start: classInfo["start"] as! Int, end: classInfo["end"] as! Int, color: classInfo["color"] as! UIColor)
+            
+            if classView0.frame.height < 60 {
+                if classView0.nameLabel.text!.count > 10 {
+                    var nameS = ""
+                    var finalS = ""
+                    for x in classView0.nameLabel.text!.split(separator: " ") {
+                    
+                        nameS = String(x)
+                        if x.count > 4 {
+                            nameS.removeLast(x.count-4)
+                        }
+                        else {
+                            if finalS.last == " " {
+                                finalS = finalS + nameS
+                            }
+                            else {
+                                finalS = finalS + " " + nameS
+                            }
+                            continue
+                        }
+                        
+                        if finalS.count == 0 {
+                            finalS = nameS
+                        }
+                        else {
+                            finalS = finalS + ". " + nameS + ". "
+                        }
+                    }
+                    classView0.nameLabel.text = finalS
+                }
+                classView0.nameLabel.numberOfLines = 1
+            }
+            else if classView0.frame.height < 120 {
+                if classView0.nameLabel.text!.count > 20 {
+                    var nameS = ""
+                    var finalS = ""
+                    for x in classView0.nameLabel.text!.split(separator: " ") {
+    
+                        nameS = String(x)
+                        if x.count > 4 {
+                            nameS.removeLast(x.count-4)
+                        }
+                        else {
+                            if finalS.last == " " {
+                                finalS = finalS + nameS
+                            }
+                            else {
+                                finalS = finalS + " " + nameS
+                            }
+                            continue
+                        }
+                        
+                        if finalS.count == 0 {
+                            finalS = nameS
+                        }
+                        else {
+                            finalS = finalS + ". " + nameS + ". "
+                        }
+                        
+                    }
+                    classView0.nameLabel.text = finalS
+                }
+                classView0.nameLabel.numberOfLines = 2
+            }
+            else {
+                classView0.nameLabel.numberOfLines = 3
+                if classView0.nameLabel.text!.count > 30 {
+                    var nameS = ""
+                    var finalS = ""
+                    for x in classView0.nameLabel.text!.split(separator: " ") {
+                        
+                        
+                        nameS = String(x)
+                        if x.count > 4 {
+                            nameS.removeLast(x.count-4)
+                        }
+                        else {
+                            if finalS.last == " " {
+                                finalS = finalS + nameS
+                            }
+                            else {
+                                finalS = finalS + " " + nameS
+                            }
+                            continue
+                        }
+                        
+                        if finalS.count == 0 {
+                            finalS = nameS
+                        }
+                        else {
+                            finalS = finalS + ". " + nameS + ". "
+                        }
+                        
+                    }
+                    classView0.nameLabel.text = finalS
+                }
+            }
             
             classView0.id = classInfo["id"] as! Int
             classView0.classDelegate = self
@@ -600,7 +715,9 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                 //timeLabelView.frame // may need to hardcode
             textLayer.backgroundColor = UIColor.clear.cgColor
             textLayer.foregroundColor = #colorLiteral(red: 0.2041128576, green: 0.2041538656, blue: 0.2041074634, alpha: 0.9130996919)
+            textLayer.font = UIFont(name: "Aller", size: 60)
             textLayer.fontSize = 14
+            textLayer.contentsScale = UIScreen.main.scale
             
             //let switchInt = x+startOffset
             

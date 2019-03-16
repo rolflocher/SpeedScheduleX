@@ -112,7 +112,24 @@ class ClassView: UIView {
         roomLabel.text = room
         self.backgroundColor = color
         
-        timeLabel.text = String(Int(floor(Double(start/60)))+8) + ":" + String(start % 60) + " - " + String(Int(floor(Double(end/60))+8)) + ":" + String(end % 60)
+        var startMin = String(start % 60)
+        var endMin = String(end % 60)
+        if startMin.count == 1 {
+            startMin = "0" + startMin
+        }
+        if endMin.count == 1 {
+            endMin = "0" + endMin
+        }
+        var startHour = Int(floor(Double(start/60)))+8
+        if startHour > 12 {
+            startHour -= 12
+        }
+        var endHour = Int(floor(Double(end/60)))+8
+        if endHour > 12 {
+            endHour -= 12
+        }
+        
+        timeLabel.text = String(startHour) + ":" + startMin + "-" + String(endHour) + ":" + endMin
     }
     
     @objc func classTapped() {

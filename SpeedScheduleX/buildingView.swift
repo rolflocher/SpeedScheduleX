@@ -16,7 +16,7 @@ class buildingView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
 
     //weak var buildingPickerDelegate0 : buildingPickerDelegate?
 
-    var pickerData: [String] = ["-----","Church", "Dougherty", "Driscoll", "Falvey", "Finn.", "Health Services", "Jake Nevin", "John Barry", "Kennedy", "Law School", "Mendel", "Military Sci.", "Monastery", "St. Augustine", "Steam Plant", "Structural Egr.", "Tolentine", "TSB", "Vasey", "Villanova Center", "White Hall", "Other"]
+    var pickerData: [String] = ["-----","CEER","Church", "Dougherty", "Driscoll", "Falvey", "Finn.", "Health Services", "Jake Nevin", "John Barry", "Kennedy", "Law School", "Mendel", "Military Sci.", "Monastery", "St. Augustine", "Steam Plant", "Structural Egr.", "Tolentine", "TSB", "Vasey", "Villanova Center", "White Hall", "Other"]
     var numberData: [Int] = [0,1,2,3,4,5,6,7,8,9]
     var letterData: [String] = ["-","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     var lastBuilding = "-----"

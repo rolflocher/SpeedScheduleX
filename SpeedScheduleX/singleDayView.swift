@@ -52,7 +52,7 @@ class singleDayView: UIView {
         
         self.layer.addSublayer(lineLayer)
         
-        
+        print("linedrawrr called")
         
         for x in 1...numSegments+1 {
             let height = CGFloat((usableHeight/CGFloat(numSegments+1)) * CGFloat(x))
@@ -65,6 +65,8 @@ class singleDayView: UIView {
             textLayer.frame = self.frame // may need to hardcode
             textLayer.backgroundColor = UIColor.clear.cgColor
             textLayer.foregroundColor = #colorLiteral(red: 0.2041128576, green: 0.2041538656, blue: 0.2041074634, alpha: 0.9130996919)
+            textLayer.contentsScale = UIScreen.main.scale
+            textLayer.font = UIFont(name:"Aller",size:60)
             textLayer.fontSize = 14
             
             let switchInt = x+startOffset
