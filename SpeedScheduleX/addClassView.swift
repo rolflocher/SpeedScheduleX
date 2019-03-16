@@ -19,6 +19,7 @@ protocol AddClassDelegate : class {
     func canAddClass(classInfo: [String:Any], day: Int) -> Bool
     func deleteClass(id: Int)
     func link()
+    func showMenu()
 }
 
 class addClassView: UIView{
@@ -86,6 +87,7 @@ class addClassView: UIView{
     var id = 0
     
     var lockedDay = 0
+    var lockedColor = UIColor.black
     
     //var timeView0 : timeView!
     //var builldingView0 : buildingView!
@@ -122,7 +124,7 @@ class addClassView: UIView{
         self.nameLabel.resignFirstResponder()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.nameLabel.text = ""
-            self.nameLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
+            self.nameLabel.textColor = UIColor.black
             self.timeLabel.text = "Enter Class Time"
             self.timeLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
             self.buildingLabel.text = "Enter Building and Room"
@@ -539,8 +541,24 @@ class addClassView: UIView{
     @objc func timeTapped() {
         if nameLabel.isFirstResponder {
             nameLabel.resignFirstResponder()
+        }
+        if !isEditing && timeLabel.text == "Enter Class Time" {
+            addClassPickerView0.timePicker0.selectRow(0, inComponent: 0, animated: true)
+            addClassPickerView0.timePicker0.selectRow(0, inComponent: 1, animated: true)
+            
+            addClassPickerView0.timePicker1.selectRow(0, inComponent: 0, animated: true)
+            addClassPickerView0.timePicker1.selectRow(10, inComponent: 1, animated: true)
+        }
+        else if isEditing {
+            addClassPickerView0.timePicker0.selectRow(Int(floor(Double(editStart)/60.0)), inComponent: 0, animated: true)
+            addClassPickerView0.timePicker0.selectRow((editStart)%60, inComponent: 1, animated: true)
+            
+            addClassPickerView0.timePicker1.selectRow(Int(floor(Double(editEnd)/60.0)), inComponent: 0, animated: true)
+            addClassPickerView0.timePicker1.selectRow((editStart)%60, inComponent: 1, animated: true)
             
         }
+        
+        
         //addDelegate?.addClassTimeTapped()
         cancelButton.isHidden = true
         enterButton.isHidden = true
@@ -555,7 +573,7 @@ class addClassView: UIView{
     }
     
     @objc func buildingTapped() {
-        nameLabel.resignFirstResponder()
+    
         //addDelegate?.addClassBuildingTapped()
         doneButton0.isHidden = false
         cancelButton.isHidden = true
@@ -572,11 +590,11 @@ class addClassView: UIView{
         addDelegate?.addClassCancelTapped()
         self.nameLabel.resignFirstResponder()
         
-        
+        lockedDay = 0
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.nameLabel.text = ""
-            self.nameLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
+            self.nameLabel.textColor = UIColor.black
             self.timeLabel.text = "Enter Class Time"
             self.timeLabel.textColor = #colorLiteral(red: 0.7807586789, green: 0.7798681855, blue: 0.801835835, alpha: 1)
             self.buildingLabel.text = "Enter Building and Room"
@@ -669,7 +687,7 @@ class addClassView: UIView{
         if isEditing {
             
             for x in repeatList {
-                addDelegate?.addClassEditEnterTapped(name: nameLabel.text!, start: editStart, end: editEnd, room: buildingLabel.text!, repeat0: [x], color: sentColor, id: id)
+                addDelegate?.addClassEditEnterTapped(name: nameLabel.text!, start: editStart, end: editEnd, room: buildingLabel.text!, repeat0: [x], color: lockedColor, id: id)
             }
             
         }
@@ -677,7 +695,7 @@ class addClassView: UIView{
             addDelegate?.addClassEnterTapped(name: nameLabel.text!, start: startTime, end: endTime, room: buildingLabel.text!, repeat0: repeatList, color: sentColor)
         }
         
-        
+        lockedDay = 0
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

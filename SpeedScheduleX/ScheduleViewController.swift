@@ -10,9 +10,17 @@ import UIKit
 
 class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDelegate, ClassTapDelegate {
     
-    var colorList = [#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)]
+    var colorList = [#colorLiteral(red: 0.4156862745, green: 0.8784313725, blue: 0.7725490196, alpha: 1),#colorLiteral(red: 1, green: 0.537254902, blue: 0.5176470588, alpha: 1),#colorLiteral(red: 1, green: 0.7764705882, blue: 0.6588235294, alpha: 1),#colorLiteral(red: 0.937254902, green: 0.9215686275, blue: 0.6156862745, alpha: 1),#colorLiteral(red: 0.9725490196, green: 0.6117647059, blue: 0.6784313725, alpha: 1),#colorLiteral(red: 0.4941176471, green: 0.8078431373, blue: 0.9882352941, alpha: 1),#colorLiteral(red: 0.1294117647, green: 0.5254901961, blue: 0.768627451, alpha: 1),#colorLiteral(red: 0.4823529412, green: 0.7725490196, blue: 0.5019607843, alpha: 1),#colorLiteral(red: 0.6980392157, green: 0.9450980392, blue: 0.5882352941, alpha: 1),#colorLiteral(red: 0.7490196078, green: 0.631372549, blue: 0.7647058824, alpha: 1)]
+    //[#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)]
     
     var isLinking = false
+    
+    func showMenu () {
+        UIView.animate(withDuration: 1, animations: {
+            self.addClassView0.frame = CGRect(x: 0, y: 420, width: self.view.frame.width, height: self.addClassView0.frame.height)
+            self.view.setNeedsLayout()
+        })
+    }
     
     func deleteClass(id: Int) {
         
@@ -103,6 +111,8 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                     
                     addClassView0.id = id
                     addClassView0.isEditing = true
+                    addClassView0.lockedColor = classX["color"] as! UIColor
+                    
                     addClassView0.lockedDay = classListGlobal[ classListGlobal.firstIndex(where: {$0["id"] as! Int == addClassView0.id})! ]["day"] as! Int
                     
                     addClassView0.linkButton.isHidden = false
@@ -112,6 +122,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                         self.view.setNeedsLayout()
                     })
                     
+                    addClassView0.colorList = colorList
                     for classX in classListGlobal {
                         if colorList.contains(classX["color"] as! UIColor) {
                             addClassView0.colorList.removeAll{ $0 == (classX["color"] as! UIColor)}
@@ -310,7 +321,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         timePickerClass = timeView()
         buildingPickerClass = buildingView()
         
