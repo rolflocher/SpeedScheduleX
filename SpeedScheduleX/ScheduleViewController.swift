@@ -127,11 +127,14 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                         var format0 = Array(String(buildingS.removeFirst()))
                         if format0.count == 3 {
                             addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 1, animated: true)
-                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(0, inComponent: 2, animated: true)
-                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(0, inComponent: 3, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 2, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 3, animated: true)
                         }
                         else {
-                            
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 1, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 2, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 3, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 4, animated: true)
                         }
                         
                         
@@ -414,24 +417,126 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             drawClasses(classList: classListGlobal)
         }
         
-//        var classList = [[String:Any]]()
-//        var classInfo = [String:Any]()
-//        classInfo["name"] = "CPE II"
-//        classInfo["start"] = 30
-//        classInfo["end"] = 80
-//        classInfo["day"] = 2
-//        classInfo["room"] = "Tol 305"
-//        classInfo["id"] = 9345
-//        classInfo["color"] = UIColor.cyan
-//        classList.append(classInfo)
-//        classListGlobal = classList
-//
-//        drawClasses(classList: classList)
-        
         self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
         self.addClassView0.setupTaps()
         
+        populateFakeClasses()
+    }
+    
+    func populateFakeClasses () {
+        var classList = [[String:Any]]()
+        var classInfo = [String:Any]()
+        classInfo["name"] = "CPE II"
+        classInfo["start"] = 30
+        classInfo["end"] = 80
+        classInfo["day"] = 2
+        classInfo["room"] = "Tolentine 305"
+        classInfo["id"] = 9345
+        classInfo["color"] = colorList.first!
+        classList.append(classInfo)
         
+        classInfo["name"] = "CPE II"
+        classInfo["start"] = 30
+        classInfo["end"] = 80
+        classInfo["day"] = 4
+        classInfo["room"] = "Tolentine 305"
+        classInfo["id"] = 9346
+        classInfo["color"] = colorList.first!
+        classList.append(classInfo)
+        
+        classInfo["name"] = "CPE II"
+        classInfo["start"] = 30
+        classInfo["end"] = 80
+        classInfo["day"] = 6
+        classInfo["room"] = "Tolentine 305"
+        classInfo["id"] = 9347
+        classInfo["color"] = colorList.removeFirst()
+        classList.append(classInfo)
+        
+        classInfo["name"] = "Computer Networks"
+        classInfo["start"] = 330
+        classInfo["end"] = 405
+        classInfo["day"] = 2
+        classInfo["room"] = "CEER 001"
+        classInfo["id"] = 9348
+        classInfo["color"] = colorList.first!
+        classList.append(classInfo)
+        
+        classInfo["name"] = "Computer Networks"
+        classInfo["start"] = 330
+        classInfo["end"] = 405
+        classInfo["day"] = 4
+        classInfo["room"] = "CEER 001"
+        classInfo["id"] = 9349
+        classInfo["color"] = colorList.removeFirst()
+        classList.append(classInfo)
+        
+        classInfo["name"] = "Design Seminar"
+        classInfo["start"] = 60
+        classInfo["end"] = 200
+        classInfo["day"] = 3
+        classInfo["room"] = "CEER 001"
+        classInfo["id"] = 9350
+        classInfo["color"] = colorList.removeFirst()
+        classList.append(classInfo)
+        
+        classInfo["name"] = "Compiler Construction"
+        classInfo["start"] = 210
+        classInfo["end"] = 285
+        classInfo["day"] = 3
+        classInfo["room"] = "Mendel 290"
+        classInfo["id"] = 9351
+        classInfo["color"] = colorList.first!
+        classList.append(classInfo)
+        
+        classInfo["name"] = "Compiler Construction"
+        classInfo["start"] = 210
+        classInfo["end"] = 285
+        classInfo["day"] = 5
+        classInfo["room"] = "Mendel 290"
+        classInfo["id"] = 9352
+        classInfo["color"] = colorList.removeFirst()
+        classList.append(classInfo)
+        
+        classInfo["name"] = "Discrete Structures"
+        classInfo["start"] = 390
+        classInfo["end"] = 465
+        classInfo["day"] = 3
+        classInfo["room"] = "Mendel 290"
+        classInfo["id"] = 9351
+        classInfo["color"] = colorList.first!
+        classList.append(classInfo)
+        
+        classInfo["name"] = "Discrete Structures"
+        classInfo["start"] = 390
+        classInfo["end"] = 465
+        classInfo["day"] = 5
+        classInfo["room"] = "Mendel 290"
+        classInfo["id"] = 9352
+        classInfo["color"] = colorList.removeFirst()
+        classList.append(classInfo)
+        
+        classInfo["name"] = "Computer Networks Lab"
+        classInfo["start"] = 495
+        classInfo["end"] = 615
+        classInfo["day"] = 3
+        classInfo["room"] = "Tolentine 208"
+        classInfo["id"] = 9353
+        classInfo["color"] = classList[3]["color"] as! UIColor
+        classList.append(classInfo)
+        
+        classInfo["name"] = "CPE II Lab"
+        classInfo["start"] = 495
+        classInfo["end"] = 735
+        classInfo["day"] = 4
+        classInfo["room"] = "CEER 206"
+        classInfo["id"] = 9353
+        classInfo["color"] = classList[1]["color"] as! UIColor
+        classList.append(classInfo)
+        
+        classListGlobal = classList
+        
+        drawClasses(classList: classList)
     }
     
     func hasPreviousData () -> Bool {
