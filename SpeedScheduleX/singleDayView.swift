@@ -23,6 +23,130 @@ class singleDayView: UIView {
         commonInit()
     }
     
+    func drawClasses (classList: [[String:Any]]) {
+        
+        if classList.count == 0 {
+            return
+        }
+        
+        let date = Date()
+        let calendar = Calendar.current
+        
+        let usableHeight : CGFloat = 700.0
+        let usableWidth : CGFloat = 100
+        
+        let day = calendar.component(.weekday, from: date) - 3
+        for classInfo in classList {
+            if classInfo["day"] as! Int == day {
+                
+                let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int))/780
+                let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int))/780
+                
+                let classView0 = ClassView(frame: CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight)))
+                classView0.drawClass(name: classInfo["name"] as! String, room: classInfo["room"] as! String, start: classInfo["start"] as! Int, end: classInfo["end"] as! Int, color: classInfo["color"] as! UIColor)
+                
+                if classView0.frame.height < 60 {
+                    if classView0.nameLabel.text!.count > 10 {
+                        var nameS = ""
+                        var finalS = ""
+                        for x in classView0.nameLabel.text!.split(separator: " ") {
+                            
+                            nameS = String(x)
+                            if x.count > 4 {
+                                nameS.removeLast(x.count-4)
+                            }
+                            else {
+                                if finalS.last == " " {
+                                    finalS = finalS + nameS
+                                }
+                                else {
+                                    finalS = finalS + " " + nameS
+                                }
+                                continue
+                            }
+                            
+                            if finalS.count == 0 {
+                                finalS = nameS
+                            }
+                            else {
+                                finalS = finalS + ". " + nameS + ". "
+                            }
+                        }
+                        classView0.nameLabel.text = finalS
+                    }
+                    classView0.nameLabel.numberOfLines = 1
+                }
+                else if classView0.frame.height < 120 {
+                    if classView0.nameLabel.text!.count > 20 {
+                        var nameS = ""
+                        var finalS = ""
+                        for x in classView0.nameLabel.text!.split(separator: " ") {
+                            
+                            nameS = String(x)
+                            if x.count > 4 {
+                                nameS.removeLast(x.count-4)
+                            }
+                            else {
+                                if finalS.last == " " {
+                                    finalS = finalS + nameS
+                                }
+                                else {
+                                    finalS = finalS + " " + nameS
+                                }
+                                continue
+                            }
+                            
+                            if finalS.count == 0 {
+                                finalS = nameS
+                            }
+                            else {
+                                finalS = finalS + ". " + nameS + ". "
+                            }
+                            
+                        }
+                        classView0.nameLabel.text = finalS
+                    }
+                    classView0.nameLabel.numberOfLines = 2
+                }
+                else {
+                    classView0.nameLabel.numberOfLines = 3
+                    if classView0.nameLabel.text!.count > 30 {
+                        var nameS = ""
+                        var finalS = ""
+                        for x in classView0.nameLabel.text!.split(separator: " ") {
+                            
+                            
+                            nameS = String(x)
+                            if x.count > 4 {
+                                nameS.removeLast(x.count-4)
+                            }
+                            else {
+                                if finalS.last == " " {
+                                    finalS = finalS + nameS
+                                }
+                                else {
+                                    finalS = finalS + " " + nameS
+                                }
+                                continue
+                            }
+                            
+                            if finalS.count == 0 {
+                                finalS = nameS
+                            }
+                            else {
+                                finalS = finalS + ". " + nameS + ". "
+                            }
+                            
+                        }
+                        classView0.nameLabel.text = finalS
+                    }
+                }
+                self.addSubview(classView0)
+                
+            }
+        }
+    }
+    
     func commonInit() {
         Bundle.main.loadNibNamed("singleDayView", owner: self, options: nil)
         contentView.fixInView(self)

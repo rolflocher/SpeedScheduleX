@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     
     @IBOutlet var longProgressView2: longProgressView!
     
+    var classListGlobal = [[String:Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +84,29 @@ class ViewController: UIViewController {
         let fullScheduleTap = UITapGestureRecognizer(target: self, action: #selector(fullScheduleTapped))
         fullScheduleButton.addGestureRecognizer(fullScheduleTap)
         
+        if hasPreviousData() {
+            singleDayView0.drawClasses(classList: classListGlobal)
+        }
         
+        
+    }
+    
+    func hasPreviousData () -> Bool {
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            
+            if let classListData = userDefaults.object(forKey: "classList") as? Data {
+                let classListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(classListData) as! [[String:Any]]
+                classListGlobal = classListDecoded!
+                if classListGlobal.count != 0 {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            
+        }
+        return false
     }
 
     @objc func fullScheduleTapped() {
