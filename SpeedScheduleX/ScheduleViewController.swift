@@ -526,7 +526,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         classList.append(classInfo)
         
         classInfo["name"] = "CPE II Lab"
-        classInfo["start"] = 495
+        classInfo["start"] = 570
         classInfo["end"] = 735
         classInfo["day"] = 4
         classInfo["room"] = "CEER 206"
