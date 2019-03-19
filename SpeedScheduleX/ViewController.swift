@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -39,6 +40,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let colorList = colorList0()
     
     var classListGlobal = [[String:Any]]()
+    
+    let center = UNUserNotificationCenter.current()
+    let options: UNAuthorizationOptions = [.alert, .sound];
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
@@ -88,6 +92,30 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     override func viewDidLoad() {
+        
+        center.requestAuthorization(options: options) {
+            (granted, error) in
+            if !granted {
+                print("Something went wrong")
+            }
+        }
+        let content = UNMutableNotificationContent()
+        content.title = "Don't forget"
+        content.body = "Swift is dope"
+        content.sound = UNNotificationSound.default
+        let date = Date(timeIntervalSinceNow: 100)
+        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
+                                                    repeats: false)
+        let identifier = "UYLLocalNotification"
+        let request = UNNotificationRequest(identifier: identifier,
+                                            content: content, trigger: trigger)
+        center.add(request, withCompletionHandler: { (error) in
+            if let error = error {
+                print(error)
+            }
+        })
+        
         super.viewDidLoad()
         
         //dayScrollView.delegate = self
