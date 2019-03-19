@@ -503,10 +503,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="addButton" width="1366" height="768"/>
+        <image name="addButton" width="500" height="500"/>
         <image name="addHButton" width="1366" height="768"/>
         <image name="fullScheduleIcon" width="1366" height="768"/>
-        <image name="home" width="539" height="539"/>
+        <image name="home" width="500" height="500"/>
         <image name="settings" width="500" height="500"/>
         <image name="universityTitle" width="1024" height="243"/>
     </resources>
