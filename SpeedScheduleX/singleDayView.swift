@@ -8,7 +8,7 @@
 
 import UIKit
 
-class singleDayView: UIView {
+class singleDayView: UIView, UIScrollViewDelegate {
 
 
     @IBOutlet var contentView: UIView!
@@ -33,16 +33,17 @@ class singleDayView: UIView {
         let calendar = Calendar.current
         
         let usableHeight : CGFloat = 700.0
-        let usableWidth : CGFloat = 100
+        let usableWidth : CGFloat = 75.0
+        print("height \(self.frame.height)")
         
-        let day = calendar.component(.weekday, from: date) - 3
+        let day = calendar.component(.weekday, from: date)
         for classInfo in classList {
             if classInfo["day"] as! Int == day {
                 
-                let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int))/780
-                let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int))/780
+                let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int))/810
+                let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int))/810
                 
-                let classView0 = ClassView(frame: CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight)))
+                let classView0 = ClassView(frame: CGRect(x: 51, y: startHeight, width: usableWidth, height: (endHeight-startHeight)))
                 classView0.drawClass(name: classInfo["name"] as! String, room: classInfo["room"] as! String, start: classInfo["start"] as! Int, end: classInfo["end"] as! Int, color: classInfo["color"] as! UIColor)
                 
                 if classView0.frame.height < 60 {
@@ -151,13 +152,13 @@ class singleDayView: UIView {
         Bundle.main.loadNibNamed("singleDayView", owner: self, options: nil)
         contentView.fixInView(self)
         
-        let usableHeight : CGFloat = 760
-        var startOffset = 2 * (7-8)
-        startOffset += (30-30) / 30
+        let usableHeight : CGFloat = 700
+        //var startOffset = 2 * (7-8)
+        //startOffset += (30-30) / 30
         
         var numSegments = 2 * (21 - 7)
-        numSegments += (30 - 30) / 30
-        
+        numSegments += (30) / 30
+        numSegments = 26
         
         
         let path = UIBezierPath()
@@ -186,14 +187,14 @@ class singleDayView: UIView {
             }
             
             let textLayer = CATextLayer()
-            textLayer.frame = self.frame // may need to hardcode
+            textLayer.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 20) // may need to hardcode
             textLayer.backgroundColor = UIColor.clear.cgColor
             textLayer.foregroundColor = #colorLiteral(red: 0.2041128576, green: 0.2041538656, blue: 0.2041074634, alpha: 0.9130996919)
             textLayer.contentsScale = UIScreen.main.scale
             textLayer.font = UIFont(name:"Aller",size:60)
             textLayer.fontSize = 14
             
-            let switchInt = x+startOffset
+            let switchInt = x
             
             switch (switchInt) {
             case 1:
@@ -253,7 +254,7 @@ class singleDayView: UIView {
             }
             textLayer.alignmentMode = .right
             //if (deviceSize == 667.0) {
-            textLayer.position = CGPoint(x:-21,y:height+283)
+            textLayer.position = CGPoint(x:-21,y:height)
             //}
 //            else if (deviceSize == 736.0) {
 //                textLayer.position = CGPoint(x:17,y:height+168)
@@ -276,8 +277,8 @@ class singleDayView: UIView {
             
             if x % 2 == 0 && x < 27{
                 let path1 = UIBezierPath()
-                path1.move(to: CGPoint(x: 50, y: height-10))
-                path1.addLine(to: CGPoint(x: 127, y: height-10))
+                path1.move(to: CGPoint(x: 50, y: height))
+                path1.addLine(to: CGPoint(x: 127, y: height))
                 
                 let lineLayer = CAShapeLayer()
                 lineLayer.path = path1.cgPath

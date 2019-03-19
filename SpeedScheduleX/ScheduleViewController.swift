@@ -10,7 +10,7 @@ import UIKit
 
 class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDelegate, ClassTapDelegate {
     
-    var colorList = [#colorLiteral(red: 0.7019607843, green: 0.9450980392, blue: 0.6823529412, alpha: 0.7022289787),#colorLiteral(red: 1, green: 0.537254902, blue: 0.5176470588, alpha: 0.7011316044),#colorLiteral(red: 1, green: 0.7764705882, blue: 0.6588235294, alpha: 0.7041519008),#colorLiteral(red: 0.937254902, green: 0.8352941176, blue: 1, alpha: 0.7004067332),#colorLiteral(red: 0.4941176471, green: 0.8078431373, blue: 0.9882352941, alpha: 0.7031652706),#colorLiteral(red: 0.1294117647, green: 0.5254901961, blue: 0.768627451, alpha: 0.7040713595)]
+    var colorList = [#colorLiteral(red: 0.7019607843, green: 0.9450980392, blue: 0.6823529412, alpha: 0.7022289787)] // dont touch !
     var colorListRead = colorList0()
         
    // var F = [#colorLiteral(red: 0.4156862745, green: 0.8784313725, blue: 0.7725490196, alpha: 1),#colorLiteral(red: 1, green: 0.537254902, blue: 0.5176470588, alpha: 1),#colorLiteral(red: 1, green: 0.7764705882, blue: 0.6588235294, alpha: 1),#colorLiteral(red: 0.937254902, green: 0.9215686275, blue: 0.6156862745, alpha: 1),#colorLiteral(red: 0.4941176471, green: 0.8078431373, blue: 0.9882352941, alpha: 1),#colorLiteral(red: 0.1294117647, green: 0.5254901961, blue: 0.768627451, alpha: 1),#colorLiteral(red: 0.6980392157, green: 0.9450980392, blue: 0.5882352941, alpha: 1)]
@@ -38,7 +38,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             userDefaults.synchronize()
         }
         
-        UIView.animate(withDuration: 1, animations: {
+        UIView.animate(withDuration: 0.7, animations: {
             self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
         })
@@ -78,7 +78,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             userDefaults.synchronize()
         }
         
-        UIView.animate(withDuration: 1, animations: {
+        UIView.animate(withDuration: 0.7, animations: {
             self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
         })
@@ -113,11 +113,10 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                 else {
                     
                     addClassView0.addClassPickerView0.timePicker0.selectRow(Int(floor(Double((classX["start"] as! Int))/60.0)), inComponent: 0, animated: true)
-                    addClassView0.addClassPickerView0.timePicker0.selectRow(((classX["start"] as! Int))%60, inComponent: 1, animated: true)
+                    addClassView0.addClassPickerView0.timePicker0.selectRow((((classX["start"] as! Int))%60)/5, inComponent: 1, animated: true)
                     
                     addClassView0.addClassPickerView0.timePicker1.selectRow(Int(floor(Double((classX["end"] as! Int))/60.0)), inComponent: 0, animated: true)
-                    addClassView0.addClassPickerView0.timePicker1.selectRow(((classX["end"] as! Int))%60, inComponent: 1, animated: true)
-                    
+                    addClassView0.addClassPickerView0.timePicker1.selectRow((((classX["end"] as! Int))%60)/5, inComponent: 1, animated: true)
                     
                     var buildingS = (classX["room"] as! String).split(separator: " ")
                     
@@ -126,24 +125,17 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                     if buildingS.count > 0 {
                         var format0 = Array(String(buildingS.removeFirst()))
                         if format0.count == 3 {
-                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 1, animated: true)
-                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 2, animated: true)
-                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 3, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!, inComponent: 1, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!, inComponent: 2, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!, inComponent: 3, animated: true)
                         }
                         else {
-                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 1, animated: true)
-                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 2, animated: true)
-                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 3, animated: true)
-                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!+1, inComponent: 4, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!, inComponent: 1, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!, inComponent: 2, animated: true)
+                            addClassView0.addClassPickerView0.buildingPicker0.selectRow(Int(String(format0.removeFirst()))!, inComponent: 3, animated: true)
                         }
-                        
-                        
-                        
-                        
                         addClassView0.addClassPickerView0.buildingPicker0.selectRow(0, inComponent: 4, animated: true)
                     }
-                    
-                    
                     
                     addClassView0.menuTitleLabel.text = "Edit a Class"
                     
@@ -173,7 +165,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                     addClassView0.nameLabel.text = classX["name"] as? String
                     addClassView0.buildingLabel.text = classX["room"] as? String
                     
-                    
                     var startMin = String(Int(classX["start"] as! Int%60))
                     var endMin = String(Int(classX["end"] as! Int%60))
                     if startMin.count == 1 {
@@ -185,8 +176,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                     
                     addClassView0.timeLabel.text = String(Int(floor(Double((classX["start"] as! Int)/60)))+8) + ":" + startMin + " - " + String(Int(floor(Double((classX["end"] as! Int)/60))+8)) + ":" + endMin
                     
-                    
-//                    addClassView0.timeLabel.text = String((classX["start"] as! Int)/60 + 8) + ":" + String((classX["start"] as! Int)%60) + " - " + String((classX["end"] as! Int)/60 + 8) + ":" + String((classX["end"] as! Int)%60)
                     addClassView0.previewView.backgroundColor = classX["color"] as? UIColor
                     addClassView0.nameLabel.textColor = UIColor.black
                     addClassView0.buildingLabel.textColor = UIColor.black
@@ -227,11 +216,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                 }
             }
         }
-        
-        
-        
-        
-        
+
     }
     
     func canAddClass(classInfo: [String:Any], day: Int) -> Bool {
@@ -256,12 +241,12 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     }
     
     func doneButtonTapped() {
+        
     }
     
     func pickerDidChange(isBuilding: Bool, building: String, num0: String, num1: String, num2: String, let0: String) {
         addClassView0.buildingLabel.text = building + " " + num0 + num1 + num2 + let0
     }
-    
     
     func addClassTimeTapped() {
         
@@ -272,7 +257,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     }
     
     var randomConv = 0
-    //var isRandom = true
     
     func randomId() -> Int {
         var isRandom = true
@@ -316,30 +300,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             userDefaults.synchronize()
         }
         
-        UIView.animate(withDuration: 1, animations: {
+        for x in self.view.subviews {
+            x.isUserInteractionEnabled = false
+        }
+        UIView.animate(withDuration: 0.7, animations: {
             self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
+        }, completion : { (value: Bool) in
+            for x in self.view.subviews {
+                x.isUserInteractionEnabled = true
+            }
         })
         
     }
     
     func addClassCancelTapped() {
-        UIView.animate(withDuration: 1, animations: {
-            self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
-            self.view.setNeedsLayout()
-        })
         for x in self.view.subviews {
             x.isUserInteractionEnabled = false
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+        UIView.animate(withDuration: 0.7, animations: {
+            self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
+            self.view.setNeedsLayout()
+        }, completion : { (value: Bool) in
             for x in self.view.subviews {
                 x.isUserInteractionEnabled = true
             }
-        }
-        
+        })
+       
     }
-    
-    //@IBOutlet var buildingScrollView: buildingWheelView!
     
     @IBOutlet var timeLabelView: UIView!
     
@@ -503,7 +491,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         classInfo["end"] = 465
         classInfo["day"] = 3
         classInfo["room"] = "Mendel 290"
-        classInfo["id"] = 9351
+        classInfo["id"] = 9353
         classInfo["color"] = colorList.first!
         classList.append(classInfo)
         
@@ -512,7 +500,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         classInfo["end"] = 465
         classInfo["day"] = 5
         classInfo["room"] = "Mendel 290"
-        classInfo["id"] = 9352
+        classInfo["id"] = 9354
         classInfo["color"] = colorList.removeFirst()
         classList.append(classInfo)
         
@@ -521,7 +509,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         classInfo["end"] = 615
         classInfo["day"] = 3
         classInfo["room"] = "Tolentine 208"
-        classInfo["id"] = 9353
+        classInfo["id"] = 9355
         classInfo["color"] = classList[3]["color"] as! UIColor
         classList.append(classInfo)
         
@@ -530,7 +518,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         classInfo["end"] = 735
         classInfo["day"] = 4
         classInfo["room"] = "CEER 206"
-        classInfo["id"] = 9353
+        classInfo["id"] = 9356
         classInfo["color"] = classList[1]["color"] as! UIColor
         classList.append(classInfo)
         
@@ -559,11 +547,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-//        if let count = textField.text?.count {
-//            if count > 20 {
-//                self.addClassNameTextView.text = "20 char limit"
-//            }
-//        }
+
         if addClassView0.nameLabel.text != "Enter Class Name" {
             addClassView0.previewNameLabel.text = addClassView0.nameLabel.text
         }
@@ -719,7 +703,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                         else {
                             finalS = finalS + ". " + nameS + ". "
                         }
-                        
                     }
                     classView0.nameLabel.text = finalS
                 }
@@ -731,8 +714,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                     var nameS = ""
                     var finalS = ""
                     for x in classView0.nameLabel.text!.split(separator: " ") {
-                        
-                        
                         nameS = String(x)
                         if x.count > 4 {
                             nameS.removeLast(x.count-4)
@@ -753,7 +734,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                         else {
                             finalS = finalS + ". " + nameS + ". "
                         }
-                        
                     }
                     classView0.nameLabel.text = finalS
                 }
@@ -774,27 +754,23 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             default:
                 fridayLongView.addSubview(classView0)
             }
-            
-            
         }
     }
     
     func setupLines () {
-        
-
+    
     }
     
     func setupLabels () {
-        
         
         var startOffset = 2 * (7-8)
         startOffset += (30-30) / 30
         
         var numSegments = 2 * (21 - 7)
         numSegments += (30 - 30) / 30
-        numSegments = 25
+        numSegments = 26
         
-        for x in 1...numSegments+1 {
+        for x in 1...numSegments {
             let height = CGFloat((usableHeight/CGFloat(numSegments+1)) * CGFloat(x))
             
             if x == 1 {
@@ -844,8 +820,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                 thursdayLongView.layer.addSublayer(lineLayer2)
                 fridayLongView.layer.addSublayer(lineLayer3)
             }
-            
-            
             
             let textLayer = CATextLayer()
             textLayer.frame = CGRect(x: 0, y: 0, width: timeLabelView.frame.width, height: 20) //usableheight
@@ -911,7 +885,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             case 25:
                 print("")
             case 26:
-                textLayer.string = ""
+                textLayer.string = "9 PM"
             default:
                 print("f")
             }
@@ -937,8 +911,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             //            }
             
             timeLabelView.layer.addSublayer(textLayer)
-    }
-    
+        }
     }
 
     /*

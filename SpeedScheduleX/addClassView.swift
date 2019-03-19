@@ -410,6 +410,8 @@ class addClassView: UIView{
         cancelButton.isHidden = false
         enterButton.isHidden = false
         
+        nameLabel.isUserInteractionEnabled = true
+        
         addClassPickerView0.isHidden = true
         addClassPickerView0.hyphenLabel.isHidden = true
         
@@ -454,6 +456,8 @@ class addClassView: UIView{
         doneButton.isHidden = true
         doneButton0.isHidden = true
         
+        nameLabel.isUserInteractionEnabled = true
+        
         addClassPickerView0.isHidden = true
         addClassPickerView0.hyphenLabel.isHidden = true
     }
@@ -471,6 +475,8 @@ class addClassView: UIView{
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 return
             }
+            
+            nameLabel.isUserInteractionEnabled = true
             
             timeLabel.text = String(addClassPickerView0.timePicker0.hourData[addClassPickerView0.timePicker0.selectedRow(inComponent: 0)]) + ":" + String(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)]) + " - " + String(addClassPickerView0.timePicker0.hourData[addClassPickerView0.timePicker1.selectedRow(inComponent: 0)]) + ":" + String(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker1.selectedRow(inComponent: 1)])
             timeLabel.textColor = UIColor.black
@@ -573,7 +579,7 @@ class addClassView: UIView{
 //            addClassPickerView0.timePicker1.selectRow((editStart)%60, inComponent: 1, animated: true)
             
         }
-        
+        nameLabel.isUserInteractionEnabled = false
         
         //addDelegate?.addClassTimeTapped()
         cancelButton.isHidden = true
@@ -591,6 +597,8 @@ class addClassView: UIView{
     @objc func buildingTapped() {
     
         //addDelegate?.addClassBuildingTapped()
+        
+        nameLabel.isUserInteractionEnabled = false
         
         doneButton0.isHidden = false
         cancelButton.isHidden = true
@@ -700,8 +708,6 @@ class addClassView: UIView{
             sentColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
         }
         
-        previewView.backgroundColor = UIColor.white
-        
         if isEditing {
             
             for x in repeatList {
@@ -731,6 +737,8 @@ class addClassView: UIView{
             self.wView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             self.thView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
             self.fView.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.7)
+            
+            self.previewView.backgroundColor = UIColor.white
         }
         
     }

@@ -12,6 +12,8 @@
 		4C0EADEA223CABD500F14D27 /* reference.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4C0EADE9223CABD400F14D27 /* reference.rtf */; };
 		4C17F3C42239604D00061154 /* addClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17F3C32239604D00061154 /* addClassView.swift */; };
 		4C17F3C6223960A000061154 /* addClassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C17F3C5223960A000061154 /* addClassView.xib */; };
+		4C2BB575224042C800B84E10 /* HomeworkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2BB574224042C800B84E10 /* HomeworkTableViewCell.swift */; };
+		4C2BB577224042DA00B84E10 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2BB576224042DA00B84E10 /* TestTableViewCell.swift */; };
 		4C33C9FF2236A73D00A52E0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33C9FE2236A73D00A52E0A /* AppDelegate.swift */; };
 		4C33CA012236A73D00A52E0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33CA002236A73D00A52E0A /* ViewController.swift */; };
 		4C33CA042236A73D00A52E0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C33CA022236A73D00A52E0A /* Main.storyboard */; };
@@ -89,6 +91,8 @@
 		4C0EADE9223CABD400F14D27 /* reference.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = reference.rtf; sourceTree = "<group>"; };
 		4C17F3C32239604D00061154 /* addClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addClassView.swift; sourceTree = "<group>"; };
 		4C17F3C5223960A000061154 /* addClassView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = addClassView.xib; sourceTree = "<group>"; };
+		4C2BB574224042C800B84E10 /* HomeworkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkTableViewCell.swift; sourceTree = "<group>"; };
+		4C2BB576224042DA00B84E10 /* TestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
 		4C33C9FB2236A73D00A52E0A /* SpeedScheduleX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedScheduleX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C33C9FE2236A73D00A52E0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C33CA002236A73D00A52E0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +180,8 @@
 				4C33CA3C22370A5D00A52E0A /* longProgressView.xib */,
 				4C33CA422237252800A52E0A /* singleDayView.swift */,
 				4C33CA382237081500A52E0A /* longProgressView.swift */,
+				4C2BB576224042DA00B84E10 /* TestTableViewCell.swift */,
+				4C2BB574224042C800B84E10 /* HomeworkTableViewCell.swift */,
 				4C33CA002236A73D00A52E0A /* ViewController.swift */,
 				4C33CA022236A73D00A52E0A /* Main.storyboard */,
 				4C33CA052236A73D00A52E0A /* Assets.xcassets */,
@@ -361,11 +367,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C33CA4722374BDB00A52E0A /* ScheduleViewController.swift in Sources */,
+				4C2BB575224042C800B84E10 /* HomeworkTableViewCell.swift in Sources */,
 				4C33CA012236A73D00A52E0A /* ViewController.swift in Sources */,
 				4C33CA432237252800A52E0A /* singleDayView.swift in Sources */,
 				4CA0D2C3223A0B130072A9E3 /* timeView.swift in Sources */,
 				4CA0D2C5223AA72F0072A9E3 /* addClassPickerView.swift in Sources */,
 				4C33CA4B223836A000A52E0A /* classView.swift in Sources */,
+				4C2BB577224042DA00B84E10 /* TestTableViewCell.swift in Sources */,
 				4C17F3C42239604D00061154 /* addClassView.swift in Sources */,
 				4C0EADE8223C6B1200F14D27 /* colorFile.swift in Sources */,
 				4C0EADE4223AB19100F14D27 /* buildingView.swift in Sources */,
