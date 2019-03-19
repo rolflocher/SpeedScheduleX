@@ -51,16 +51,16 @@
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7GP-Eq-nCM">
-                                                <rect key="frame" x="234" y="0.0" width="233" height="422"/>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="59" translatesAutoresizingMaskIntoConstraints="NO" id="7GP-Eq-nCM">
+                                                <rect key="frame" x="234" y="32" width="233" height="390"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="testCell" id="nhQ-iD-vIC" customClass="TestTableViewCell" customModule="SpeedScheduleX" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="233" height="44"/>
+                                                        <rect key="frame" x="0.0" y="28" width="233" height="59"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nhQ-iD-vIC" id="4LE-Ys-V5f">
-                                                            <rect key="frame" x="0.0" y="0.0" width="233" height="43.666666666666664"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="233" height="58.666666666666664"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </tableViewCellContentView>
                                                     </tableViewCell>
@@ -75,6 +75,15 @@
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Tests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGx-U9-pQy">
+                                                <rect key="frame" x="333" y="4" width="88" height="22"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="88" id="uCA-g0-Ahq"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="18"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="addHButton" translatesAutoresizingMaskIntoConstraints="NO" id="rr6-ES-9uE">
                                                 <rect key="frame" x="200" y="4" width="24" height="25"/>
                                                 <constraints>
@@ -82,7 +91,7 @@
                                                     <constraint firstAttribute="width" constant="24" id="jHW-4a-jyC"/>
                                                 </constraints>
                                             </imageView>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeI-ob-xZ0">
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeI-ob-xZ0" customClass="HomeworkMenuView" customModule="SpeedScheduleX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="422" width="233" height="422"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -91,6 +100,7 @@
                                         <constraints>
                                             <constraint firstItem="RZD-UX-rUB" firstAttribute="leading" secondItem="PuR-Up-YCb" secondAttribute="leading" constant="73" id="9J2-1f-bTh"/>
                                             <constraint firstAttribute="height" constant="422" id="FAt-N9-hLJ"/>
+                                            <constraint firstItem="eGx-U9-pQy" firstAttribute="leading" secondItem="rr6-ES-9uE" secondAttribute="trailing" constant="109" id="NP4-Iq-KQu"/>
                                             <constraint firstItem="rr6-ES-9uE" firstAttribute="leading" secondItem="RZD-UX-rUB" secondAttribute="trailing" constant="39" id="kIA-Yh-DgF"/>
                                         </constraints>
                                     </scrollView>
@@ -201,7 +211,7 @@
                         <outlet property="dayScrollView" destination="SZ5-xA-Vbs" id="TPB-yu-iwj"/>
                         <outlet property="fullScheduleButton" destination="cQZ-6f-T4q" id="WrP-bt-Kei"/>
                         <outlet property="homeworkLabel" destination="RZD-UX-rUB" id="Gq8-Xz-wwX"/>
-                        <outlet property="homeworkMenu" destination="SeI-ob-xZ0" id="xl1-hx-h4i"/>
+                        <outlet property="homeworkMenu0" destination="SeI-ob-xZ0" id="Hud-qf-aQ2"/>
                         <outlet property="homeworkTable0" destination="Y1P-EI-FBh" id="kua-fb-FTC"/>
                         <outlet property="longProgressView0" destination="6Sa-1k-tBX" id="c3O-xm-lza"/>
                         <outlet property="longProgressView1" destination="5U0-ES-ka9" id="NQn-ai-ako"/>

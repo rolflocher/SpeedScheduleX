@@ -17,7 +17,8 @@ class TestTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        contentView.layer.cornerRadius = 7.0
+        contentView.clipsToBounds = true
         // Configure the view for the selected state
     }
 

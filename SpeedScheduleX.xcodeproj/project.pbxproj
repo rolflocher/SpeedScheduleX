@@ -39,6 +39,8 @@
 		4CA0D2C3223A0B130072A9E3 /* timeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA0D2C2223A0B130072A9E3 /* timeView.swift */; };
 		4CA0D2C5223AA72F0072A9E3 /* addClassPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA0D2C4223AA72F0072A9E3 /* addClassPickerView.swift */; };
 		4CA0D2C7223AA75B0072A9E3 /* addClassPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CA0D2C6223AA75B0072A9E3 /* addClassPickerView.xib */; };
+		4CD73DB122415B830038438E /* HomeworkMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD73DB022415B830038438E /* HomeworkMenuView.swift */; };
+		4CD73DB322415B9F0038438E /* HomeworkMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD73DB222415B9F0038438E /* HomeworkMenuView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +123,8 @@
 		4CA0D2C2223A0B130072A9E3 /* timeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeView.swift; sourceTree = "<group>"; };
 		4CA0D2C4223AA72F0072A9E3 /* addClassPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addClassPickerView.swift; sourceTree = "<group>"; };
 		4CA0D2C6223AA75B0072A9E3 /* addClassPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = addClassPickerView.xib; sourceTree = "<group>"; };
+		4CD73DB022415B830038438E /* HomeworkMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkMenuView.swift; sourceTree = "<group>"; };
+		4CD73DB222415B9F0038438E /* HomeworkMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeworkMenuView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,13 +180,15 @@
 				4C0EADE7223C6B1200F14D27 /* colorFile.swift */,
 				4C33CA4622374BDB00A52E0A /* ScheduleViewController.swift */,
 				4C33CA4A223836A000A52E0A /* classView.swift */,
-				4C33CA442237253D00A52E0A /* singleDayView.xib */,
-				4C33CA3C22370A5D00A52E0A /* longProgressView.xib */,
 				4C33CA422237252800A52E0A /* singleDayView.swift */,
 				4C33CA382237081500A52E0A /* longProgressView.swift */,
+				4C33CA442237253D00A52E0A /* singleDayView.xib */,
+				4C33CA3C22370A5D00A52E0A /* longProgressView.xib */,
 				4C2BB576224042DA00B84E10 /* TestTableViewCell.swift */,
 				4C2BB574224042C800B84E10 /* HomeworkTableViewCell.swift */,
 				4C33CA002236A73D00A52E0A /* ViewController.swift */,
+				4CD73DB022415B830038438E /* HomeworkMenuView.swift */,
+				4CD73DB222415B9F0038438E /* HomeworkMenuView.xib */,
 				4C33CA022236A73D00A52E0A /* Main.storyboard */,
 				4C33CA052236A73D00A52E0A /* Assets.xcassets */,
 				4C33CA072236A73D00A52E0A /* LaunchScreen.storyboard */,
@@ -335,6 +341,7 @@
 				4C33CA092236A73D00A52E0A /* LaunchScreen.storyboard in Resources */,
 				4C17F3C6223960A000061154 /* addClassView.xib in Resources */,
 				4C33CA3D22370A5D00A52E0A /* longProgressView.xib in Resources */,
+				4CD73DB322415B9F0038438E /* HomeworkMenuView.xib in Resources */,
 				4C33CA062236A73D00A52E0A /* Assets.xcassets in Resources */,
 				4C33CA042236A73D00A52E0A /* Main.storyboard in Resources */,
 			);
@@ -367,6 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C33CA4722374BDB00A52E0A /* ScheduleViewController.swift in Sources */,
+				4CD73DB122415B830038438E /* HomeworkMenuView.swift in Sources */,
 				4C2BB575224042C800B84E10 /* HomeworkTableViewCell.swift in Sources */,
 				4C33CA012236A73D00A52E0A /* ViewController.swift in Sources */,
 				4C33CA432237252800A52E0A /* singleDayView.swift in Sources */,

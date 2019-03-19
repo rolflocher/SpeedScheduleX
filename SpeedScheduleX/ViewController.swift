@@ -10,14 +10,13 @@ import UIKit
 import UserNotifications
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
     
     @IBOutlet var menuScrollView: UIScrollView!
     
     @IBOutlet var dayScrollView: UIScrollView!
     
     @IBOutlet var fullScheduleButton: UIImageView!
-    
     
     var colors:[UIColor] = [.lightGray, .gray]
     
@@ -35,14 +34,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet var addHomeworkButton: UIImageView!
     
-    @IBOutlet var homeworkMenu: UIView!
+    @IBOutlet var homeworkMenu0: HomeworkMenuView!
     
     let colorList = colorList0()
+    
+    let animationSpeed = 0.6
     
     var classListGlobal = [[String:Any]]()
     
     let center = UNUserNotificationCenter.current()
     let options: UNAuthorizationOptions = [.alert, .sound];
+    
+    @objc func backButtonTapped() {
+        UIView.animate(withDuration: animationSpeed, animations: {
+            self.homeworkMenu0.frame = CGRect(x: 0, y: 422, width: 233, height: 422)
+        })
+    }
+    
+    @objc func saveButtonTapped() {
+        UIView.animate(withDuration: animationSpeed, animations: {
+            self.homeworkMenu0.frame = CGRect(x: 0, y: 422, width: 233, height: 422)
+        })
+    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
@@ -62,7 +75,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 7
+        if tableView == homeworkTable0 {
+            return 7
+        }
+        else {
+            return 3
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -73,7 +92,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return cell
         }
         else {
-            return TestTableViewCell()
+            let cell = TestTableViewCell()
+            cell.contentView.backgroundColor = colorList.color[indexPath.section+2]
+            return cell
         }
     }
 
@@ -93,37 +114,38 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         
-        center.requestAuthorization(options: options) {
-            (granted, error) in
-            if !granted {
-                print("Something went wrong")
-            }
-        }
-        let content = UNMutableNotificationContent()
-        content.title = "Don't forget"
-        content.body = "Swift is dope"
-        content.sound = UNNotificationSound.default
-        let date = Date(timeIntervalSinceNow: 100)
-        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
-                                                    repeats: false)
-        let identifier = "UYLLocalNotification"
-        let request = UNNotificationRequest(identifier: identifier,
-                                            content: content, trigger: trigger)
-        center.add(request, withCompletionHandler: { (error) in
-            if let error = error {
-                print(error)
-            }
-        })
+        
+        
+        //homeworkMenu0.homeworkDelegate0 = self
+//        center.requestAuthorization(options: options) {
+//            (granted, error) in
+//            if !granted {
+//                print("Something went wrong")
+//            }
+//        }
+//        let content = UNMutableNotificationContent()
+//        content.title = "Don't forget"
+//        content.body = "Swift is dope"
+//        content.sound = UNNotificationSound.default
+//        let date = Date(timeIntervalSinceNow: 20)
+//        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate,
+//                                                    repeats: false)
+//        let identifier = "UYLLocalNotification"
+//        let request = UNNotificationRequest(identifier: identifier,
+//                                            content: content, trigger: trigger)
+//        center.add(request, withCompletionHandler: { (error) in
+//            if let error = error {
+//                print(error)
+//            }
+//        })
         
         super.viewDidLoad()
         
         //dayScrollView.delegate = self
         dayScrollView.bounces = false
         
-        let homeworkTap = UITapGestureRecognizer(target: self, action: #selector(homeworkTapped))
-        addHomeworkButton.addGestureRecognizer(homeworkTap)
-        addHomeworkButton.isUserInteractionEnabled = true
+        
         
         colors = colorList.color
         
@@ -204,12 +226,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         homeworkTable0.bounces = false
         
+        let homeworkTap = UITapGestureRecognizer(target: self, action: #selector(homeworkTapped))
+        addHomeworkButton.addGestureRecognizer(homeworkTap)
+        addHomeworkButton.isUserInteractionEnabled = true
         
+        let backTap = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
+        homeworkMenu0.backButton.addGestureRecognizer(backTap)
+        homeworkMenu0.backButton.isUserInteractionEnabled = true
+        
+        let saveTap = UITapGestureRecognizer(target: self, action: #selector(saveButtonTapped))
+        homeworkMenu0.saveButton.addGestureRecognizer(saveTap)
+        homeworkMenu0.saveButton.isUserInteractionEnabled = true
+        
+        let classHomeworkLabelTap = UITapGestureRecognizer(target: self, action: #selector(saveButtonTapped))
+        homeworkMenu0.saveButton.addGestureRecognizer(classHomeworkLabelTap)
+        homeworkMenu0.saveButton.isUserInteractionEnabled = true
     }
     
     @objc func homeworkTapped() {
-        UIView.animate(withDuration: 1, animations: {
-            self.homeworkMenu.frame = CGRect(x: 0, y: 0, width: 233, height: 422)
+        UIView.animate(withDuration: animationSpeed, animations: {
+            self.homeworkMenu0.frame = CGRect(x: 0, y: 0, width: 233, height: 422)
         }) { (finish) in
             print(finish)
         }

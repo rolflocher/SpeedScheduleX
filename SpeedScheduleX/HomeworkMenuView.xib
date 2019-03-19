@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Aller_Std_Rg.ttf">
+            <string>Aller-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeworkMenuView" customModule="SpeedScheduleX" customModuleProvider="target">
+            <connections>
+                <outlet property="backButton" destination="5B5-w3-FDU" id="sVo-0F-zub"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="eLJ-HE-fam"/>
+                <outlet property="previewView" destination="aiB-Zn-KyT" id="MGL-U9-6SO"/>
+                <outlet property="saveButton" destination="l3K-Ct-fbr" id="2r5-7i-2Fm"/>
+                <outlet property="selectClassLabel" destination="TRz-w3-qMO" id="Lzf-sa-Qmc"/>
+                <outlet property="selectDateLabel" destination="iar-FC-y5r" id="Imc-VT-IcF"/>
+                <outlet property="selectTypeLabel" destination="LYV-rw-HUL" id="GfH-TX-TLi"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="233" height="422"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Assignment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwH-D6-wJ9">
+                    <rect key="frame" x="50.5" y="6" width="132" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Q66-Sb-H3X"/>
+                        <constraint firstAttribute="width" constant="132" id="b8D-ga-vsh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="18"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRz-w3-qMO">
+                    <rect key="frame" x="22" y="79" width="189" height="35"/>
+                    <color key="backgroundColor" red="0.76470588235294112" green="0.8784313725490196" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="189" id="NrA-8j-dgq"/>
+                        <constraint firstAttribute="height" constant="35" id="XdT-NX-7S3"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="14"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Assignment Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LYV-rw-HUL">
+                    <rect key="frame" x="22" y="137" width="189" height="35"/>
+                    <color key="backgroundColor" red="0.76470588240000004" green="0.87843137250000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="189" id="9rF-cc-TdB"/>
+                        <constraint firstAttribute="height" constant="35" id="DFN-Lu-1dj"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="14"/>
+                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Due Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iar-FC-y5r">
+                    <rect key="frame" x="22" y="195" width="189" height="35"/>
+                    <color key="backgroundColor" red="0.76470588240000004" green="0.87843137250000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="8Vh-fS-Lih"/>
+                        <constraint firstAttribute="width" constant="189" id="D7T-KY-XQE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="14"/>
+                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5B5-w3-FDU">
+                    <rect key="frame" x="0.0" y="387" width="116.5" height="35"/>
+                    <color key="backgroundColor" red="0.76470588240000004" green="0.87843137250000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="Iqw-94-fvg"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="14"/>
+                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l3K-Ct-fbr">
+                    <rect key="frame" x="116.5" y="387" width="116.5" height="35"/>
+                    <color key="backgroundColor" red="0.76470588240000004" green="0.87843137250000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="AhK-6J-Pdp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="14"/>
+                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiB-Zn-KyT">
+                    <rect key="frame" x="11.5" y="269" width="210" height="81"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="210" id="7eK-1m-Ik8"/>
+                        <constraint firstAttribute="height" constant="81" id="lZK-fu-6PG"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Cb-qG-PZU">
+                    <rect key="frame" x="115.5" y="387" width="2" height="35"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="2" id="HA2-HK-zm6"/>
+                        <constraint firstAttribute="height" constant="35" id="aZG-J3-RNK"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="aiB-Zn-KyT" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4Py-CM-gw3"/>
+                <constraint firstItem="l3K-Ct-fbr" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="5wQ-2P-R3s"/>
+                <constraint firstItem="l3K-Ct-fbr" firstAttribute="width" secondItem="5B5-w3-FDU" secondAttribute="width" id="7Uq-zk-xeL"/>
+                <constraint firstItem="qwH-D6-wJ9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Brw-5a-nMr"/>
+                <constraint firstItem="TRz-w3-qMO" firstAttribute="top" secondItem="qwH-D6-wJ9" secondAttribute="bottom" constant="52" id="DGU-3k-bw5"/>
+                <constraint firstItem="TRz-w3-qMO" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="F0g-L1-yGc"/>
+                <constraint firstAttribute="bottom" secondItem="1Cb-qG-PZU" secondAttribute="bottom" id="KCP-3S-mLt"/>
+                <constraint firstItem="LYV-rw-HUL" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="RPb-pE-7Jw"/>
+                <constraint firstItem="5B5-w3-FDU" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="Rvx-JS-i8k"/>
+                <constraint firstItem="l3K-Ct-fbr" firstAttribute="leading" secondItem="5B5-w3-FDU" secondAttribute="trailing" id="U1q-44-AcH"/>
+                <constraint firstItem="LYV-rw-HUL" firstAttribute="top" secondItem="TRz-w3-qMO" secondAttribute="bottom" constant="23" id="Xip-Ft-Rbx"/>
+                <constraint firstItem="aiB-Zn-KyT" firstAttribute="top" secondItem="iar-FC-y5r" secondAttribute="bottom" constant="39" id="aLy-Vz-eeS"/>
+                <constraint firstItem="1Cb-qG-PZU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="av1-XL-hY4"/>
+                <constraint firstItem="iar-FC-y5r" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dQb-CI-DlN"/>
+                <constraint firstItem="qwH-D6-wJ9" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="6" id="iVo-FL-pap"/>
+                <constraint firstItem="iar-FC-y5r" firstAttribute="top" secondItem="LYV-rw-HUL" secondAttribute="bottom" constant="23" id="qon-PI-CWJ"/>
+                <constraint firstItem="5B5-w3-FDU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="wym-ed-75o"/>
+                <constraint firstItem="l3K-Ct-fbr" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="xfX-Ze-TBk"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="53.600000000000001" y="48.575712143928037"/>
+        </view>
+    </objects>
+</document>

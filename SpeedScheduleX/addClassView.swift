@@ -525,7 +525,7 @@ class addClassView: UIView{
                 }
             }
             editStart = addClassPickerView0.timePicker0.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker0.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)])!
-            editEnd = addClassPickerView0.timePicker1.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker1.minuteData[addClassPickerView0.timePicker0.selectedRow(inComponent: 1)])!
+            editEnd = addClassPickerView0.timePicker1.selectedRow(inComponent: 0)*60 + Int(addClassPickerView0.timePicker1.minuteData[addClassPickerView0.timePicker1.selectedRow(inComponent: 1)])!
         }
         else {
             timeLabel.text = "Enter Class Time"
