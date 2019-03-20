@@ -10,12 +10,15 @@ import UIKit
 
 class HomeworkTableViewCell: UITableViewCell {
 
+    @IBOutlet var nameLabel: UILabel!
     
+    @IBOutlet var typeLabel: UILabel!
+    
+    @IBOutlet var dateLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

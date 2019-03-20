@@ -28,6 +28,28 @@ class HomeworkMenuView: UIView {
     
     @IBOutlet var previewView: UIView!
     
+    @IBOutlet var titleLabel: UILabel!
+
+    @IBOutlet var classView: UIView!
+    
+    @IBOutlet var typeView: UIView!
+    
+    @IBOutlet var dateView: UIView!
+    
+    @IBOutlet var nameHeight: NSLayoutConstraint!
+    
+    @IBOutlet var typeTop: NSLayoutConstraint!
+    
+    @IBOutlet var typeHeight: NSLayoutConstraint!
+    
+    @IBOutlet var dateHeight: NSLayoutConstraint!
+    
+    @IBOutlet var homeworkPickerView: UIView!
+    
+    @IBOutlet var cancelPickerButton: UILabel!
+    
+    @IBOutlet var donePickerButton: UILabel!
+    
     //weak var homeworkDelegate0 : homeworkDelegate?
     
     override init(frame: CGRect) {
@@ -70,9 +92,19 @@ class HomeworkMenuView: UIView {
         previewView.layer.cornerRadius = 7.0
         previewView.clipsToBounds = true
         
+        classView.layer.cornerRadius = 10.0
+        classView.clipsToBounds = true
         
-//
+        typeView.layer.cornerRadius = 10.0
+        typeView.clipsToBounds = true
         
+        dateView.layer.cornerRadius = 10.0
+        dateView.clipsToBounds = true
+        
+        homeworkPickerView.layer.cornerRadius = 10.0
+        homeworkPickerView.clipsToBounds = true
+        homeworkPickerView.isHidden = true
+        homeworkPickerView.alpha = 0
     }
 
     override func awakeFromNib() {
