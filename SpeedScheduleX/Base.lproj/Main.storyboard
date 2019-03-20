@@ -92,7 +92,7 @@
                                                 </constraints>
                                             </imageView>
                                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="addHButton" translatesAutoresizingMaskIntoConstraints="NO" id="b5t-3X-WhN">
-                                                <rect key="frame" x="423" y="4" width="24" height="25"/>
+                                                <rect key="frame" x="438" y="4" width="24" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="4x0-oZ-XOq"/>
                                                     <constraint firstAttribute="width" constant="24" id="RCu-Vs-JSN"/>
@@ -113,6 +113,7 @@
                                             <constraint firstItem="RZD-UX-rUB" firstAttribute="leading" secondItem="PuR-Up-YCb" secondAttribute="leading" constant="73" id="9J2-1f-bTh"/>
                                             <constraint firstAttribute="height" constant="422" id="FAt-N9-hLJ"/>
                                             <constraint firstItem="eGx-U9-pQy" firstAttribute="leading" secondItem="rr6-ES-9uE" secondAttribute="trailing" constant="109" id="NP4-Iq-KQu"/>
+                                            <constraint firstItem="b5t-3X-WhN" firstAttribute="leading" secondItem="eGx-U9-pQy" secondAttribute="trailing" constant="17" id="OAF-Tr-avu"/>
                                             <constraint firstItem="rr6-ES-9uE" firstAttribute="leading" secondItem="RZD-UX-rUB" secondAttribute="trailing" constant="39" id="kIA-Yh-DgF"/>
                                         </constraints>
                                     </scrollView>
