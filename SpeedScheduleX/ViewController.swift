@@ -36,6 +36,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet var homeworkMenu0: HomeworkMenuView!
     
+    @IBOutlet var testMenu0: HomeworkMenuView!
+    
+    
     let colorList = colorList0()
     
     let animationSpeed = 0.6
@@ -55,6 +58,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         UIView.animate(withDuration: animationSpeed, animations: {
             self.homeworkMenu0.frame = CGRect(x: 0, y: 422, width: 233, height: 422)
         })
+    }
+    
+    @objc func homeworkClassLabelTapped() {
+        
+    }
+    
+    @objc func homeworkTypeLabelTapped() {
+        
+    }
+    
+    @objc func homeworkDateLabelTapped() {
+        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -242,13 +257,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         homeworkMenu0.selectClassLabel.addGestureRecognizer(classHomeworkLabelTap)
         homeworkMenu0.selectClassLabel.isUserInteractionEnabled = true
         
-        let typeHomeworkLabelTap = UITapGestureRecognizer(target: self, action: #selector(homeworkClassLabelTapped))
-        homeworkMenu0.selectClassLabel.addGestureRecognizer(classHomeworkLabelTap)
-        homeworkMenu0.selectClassLabel.isUserInteractionEnabled = true
+        let typeHomeworkLabelTap = UITapGestureRecognizer(target: self, action: #selector(homeworkTypeLabelTapped))
+        homeworkMenu0.selectTypeLabel.addGestureRecognizer(typeHomeworkLabelTap)
+        homeworkMenu0.selectTypeLabel.isUserInteractionEnabled = true
         
-        let dateHomeworkLabelTap = UITapGestureRecognizer(target: self, action: #selector(homeworkClassLabelTapped))
-        homeworkMenu0.selectClassLabel.addGestureRecognizer(classHomeworkLabelTap)
-        homeworkMenu0.selectClassLabel.isUserInteractionEnabled = true
+        let dateHomeworkLabelTap = UITapGestureRecognizer(target: self, action: #selector(homeworkDateLabelTapped))
+        homeworkMenu0.selectDateLabel.addGestureRecognizer(dateHomeworkLabelTap)
+        homeworkMenu0.selectDateLabel.isUserInteractionEnabled = true
     }
     
     @objc func homeworkTapped() {
