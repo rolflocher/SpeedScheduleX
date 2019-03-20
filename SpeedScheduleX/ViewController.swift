@@ -38,6 +38,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet var testMenu0: HomeworkMenuView!
     
+    @IBOutlet var addTestButton: UIImageView!
+    
     
     let colorList = colorList0()
     
@@ -245,6 +247,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         addHomeworkButton.addGestureRecognizer(homeworkTap)
         addHomeworkButton.isUserInteractionEnabled = true
         
+        let testTap = UITapGestureRecognizer(target: self, action: #selector(testTapped))
+        addTestButton.addGestureRecognizer(testTap)
+        addTestButton.isUserInteractionEnabled = true
+        
         let backTap = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
         homeworkMenu0.backButton.addGestureRecognizer(backTap)
         homeworkMenu0.backButton.isUserInteractionEnabled = true
@@ -269,6 +275,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @objc func homeworkTapped() {
         UIView.animate(withDuration: animationSpeed, animations: {
             self.homeworkMenu0.frame = CGRect(x: 0, y: 0, width: 233, height: 422)
+        }) { (finish) in
+            print(finish)
+        }
+    }
+    
+    @objc func testTapped() {
+        UIView.animate(withDuration: animationSpeed, animations: {
+            self.testMenu0.frame = CGRect(x: 233, y: 0, width: 233, height: 422)
         }) { (finish) in
             print(finish)
         }

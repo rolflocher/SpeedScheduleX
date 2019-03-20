@@ -85,14 +85,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="addHButton" translatesAutoresizingMaskIntoConstraints="NO" id="rr6-ES-9uE">
-                                                <rect key="frame" x="200" y="4" width="24" height="25"/>
+                                                <rect key="frame" x="200" y="0.0" width="24" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="T5P-6c-l24"/>
                                                     <constraint firstAttribute="width" constant="24" id="jHW-4a-jyC"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="addHButton" translatesAutoresizingMaskIntoConstraints="NO" id="b5t-3X-WhN">
-                                                <rect key="frame" x="438" y="4" width="24" height="25"/>
+                                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addHButton" translatesAutoresizingMaskIntoConstraints="NO" id="b5t-3X-WhN">
+                                                <rect key="frame" x="438" y="0.0" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="4x0-oZ-XOq"/>
                                                     <constraint firstAttribute="width" constant="24" id="RCu-Vs-JSN"/>
@@ -103,13 +103,14 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0r2-aZ-jaZ" customClass="HomeworkMenuView" customModule="SpeedScheduleX" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0r2-aZ-jaZ">
                                                 <rect key="frame" x="233" y="422" width="233" height="422"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="b5t-3X-WhN" firstAttribute="top" secondItem="PuR-Up-YCb" secondAttribute="top" id="1gr-fh-nG3"/>
                                             <constraint firstItem="RZD-UX-rUB" firstAttribute="leading" secondItem="PuR-Up-YCb" secondAttribute="leading" constant="73" id="9J2-1f-bTh"/>
                                             <constraint firstAttribute="height" constant="422" id="FAt-N9-hLJ"/>
                                             <constraint firstItem="eGx-U9-pQy" firstAttribute="leading" secondItem="rr6-ES-9uE" secondAttribute="trailing" constant="109" id="NP4-Iq-KQu"/>
@@ -221,6 +222,7 @@
                     </view>
                     <connections>
                         <outlet property="addHomeworkButton" destination="rr6-ES-9uE" id="z1T-Di-qqH"/>
+                        <outlet property="addTestButton" destination="b5t-3X-WhN" id="hmd-4F-jjO"/>
                         <outlet property="dayScrollView" destination="SZ5-xA-Vbs" id="TPB-yu-iwj"/>
                         <outlet property="fullScheduleButton" destination="cQZ-6f-T4q" id="WrP-bt-Kei"/>
                         <outlet property="homeworkLabel" destination="RZD-UX-rUB" id="Gq8-Xz-wwX"/>
