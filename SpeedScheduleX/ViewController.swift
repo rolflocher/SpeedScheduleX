@@ -238,9 +238,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         homeworkMenu0.saveButton.addGestureRecognizer(saveTap)
         homeworkMenu0.saveButton.isUserInteractionEnabled = true
         
-        let classHomeworkLabelTap = UITapGestureRecognizer(target: self, action: #selector(saveButtonTapped))
-        homeworkMenu0.saveButton.addGestureRecognizer(classHomeworkLabelTap)
-        homeworkMenu0.saveButton.isUserInteractionEnabled = true
+        let classHomeworkLabelTap = UITapGestureRecognizer(target: self, action: #selector(homeworkClassLabelTapped))
+        homeworkMenu0.selectClassLabel.addGestureRecognizer(classHomeworkLabelTap)
+        homeworkMenu0.selectClassLabel.isUserInteractionEnabled = true
+        
+        let typeHomeworkLabelTap = UITapGestureRecognizer(target: self, action: #selector(homeworkClassLabelTapped))
+        homeworkMenu0.selectClassLabel.addGestureRecognizer(classHomeworkLabelTap)
+        homeworkMenu0.selectClassLabel.isUserInteractionEnabled = true
+        
+        let dateHomeworkLabelTap = UITapGestureRecognizer(target: self, action: #selector(homeworkClassLabelTapped))
+        homeworkMenu0.selectClassLabel.addGestureRecognizer(classHomeworkLabelTap)
+        homeworkMenu0.selectClassLabel.isUserInteractionEnabled = true
     }
     
     @objc func homeworkTapped() {
