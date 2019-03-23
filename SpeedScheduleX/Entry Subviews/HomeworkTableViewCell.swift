@@ -16,6 +16,8 @@ class HomeworkTableViewCell: UITableViewCell {
     
     @IBOutlet var dateLabel: UILabel!
     
+    var index = 0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

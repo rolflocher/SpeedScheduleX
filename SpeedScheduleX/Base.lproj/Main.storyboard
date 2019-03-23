@@ -29,7 +29,7 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" pagingEnabled="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuR-Up-YCb">
                                         <rect key="frame" x="135" y="7" width="233" height="422"/>
                                         <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="59" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="59" estimatedSectionFooterHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="Y1P-EI-FBh">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="59" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="59" estimatedSectionFooterHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="Y1P-EI-FBh">
                                                 <rect key="frame" x="5" y="32" width="224" height="390"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -320,6 +320,7 @@
                         <outlet property="longProgressView1" destination="5U0-ES-ka9" id="NQn-ai-ako"/>
                         <outlet property="longProgressView2" destination="OJm-Jl-m87" id="CMz-eg-DqU"/>
                         <outlet property="menuScrollView" destination="PuR-Up-YCb" id="8S9-Ht-4xx"/>
+                        <outlet property="settingsButton" destination="a0I-QM-qWa" id="RC3-PE-47d"/>
                         <outlet property="testMenu0" destination="0r2-aZ-jaZ" id="8kg-y8-1fQ"/>
                         <outlet property="testTable0" destination="7GP-Eq-nCM" id="xIQ-i1-Lo2"/>
                     </connections>

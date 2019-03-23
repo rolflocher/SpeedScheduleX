@@ -39,6 +39,9 @@
 		4CA0D2C3223A0B130072A9E3 /* timeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA0D2C2223A0B130072A9E3 /* timeView.swift */; };
 		4CA0D2C5223AA72F0072A9E3 /* addClassPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA0D2C4223AA72F0072A9E3 /* addClassPickerView.swift */; };
 		4CA0D2C7223AA75B0072A9E3 /* addClassPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CA0D2C6223AA75B0072A9E3 /* addClassPickerView.xib */; };
+		4CD7399922429BC80016B8ED /* classPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7399822429BC80016B8ED /* classPicker.swift */; };
+		4CD7399B22429BE20016B8ED /* typePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7399A22429BE20016B8ED /* typePicker.swift */; };
+		4CD7399D2242CC710016B8ED /* datePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7399C2242CC710016B8ED /* datePicker.swift */; };
 		4CD73DB122415B830038438E /* HomeworkMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD73DB022415B830038438E /* HomeworkMenuView.swift */; };
 		4CD73DB322415B9F0038438E /* HomeworkMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD73DB222415B9F0038438E /* HomeworkMenuView.xib */; };
 /* End PBXBuildFile section */
@@ -123,6 +126,9 @@
 		4CA0D2C2223A0B130072A9E3 /* timeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeView.swift; sourceTree = "<group>"; };
 		4CA0D2C4223AA72F0072A9E3 /* addClassPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addClassPickerView.swift; sourceTree = "<group>"; };
 		4CA0D2C6223AA75B0072A9E3 /* addClassPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = addClassPickerView.xib; sourceTree = "<group>"; };
+		4CD7399822429BC80016B8ED /* classPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classPicker.swift; sourceTree = "<group>"; };
+		4CD7399A22429BE20016B8ED /* typePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = typePicker.swift; sourceTree = "<group>"; };
+		4CD7399C2242CC710016B8ED /* datePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = datePicker.swift; sourceTree = "<group>"; };
 		4CD73DB022415B830038438E /* HomeworkMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkMenuView.swift; sourceTree = "<group>"; };
 		4CD73DB222415B9F0038438E /* HomeworkMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeworkMenuView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,24 +177,12 @@
 			isa = PBXGroup;
 			children = (
 				4C0EADE6223B4B0600F14D27 /* SpeedScheduleX.entitlements */,
-				4C0EADE3223AB19100F14D27 /* buildingView.swift */,
-				4CA0D2C2223A0B130072A9E3 /* timeView.swift */,
-				4CA0D2C6223AA75B0072A9E3 /* addClassPickerView.xib */,
-				4CA0D2C4223AA72F0072A9E3 /* addClassPickerView.swift */,
-				4C17F3C5223960A000061154 /* addClassView.xib */,
-				4C17F3C32239604D00061154 /* addClassView.swift */,
 				4C0EADE7223C6B1200F14D27 /* colorFile.swift */,
+				4CD739952242997B0016B8ED /* Picker Classes */,
+				4CD7399622429A3B0016B8ED /* Schedule Subviews */,
 				4C33CA4622374BDB00A52E0A /* ScheduleViewController.swift */,
-				4C33CA4A223836A000A52E0A /* classView.swift */,
-				4C33CA422237252800A52E0A /* singleDayView.swift */,
-				4C33CA382237081500A52E0A /* longProgressView.swift */,
-				4C33CA442237253D00A52E0A /* singleDayView.xib */,
-				4C33CA3C22370A5D00A52E0A /* longProgressView.xib */,
-				4C2BB576224042DA00B84E10 /* TestTableViewCell.swift */,
-				4C2BB574224042C800B84E10 /* HomeworkTableViewCell.swift */,
+				4CD7399722429A730016B8ED /* Entry Subviews */,
 				4C33CA002236A73D00A52E0A /* ViewController.swift */,
-				4CD73DB022415B830038438E /* HomeworkMenuView.swift */,
-				4CD73DB222415B9F0038438E /* HomeworkMenuView.xib */,
 				4C33CA022236A73D00A52E0A /* Main.storyboard */,
 				4C33CA052236A73D00A52E0A /* Assets.xcassets */,
 				4C33CA072236A73D00A52E0A /* LaunchScreen.storyboard */,
@@ -220,6 +214,45 @@
 				4C33CA2A2236A73E00A52E0A /* PushNotificationPayload.apns */,
 			);
 			path = "SpeedScheduleX WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		4CD739952242997B0016B8ED /* Picker Classes */ = {
+			isa = PBXGroup;
+			children = (
+				4C0EADE3223AB19100F14D27 /* buildingView.swift */,
+				4CA0D2C2223A0B130072A9E3 /* timeView.swift */,
+				4CD7399822429BC80016B8ED /* classPicker.swift */,
+				4CD7399A22429BE20016B8ED /* typePicker.swift */,
+				4CD7399C2242CC710016B8ED /* datePicker.swift */,
+			);
+			path = "Picker Classes";
+			sourceTree = "<group>";
+		};
+		4CD7399622429A3B0016B8ED /* Schedule Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				4CA0D2C6223AA75B0072A9E3 /* addClassPickerView.xib */,
+				4CA0D2C4223AA72F0072A9E3 /* addClassPickerView.swift */,
+				4C17F3C5223960A000061154 /* addClassView.xib */,
+				4C17F3C32239604D00061154 /* addClassView.swift */,
+				4C33CA4A223836A000A52E0A /* classView.swift */,
+			);
+			path = "Schedule Subviews";
+			sourceTree = "<group>";
+		};
+		4CD7399722429A730016B8ED /* Entry Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				4C33CA422237252800A52E0A /* singleDayView.swift */,
+				4C33CA442237253D00A52E0A /* singleDayView.xib */,
+				4C33CA382237081500A52E0A /* longProgressView.swift */,
+				4C33CA3C22370A5D00A52E0A /* longProgressView.xib */,
+				4CD73DB022415B830038438E /* HomeworkMenuView.swift */,
+				4CD73DB222415B9F0038438E /* HomeworkMenuView.xib */,
+				4C2BB576224042DA00B84E10 /* TestTableViewCell.swift */,
+				4C2BB574224042C800B84E10 /* HomeworkTableViewCell.swift */,
+			);
+			path = "Entry Subviews";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -378,11 +411,14 @@
 				4C2BB575224042C800B84E10 /* HomeworkTableViewCell.swift in Sources */,
 				4C33CA012236A73D00A52E0A /* ViewController.swift in Sources */,
 				4C33CA432237252800A52E0A /* singleDayView.swift in Sources */,
+				4CD7399D2242CC710016B8ED /* datePicker.swift in Sources */,
 				4CA0D2C3223A0B130072A9E3 /* timeView.swift in Sources */,
 				4CA0D2C5223AA72F0072A9E3 /* addClassPickerView.swift in Sources */,
 				4C33CA4B223836A000A52E0A /* classView.swift in Sources */,
 				4C2BB577224042DA00B84E10 /* TestTableViewCell.swift in Sources */,
 				4C17F3C42239604D00061154 /* addClassView.swift in Sources */,
+				4CD7399922429BC80016B8ED /* classPicker.swift in Sources */,
+				4CD7399B22429BE20016B8ED /* typePicker.swift in Sources */,
 				4C0EADE8223C6B1200F14D27 /* colorFile.swift in Sources */,
 				4C0EADE4223AB19100F14D27 /* buildingView.swift in Sources */,
 				4C33C9FF2236A73D00A52E0A /* AppDelegate.swift in Sources */,

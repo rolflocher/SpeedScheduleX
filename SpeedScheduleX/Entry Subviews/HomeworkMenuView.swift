@@ -50,7 +50,41 @@ class HomeworkMenuView: UIView {
     
     @IBOutlet var donePickerButton: UILabel!
     
+    @IBOutlet var classPicker0: classPicker!
+    
+    @IBOutlet var typePicker0: typePicker!
+    
+    @IBOutlet var datePicker0: datePicker!
+    
+    @IBOutlet var dateSeperator: UILabel!
+    
+    @IBOutlet var homeworkPreviewName: UILabel!
+    
+    @IBOutlet var homeworkPreviewType: UILabel!
+    
+    @IBOutlet var homeworkPreviewDate: UILabel!
+    
+    @IBOutlet var notificationSwitch: UISwitch!
+    
+    @IBOutlet var notificationLabel: UILabel!
+    
+    var isEditing = false
+    
     //weak var homeworkDelegate0 : homeworkDelegate?
+    
+    @IBAction func notificationSwitchToggled(_ sender: Any) {
+        if notificationSwitch.isOn {
+            UIView.animate(withDuration: 0.6, animations: {
+                self.notificationLabel.alpha = 1
+            })
+        }
+        else {
+            UIView.animate(withDuration: 0.6, animations: {
+                self.notificationLabel.alpha = 0.5
+            })
+        }
+    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,7 +107,10 @@ class HomeworkMenuView: UIView {
         
         selectDateLabel.layer.cornerRadius = 10.0
         selectDateLabel.clipsToBounds = true
-        //contentView.backgroundColor = UIColor.cyan
+        
+        classPicker0.isHidden = true
+        typePicker0.isHidden = true
+        datePicker0.isHidden = true
         
         let path = UIBezierPath(roundedRect: self.backButton.bounds, byRoundingCorners:[.topLeft], cornerRadii: CGSize(width: 5, height: 5))
         let maskLayer = CAShapeLayer()
