@@ -11,8 +11,8 @@ import NotificationCenter
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     
-    var usableHeight : CGFloat = 446.0
-    var usableWidth : CGFloat = 56.0
+    var usableHeight : CGFloat = 459.0
+    var usableWidth : CGFloat = 57.0
     
     var classListGlobal = [[String:Any]]()
     
@@ -20,7 +20,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet var daysView: UIView!
     
-    let textColor = #colorLiteral(red: 0.8641486764, green: 0.8467296958, blue: 0.8957042098, alpha: 1)
+    let textColor = #colorLiteral(red: 0.8958979249, green: 0.8874892592, blue: 0.9416337609, alpha: 0.6466181506)
     
     let colorList = colorList0().widgetColor
     
@@ -30,21 +30,31 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         preferredContentSize = CGSize(width: 359, height: 490)
         
     }
+    
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        if activeDisplayMode == .expanded {
+            preferredContentSize = CGSize(width: 359, height: 490)
+        }
+        else {
+            preferredContentSize = CGSize(width: 359, height: 110)
+        }
+    }
         
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        // Perform any setup necessary in order to update the view.
         
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
         
         completionHandler(NCUpdateResult.newData)
     }
     
+    var isFirstLoad = true
+    
     override func viewDidAppear(_ animated: Bool) {
-        print(self.view.frame.size.width)
-        setupLabels()
-        populateFakeClasses()
+        if isFirstLoad {
+            setupLabels()
+            populateFakeClasses()
+            isFirstLoad = false
+        }
+        
         
     }
     
@@ -71,19 +81,20 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
         
         for classInfo in classList {
-            
-            let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int)-30)/660//780
-            let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int)-30)/660//780
+            print(self.daysView.frame.height)
+            let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int)-30)/720//780
+            let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int)-30)/720//780
             
             let classView0 = ClassView(frame: CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight)))
             classView0.drawClass(name: classInfo["name"] as! String, room: classInfo["room"] as! String, start: classInfo["start"] as! Int, end: classInfo["end"] as! Int, color: classInfo["color"] as! UIColor)
-            classView0.nameLabel.font = UIFont(name:"Aller",size:9)
-            classView0.timeLabel.font = UIFont(name:"Aller",size:9)
-            classView0.roomLabel.font = UIFont(name:"Aller",size:9)
+            classView0.nameLabel.font = UIFont(name:"Futura",size:9)
+            classView0.timeLabel.font = UIFont(name:"Futura",size:9)
+            classView0.roomLabel.font = UIFont(name:"Futura",size:9)
             let classTextColor = #colorLiteral(red: 0.3044066131, green: 0.303969413, blue: 0.3113859296, alpha: 1)
             classView0.nameLabel.textColor = classTextColor
             classView0.timeLabel.textColor = classTextColor
             classView0.roomLabel.textColor = classTextColor
+            
             if classView0.frame.height < 60 {
                 if classView0.nameLabel.text!.count > 10 {
                     var nameS = ""
@@ -182,19 +193,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             
             switch ( classInfo["day"] as! Int ) {
             case 2:
-                classView0.frame = CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight))
+                classView0.frame = CGRect(x: 0+1, y: startHeight, width: usableWidth, height: (endHeight-startHeight))
                 //mondayLongView.addSubview(classView0)
             case 3:
-                classView0.frame = CGRect(x: 61, y: startHeight, width: usableWidth, height: (endHeight-startHeight))
+                classView0.frame = CGRect(x: 61+1, y: startHeight, width: usableWidth, height: (endHeight-startHeight))
                 //tuesdayLongView.addSubview(classView0)
             case 4:
-                classView0.frame = CGRect(x: 122, y: startHeight, width: usableWidth, height: (endHeight-startHeight))
+                classView0.frame = CGRect(x: 122+1, y: startHeight, width: usableWidth, height: (endHeight-startHeight))
                 //wednesdayLongView.addSubview(classView0)
             case 5:
-                classView0.frame = CGRect(x: 183, y: startHeight, width: usableWidth, height: (endHeight-startHeight))
+                classView0.frame = CGRect(x: 183+1, y: startHeight, width: usableWidth, height: (endHeight-startHeight))
                 //thursdayLongView.addSubview(classView0)
             default:
-                classView0.frame = CGRect(x: 244, y: startHeight, width: usableWidth, height: (endHeight-startHeight))
+                classView0.frame = CGRect(x: 244+1, y: startHeight, width: usableWidth, height: (endHeight-startHeight))
                 //fridayLongView.addSubview(classView0)
             }
             daysView.addSubview(classView0)
@@ -212,8 +223,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         for x in 0...5 {
             let path = UIBezierPath()
-            path.move(to: CGPoint(x: x*61-2, y: 0))
-            path.addLine(to: CGPoint(x: x*61-2, y: Int(usableHeight+30)))
+            path.move(to: CGPoint(x: CGFloat(x*61)-1, y: 0))
+            path.addLine(to: CGPoint(x: CGFloat(x*61)-1, y: usableHeight+30))
             
             let lineLayer = CAShapeLayer()
             lineLayer.path = path.cgPath
@@ -235,7 +246,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             if x % 2 == 1  { //0
                 let path = UIBezierPath()
                 path.move(to: CGPoint(x: 0, y: height))
-                path.addLine(to: CGPoint(x: 305, y: height))
+                path.addLine(to: CGPoint(x: 303, y: height))
 
                 let lineLayer = CAShapeLayer()
                 lineLayer.path = path.cgPath
@@ -278,12 +289,23 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             textLayer.frame = CGRect(x: 0, y: 0, width: timeLabelView.frame.width, height: 20) //usableheight
             //timeLabelView.frame // may need to hardcode
             
-            
-            
-            let myAttributes = [
-                NSAttributedString.Key.font: UIFont(name: "Aller-Bold", size: 14.0)! ,
-                NSAttributedString.Key.foregroundColor: UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+            var myAttributes = [
+                NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 14.0)! ,
+                NSAttributedString.Key.foregroundColor: UIColor(red: 239/255, green: 238/255, blue: 243/255, alpha: 1)
             ]
+            if x < 30 {
+                myAttributes = [
+                    NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 14.0)! ,
+                    NSAttributedString.Key.foregroundColor: UIColor(red: 239/255, green: 238/255, blue: 243/255, alpha: 1)
+                ] //239    238    243
+            }
+//            else {
+//                myAttributes = [
+//                    NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 14.0)! ,
+//                    NSAttributedString.Key.foregroundColor: UIColor(red: 239/255, green: 238/255, blue: 243/255, alpha: 1)
+//                ] //239    238    243
+//            }
+            
             
             
             //let myAttributedString = NSAttributedString(string: "My text", attributes: myAttributes )
@@ -317,7 +339,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             case 7:
                 print("")
             case 8:
-                textLayer.string = NSAttributedString(string: "12 AM", attributes: myAttributes )
+                textLayer.string = NSAttributedString(string: "Noon", attributes: myAttributes )
                 //textLayer.string = "Noon"
             case 9:
                 print("")
@@ -369,7 +391,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             }
             textLayer.alignmentMode = .right
             //if (deviceSize == 667.0) {
-            textLayer.position = CGPoint(x:19,y:height)
+            textLayer.position = CGPoint(x:19,y:height+2)
             //}
             //            else if (deviceSize == 736.0) {
             //                textLayer.position = CGPoint(x:17,y:height+168)
@@ -495,8 +517,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         classList.append(classInfo)
         
         classInfo["name"] = "CPE II Lab"
-        classInfo["start"] = 540//570
-        classInfo["end"] = 675//735
+        classInfo["start"] = 570
+        classInfo["end"] = 735
         classInfo["day"] = 4
         classInfo["room"] = "CEER 206"
         classInfo["id"] = 9356

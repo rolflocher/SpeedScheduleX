@@ -91,13 +91,16 @@ class ClassView: UIView {
             nameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             //nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             nameLabel.widthAnchor.constraint(equalToConstant: self.frame.size.width-1),
-            nameLabel.heightAnchor.constraint(equalToConstant: self.frame.size.height*1.4/3),
-            nameLabel.topAnchor.constraint(equalTo: self.topAnchor),
+//            nameLabel.heightAnchor.constraint(equalToConstant: self.frame.size.height*1.4/3),
+            nameLabel.heightAnchor.constraint(equalToConstant: 24),
+//            nameLabel.topAnchor.constraint(equalTo: self.topAnchor),
+            nameLabel.bottomAnchor.constraint(equalTo: timeLabel.topAnchor, constant: frame.size.height/25),
             
             timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             timeLabel.widthAnchor.constraint(equalToConstant: self.frame.size.width-1),
             //timeLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
+            timeLabel.heightAnchor.constraint(equalToConstant: 10),
             
             roomLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             //nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
