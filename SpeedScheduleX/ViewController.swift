@@ -45,6 +45,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     var classPickerClass : classPicker!
+    var classPickerClass1 : classPicker!
     var typePickerClass0 : typePicker!
     var typePickerClass1 : typePicker!
     var datePickerClass0 : datePicker!
@@ -148,7 +149,84 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    @objc func testPickerDoneTapped () {
+        if testMenu0.nameHeight.constant > 100 {
+            UIView.animate(withDuration: 0.6, animations: {
+                self.testMenu0.nameHeight.constant = 35
+                self.view.layoutIfNeeded()
+            })
+            testMenu0.homeworkPreviewName.text = sentNameList[testMenu0.classPicker0.selectedRow(inComponent: 0)]
+            if sentNameList[testMenu0.classPicker0.selectedRow(inComponent: 0)] == "Other" {
+                UIView.animate(withDuration: 0.7) {
+                    self.testMenu0.previewView.backgroundColor = UIColor.cyan //imp
+                }
+            }
+            else {
+                UIView.animate(withDuration: 0.7) {
+                    self.testMenu0.previewView.backgroundColor = self.classListGlobal.first(where: { ($0["name"] as! String) == self.sentNameList[self.testMenu0.classPicker0.selectedRow(inComponent: 0)] })!["color"] as? UIColor
+                }
+            }
+            hideTestPicker()
+        }
+        else if testMenu0.typeHeight.constant > 100 {
+            UIView.animate(withDuration: 0.6, animations: {
+                self.testMenu0.typeTop.constant = 136
+                self.testMenu0.typeHeight.constant = 35
+                self.view.layoutIfNeeded()
+            })
+            testMenu0.homeworkPreviewType.text = testMenu0.typePicker0.testTypeList[testMenu0.typePicker0.selectedRow(inComponent: 0)]
+            hideTestPicker()
+        }
+        else if testMenu0.dateHeight.constant > 100 {
+            UIView.animate(withDuration: 0.6, animations: {
+                self.testMenu0.dateHeight.constant = 35
+                self.view.layoutIfNeeded()
+            })
+            dateNotSet = false
+            testMenu0.homeworkPreviewDate.text = String(monthList[testMenu0.datePicker0.selectedRow(inComponent: 0)]) + " / " + String(dayList[testMenu0.datePicker0.selectedRow(inComponent: 1)])
+            hideTestPicker()
+        }
+        else {
+            print("test picker done tapped before ready")
+        }
+    }
+    
+    @objc func testPickerCancelTapped () {
+        if testMenu0.nameHeight.constant > 100 {
+            UIView.animate(withDuration: 0.6, animations: {
+                self.testMenu0.nameHeight.constant = 35
+                self.view.layoutIfNeeded()
+            })
+            hideTestPicker()
+        }
+        else if testMenu0.typeHeight.constant > 100 {
+            UIView.animate(withDuration: 0.6, animations: {
+                self.testMenu0.typeTop.constant = 136
+                self.testMenu0.typeHeight.constant = 35
+                self.view.layoutIfNeeded()
+            })
+            hideTestPicker()
+        }
+        else if testMenu0.dateHeight.constant > 100 {
+            if isEditingIndex != -1 {
+                testMenu0.datePicker0.selectRow(cancelBuffer[0], inComponent: 0, animated: true)
+                testMenu0.datePicker0.selectRow(cancelBuffer[1], inComponent: 1, animated: true)
+            }
+            UIView.animate(withDuration: 0.6, animations: {
+                self.testMenu0.dateHeight.constant = 35
+                self.view.layoutIfNeeded()
+            })
+            hideTestPicker()
+        }
+        else {
+            print("test picker cancel tapped before ready")
+        }
+    }
+    
     @objc func backButtonTapped() {
+        isEditingIndex = -1
+        isEditingNoti = false
+        dateNotSet = true // imp
         menuScrollView.isScrollEnabled = true
         UIView.animate(withDuration: animationSpeed, animations: {
             self.homeworkMenu0.frame = CGRect(x: 0, y: 422, width: 233, height: 422)
@@ -373,16 +451,228 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @objc func backTestButtonTapped() {
+        isEditingIndex = -1
+        isEditingNoti = false
+        dateNotSet = true // imp
         menuScrollView.isScrollEnabled = true
         UIView.animate(withDuration: animationSpeed, animations: {
             self.testMenu0.frame = CGRect(x: 233, y: 422, width: 233, height: 422)
+            self.testMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
+        }, completion : { (value : Bool) in
+            self.testMenu0.homeworkPreviewName.text = ""
+            self.testMenu0.homeworkPreviewType.text = ""
+            self.testMenu0.homeworkPreviewDate.text = ""
+            self.testMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
+            self.testMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
+            self.testMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
+            self.testMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
+            let calendar = Calendar.current
+            self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
+            self.testMenu0.datePicker0.reloadComponent(1)
+            self.testMenu0.notificationSwitch.isOn = false
         })
     }
     
     @objc func saveTestButtonTapped() {
+        var oldDate = Date()
+        if isEditingNoti {
+            oldDate = testListGlobal[isEditingIndex]["date"] as! Date
+        }
+        
+        if testMenu0.homeworkPreviewName.text == "" || testMenu0.homeworkPreviewType.text == "" || testMenu0.homeworkPreviewDate.text == "" {
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate)) //imp
+            return
+        }
+        let calendar = Calendar.current
+        var year = Int()
+        if monthList[testMenu0.datePicker0.selectedRow(inComponent: 0)] < monthList.first! {
+            year = calendar.component(.year, from: Date()) + 1
+        }
+        else {
+            year = calendar.component(.year, from: Date())
+        }
+        var dateComponents = DateComponents()
+        //if dateNotSet {
+        //    dateComponents = calendar.dateComponents([.year, .month, .day], from: oldDate)
+        //}
+        //else {
+        dateComponents = DateComponents(year: year, month: monthList[testMenu0.datePicker0.selectedRow(inComponent: 0)], day: dayList[testMenu0.datePicker0.selectedRow(inComponent: 1)])
+        //}
+        
+        var event = [String:Any]()
+        event["date"] = calendar.date(from: dateComponents)!
+        event["class"] = testMenu0.homeworkPreviewName.text!
+        event["type"] = testMenu0.homeworkPreviewType.text!
+        event["color"] = testMenu0.previewView.backgroundColor!
+        event["noti"] = testMenu0.notificationSwitch.isOn
+        
+        if isEditingIndex != -1 {
+            testListGlobal[isEditingIndex] = event
+        }
+        else {
+            testListGlobal.append(event)
+        }
+        
+        testListGlobal.sort(by: {($0["date"] as! Date) < ($1["date"] as! Date)})
+        testTable0.reloadData() //imp
+        
+        if isEditingNoti {
+            
+            if !testMenu0.notificationSwitch.isOn {
+                center.requestAuthorization(options: options) {
+                    (granted, error) in
+                    if !granted {
+                        print("Something went wrong")
+                    }
+                }
+                let content = UNMutableNotificationContent()
+                content.title = "Tomorrow: "
+                for x in testListGlobal + homeworkListGlobal {
+                    print(x["date"] as! Date)
+                    print(oldDate)
+                    if x["date"] as! Date == oldDate { // imp
+                        if content.body.count == 0 {
+                            content.body += (x["class"] as! String) + " " + (x["type"] as! String)
+                        }
+                        else {
+                            content.body += "\n" + (x["class"] as! String) + " " + (x["type"] as! String)
+                        }
+                    }
+                }
+                content.sound = UNNotificationSound.default
+                var oldComponents = calendar.dateComponents([.year, .month, .day], from: oldDate)
+                var sentDate = oldDate.addingTimeInterval(-18000)
+                if sentDate < Date() {
+                    sentDate = Date().addingTimeInterval(30)
+                }
+                let sentComp = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: sentDate)
+                
+                let trigger = UNCalendarNotificationTrigger(dateMatching: sentComp,
+                                                            repeats: false)
+                let identifier = String(oldComponents.month!) + " " + String(oldComponents.day!) + " " + String(oldComponents.year!)
+                
+                if content.body.count == 0 {
+                    center.removePendingNotificationRequests(withIdentifiers: [identifier])
+                }
+                else {
+                    let request = UNNotificationRequest(identifier: identifier,
+                                                        content: content, trigger: trigger)
+                    center.add(request, withCompletionHandler: { (error) in
+                        if let error = error {
+                            print(error)
+                        }
+                    })
+                }
+                
+            }
+            else if event["date"] as! Date != oldDate {
+                center.requestAuthorization(options: options) {
+                    (granted, error) in
+                    if !granted {
+                        print("Something went wrong")
+                    }
+                }
+                let content = UNMutableNotificationContent()
+                content.title = "Tomorrow: "
+                for x in testListGlobal + homeworkListGlobal {
+                    print(x["date"] as! Date)
+                    print(oldDate)
+                    if x["date"] as! Date == oldDate { // imp
+                        if content.body.count == 0 {
+                            content.body += (x["class"] as! String) + " " + (x["type"] as! String)
+                        }
+                        else {
+                            content.body += "\n" + (x["class"] as! String) + " " + (x["type"] as! String)
+                        }
+                    }
+                }
+                content.sound = UNNotificationSound.default
+                var oldComponents = calendar.dateComponents([.year, .month, .day], from: oldDate)
+                var sentDate = oldDate.addingTimeInterval(-18000)
+                if sentDate < Date() {
+                    sentDate = Date().addingTimeInterval(30)
+                }
+                let sentComp = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: sentDate)
+                
+                let trigger = UNCalendarNotificationTrigger(dateMatching: sentComp,
+                                                            repeats: false)
+                let identifier = String(oldComponents.month!) + " " + String(oldComponents.day!) + " " + String(oldComponents.year!)
+                if content.body.count == 0 {
+                    center.removePendingNotificationRequests(withIdentifiers: [identifier])
+                }
+                else {
+                    let request = UNNotificationRequest(identifier: identifier,
+                                                        content: content, trigger: trigger)
+                    center.add(request, withCompletionHandler: { (error) in
+                        if let error = error {
+                            print(error)
+                        }
+                    })
+                }
+            }
+        }
+        
+        if testMenu0.notificationSwitch.isOn {
+            center.requestAuthorization(options: options) {
+                (granted, error) in
+                if !granted {
+                    print("Something went wrong")
+                }
+            }
+            let content = UNMutableNotificationContent()
+            content.title = "Tomorrow: "
+            for x in testListGlobal + homeworkListGlobal {
+                print(x["date"] as! Date)
+                if x["date"] as! Date == calendar.date(from: dateComponents)! {
+                    if content.body.count == 0 {
+                        content.body += (x["class"] as! String) + " " + (x["type"] as! String)
+                    }
+                    else {
+                        content.body += "\n" + (x["class"] as! String) + " " + (x["type"] as! String)
+                    }
+                }
+            }
+            //content.body = homeworkMenu0.homeworkPreviewName.text! + " " + homeworkMenu0.homeworkPreviewType.text! + "\n" + "CPE II Homework"
+            content.sound = UNNotificationSound.default
+            //let date = Date(timeIntervalSinceNow: 20)
+            //let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
+            var sentDate = calendar.date(from: dateComponents)!.addingTimeInterval(-18000)
+            if sentDate < Date() {
+                sentDate = Date().addingTimeInterval(30)
+            }
+            let sentComp = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: sentDate)
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: sentComp,
+                                                        repeats: false)
+            let identifier = String(dateComponents.month!) + " " + String(dateComponents.day!) + " " + String(dateComponents.year!)
+            let request = UNNotificationRequest(identifier: identifier,
+                                                content: content, trigger: trigger)
+            center.add(request, withCompletionHandler: { (error) in
+                if let error = error {
+                    print(error)
+                }
+            })
+            
+        }
+        isEditingIndex = -1
+        isEditingNoti = false
+        dateNotSet = true
         menuScrollView.isScrollEnabled = true
         UIView.animate(withDuration: animationSpeed, animations: {
             self.testMenu0.frame = CGRect(x: 233, y: 422, width: 233, height: 422)
+            self.testMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
+        }, completion : { (value : Bool) in
+            self.testMenu0.homeworkPreviewName.text = ""
+            self.testMenu0.homeworkPreviewType.text = ""
+            self.testMenu0.homeworkPreviewDate.text = ""
+            self.testMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
+            self.testMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
+            self.testMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
+            self.testMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
+            let calendar = Calendar.current
+            self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
+            self.testMenu0.datePicker0.reloadComponent(1)
+            self.testMenu0.notificationSwitch.isOn = false
         })
     }
     
@@ -450,6 +740,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         homeworkMenu0.notificationSwitch.isUserInteractionEnabled = false
     }
     
+    func showTestPicker() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.testMenu0.selectClassLabel.alpha = 0
+            self.testMenu0.selectTypeLabel.alpha = 0
+            self.testMenu0.selectDateLabel.alpha = 0
+            self.testMenu0.backButton.alpha = 0.4
+            self.testMenu0.saveButton.alpha = 0.4
+            self.testMenu0.previewView.alpha = 0.5
+            if self.testMenu0.notificationSwitch.isOn {
+                self.testMenu0.notificationLabel.alpha = 0.4
+            }
+            else {
+                self.testMenu0.notificationLabel.alpha = 0.1
+            }
+            
+            self.testMenu0.notificationSwitch.alpha = 0.2
+            self.view.layoutIfNeeded()
+        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.testMenu0.homeworkPickerView.isHidden = false
+                self.testMenu0.homeworkPickerView.alpha = 1
+                self.view.layoutIfNeeded()
+            })
+        }
+        testMenu0.selectClassLabel.isUserInteractionEnabled = false
+        testMenu0.selectTypeLabel.isUserInteractionEnabled = false
+        testMenu0.selectDateLabel.isUserInteractionEnabled = false
+        testMenu0.backButton.isUserInteractionEnabled = false
+        testMenu0.saveButton.isUserInteractionEnabled = false
+        testMenu0.notificationSwitch.isUserInteractionEnabled = false
+    }
+    
     func hideHomeworkPicker() {
         UIView.animate(withDuration: 0.2, animations: {
             self.homeworkMenu0.homeworkPickerView.alpha = 0
@@ -484,20 +807,72 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.homeworkMenu0.notificationSwitch.isUserInteractionEnabled = true
             })
         })
-        
-        
+    }
+    
+    func hideTestPicker () {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.testMenu0.homeworkPickerView.alpha = 0
+            self.view.layoutIfNeeded()
+        }, completion : { (value : Bool) in
+            self.testMenu0.dateSeperator.isHidden = true
+            self.testMenu0.homeworkPickerView.isHidden = true
+            self.testMenu0.classPicker0.isHidden = true
+            self.testMenu0.typePicker0.isHidden = true
+            self.testMenu0.datePicker0.isHidden = true
+            UIView.animate(withDuration: 0.4, animations: {
+                self.testMenu0.selectClassLabel.alpha = 1
+                self.testMenu0.selectTypeLabel.alpha = 1
+                self.testMenu0.selectDateLabel.alpha = 1
+                self.testMenu0.backButton.alpha = 1
+                self.testMenu0.saveButton.alpha = 1
+                self.testMenu0.previewView.alpha = 1
+                if self.testMenu0.notificationSwitch.isOn {
+                    self.testMenu0.notificationLabel.alpha = 1
+                }
+                else {
+                    self.testMenu0.notificationLabel.alpha = 0.5
+                }
+                self.testMenu0.notificationSwitch.alpha = 1
+                self.view.layoutIfNeeded()
+            }, completion : { (value : Bool) in
+                self.testMenu0.selectClassLabel.isUserInteractionEnabled = true
+                self.testMenu0.selectTypeLabel.isUserInteractionEnabled = true
+                self.testMenu0.selectDateLabel.isUserInteractionEnabled = true
+                self.testMenu0.backButton.isUserInteractionEnabled = true
+                self.testMenu0.saveButton.isUserInteractionEnabled = true
+                self.testMenu0.notificationSwitch.isUserInteractionEnabled = true
+            })
+        })
     }
     
     @objc func testClassLabelTapped() {
-        
+        testMenu0.classPicker0.isHidden = false
+        UIView.animate(withDuration: 0.4, animations: {
+            self.testMenu0.nameHeight.constant = 151
+            self.view.layoutIfNeeded()
+        })
+        showTestPicker()
     }
     
     @objc func testTypeLabelTapped() {
-        
+        testMenu0.typePicker0.isHidden = false
+        UIView.animate(withDuration: 0.4, animations: {
+            self.testMenu0.typeTop.constant = 80
+            self.testMenu0.typeHeight.constant = 151
+            self.view.layoutIfNeeded()
+        })
+        showTestPicker()
     }
     
     @objc func testDateLabelTapped() {
-        
+        testMenu0.datePicker0.isHidden = false
+        testMenu0.dateSeperator.isHidden = false
+        cancelBuffer = [ testMenu0.datePicker0.selectedRow(inComponent: 0), testMenu0.datePicker0.selectedRow(inComponent: 1) ]
+        UIView.animate(withDuration: 0.4, animations: {
+            self.testMenu0.dateHeight.constant = 151
+            self.view.layoutIfNeeded()
+        })
+        showTestPicker()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -551,7 +926,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.nameLabel.text = testListGlobal[indexPath.section]["class"] as? String
             cell.typeLabel.text = testListGlobal[indexPath.section]["type"] as? String
             cell.dateLabel.text = "Due " + dateFormatter.string(from: testListGlobal[indexPath.section]["date"] as! Date)
-            cell.contentView.backgroundColor = colorList.color[indexPath.section+2]
+            cell.contentView.backgroundColor = testListGlobal[indexPath.section]["color"] as? UIColor
             return cell
         }
     }
@@ -564,7 +939,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == homeworkTable0 {
-            print(homeworkListGlobal[indexPath.section])
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat="M/d"
             dateFormatter.locale = Locale(identifier: "en_US")
@@ -596,11 +970,41 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }) { (finish) in
                 print(finish)
             }
-            //homeworkMenu0.notificationSwitch.isOn =
             dateNotSet = true
         }
         else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat="M/d"
+            dateFormatter.locale = Locale(identifier: "en_US")
+            testMenu0.titleLabel.text = "Edit Assignment"
+            isEditingIndex = indexPath.section
+            testMenu0.previewView.backgroundColor = testListGlobal[indexPath.section]["color"] as? UIColor
+            testMenu0.homeworkPreviewName.text = testListGlobal[indexPath.section]["class"] as? String
+            testMenu0.homeworkPreviewType.text = testListGlobal[indexPath.section]["type"] as? String
+            testMenu0.homeworkPreviewDate.text = "Due " + dateFormatter.string(from: testListGlobal[indexPath.section]["date"] as! Date)
             
+            let calendar = Calendar.current
+            let compontents = calendar.dateComponents([.year, .month, .day], from: testListGlobal[indexPath.section]["date"] as! Date)
+            
+            testMenu0.datePicker0.selectRow(dayList.firstIndex(where: {$0 == compontents.day})!, inComponent: 1, animated: false)
+            testMenu0.datePicker0.selectRow(monthList.firstIndex(where: {$0 == compontents.month})!, inComponent: 0, animated: false)
+            
+            if testListGlobal[indexPath.section]["noti"] as! Bool {
+                testMenu0.notificationSwitch.isOn = true
+                testMenu0.notificationLabel.alpha = 1
+                isEditingNoti = true
+            }
+            else {
+                testMenu0.notificationSwitch.isOn = false
+                testMenu0.notificationLabel.alpha = 0.5
+            }
+            menuScrollView.isScrollEnabled = false
+            UIView.animate(withDuration: animationSpeed, animations: {
+                self.testMenu0.frame = CGRect(x: 233, y: 0, width: 233, height: 422)
+            }) { (finish) in
+                print(finish)
+            }
+            dateNotSet = true
         }
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -631,14 +1035,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         homeworkMenu0.notificationSwitch.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         homeworkMenu0.notificationSwitch.onTintColor = #colorLiteral(red: 0.3855210841, green: 0.4937009215, blue: 0.618902266, alpha: 1)
+        testMenu0.notificationSwitch.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        testMenu0.notificationSwitch.onTintColor = #colorLiteral(red: 0.3855210841, green: 0.4937009215, blue: 0.618902266, alpha: 1)
         
         homeworkMenu0.dateSeperator.isHidden = true
+        testMenu0.dateSeperator.isHidden = true
         
         dayScrollView.bounces = false
         
         colors = colorList.color
         
         homeworkLabel.layer.contentsScale = UIScreen.main.scale
+        // imp testlabel
         
         homeworkTable0.delegate = self
         homeworkTable0.dataSource = self
@@ -664,7 +1072,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         longProgressView2.updateProgress()
         
         menuScrollView.isPagingEnabled = true
-        //menuScrollView.backgroundColor = .orange // change
         menuScrollView.layer.cornerRadius = 10.0
         menuScrollView.clipsToBounds = true
         
@@ -698,7 +1105,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         homeworkTable0.bounces = false
         
-        
         for classX in classListGlobal {
             if !sentNameList.contains(classX["name"] as! String) {
                 sentNameList.append(classX["name"] as! String)
@@ -713,13 +1119,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         homeworkMenu0.classPicker0.dataSource = classPickerClass
         homeworkMenu0.classPicker0.reloadAllComponents()
         
+        classPickerClass1 = classPicker()
+        classPickerClass1.nameList = sentNameList
+        testMenu0.classPicker0.delegate = classPickerClass1
+        testMenu0.classPicker0.dataSource = classPickerClass1
+        testMenu0.classPicker0.reloadAllComponents()
+        
         typePickerClass0 = typePicker()
         typePickerClass0.isHomework = true
         homeworkMenu0.typePicker0.delegate = typePickerClass0
         homeworkMenu0.typePicker0.dataSource = typePickerClass0
         
-        //datePickerClass0 = datePicker()
-        //let date0 = Date()
+        typePickerClass1 = typePicker()
+        typePickerClass1.isHomework = false
+        testMenu0.typePicker0.delegate = typePickerClass1
+        testMenu0.typePicker0.dataSource = typePickerClass1
+        
         let calendar = Calendar.current
         let month = calendar.component(.month, from: Date())
         
@@ -732,14 +1147,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        // daylist one long list for next 12 months
-        // select month row delegate method sets day component index
-        // select day row index out of month sets month component index
-        
         dayList = Array(calendar.component(.day, from: Date())...monthDayList[sentMonthList.first!-1])
         monthList = sentMonthList
         homeworkMenu0.datePicker0.delegate = self
         homeworkMenu0.datePicker0.dataSource = self
+        testMenu0.datePicker0.delegate = self
+        testMenu0.datePicker0.dataSource = self
         
         let homeworkTap = UITapGestureRecognizer(target: self, action: #selector(homeworkTapped))
         addHomeworkButton.addGestureRecognizer(homeworkTap)
@@ -797,6 +1210,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         homeworkMenu0.donePickerButton.addGestureRecognizer(homeworkPickerDoneTap)
         homeworkMenu0.donePickerButton.isUserInteractionEnabled = true
         
+        let testPickerCancelTap = UITapGestureRecognizer(target: self, action: #selector(testPickerCancelTapped))
+        testMenu0.cancelPickerButton.addGestureRecognizer(testPickerCancelTap)
+        testMenu0.cancelPickerButton.isUserInteractionEnabled = true
+        
+        let testPickerDoneTap = UITapGestureRecognizer(target: self, action: #selector(testPickerDoneTapped))
+        testMenu0.donePickerButton.addGestureRecognizer(testPickerDoneTap)
+        testMenu0.donePickerButton.isUserInteractionEnabled = true
+        
         let settingsTap = UITapGestureRecognizer(target: self, action: #selector(settingsTapped))
         settingsButton.addGestureRecognizer(settingsTap)
         settingsButton.isUserInteractionEnabled = true
@@ -831,7 +1252,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var testList = [[String:Any]]()
         var event = [String:Any]()
         let calendar = Calendar.current
-        let dateComponents = DateComponents(year: 2019, month: 3, day: 20)
+        let dateComponents = DateComponents(year: 2019, month: 3, day: 25)
         event["date"] = calendar.date(from: dateComponents)!
         event["class"] = "Discrete Structures"
         event["type"] = "Quiz"
