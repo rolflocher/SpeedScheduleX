@@ -123,6 +123,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                         }
                     }
                     classView0.nameLabel.text = finalS
+                    
+//                    for x in classView0.nameLabel.constraints {
+//                        if x.firstAttribute == .height {
+//                            classView0.nameLabel.removeConstraint(x)
+//                            classView0.nameLabel.addConstraint(NSLayoutConstraint(item: <#T##Any#>, attribute: <#T##NSLayoutConstraint.Attribute#>, relatedBy: <#T##NSLayoutConstraint.Relation#>, toItem: <#T##Any?#>, attribute: <#T##NSLayoutConstraint.Attribute#>, multiplier: <#T##CGFloat#>, constant: <#T##CGFloat#>))
+//                        }
+//                    }
                 }
                 classView0.nameLabel.numberOfLines = 1
             }
