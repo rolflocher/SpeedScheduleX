@@ -22,7 +22,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     let textColor = #colorLiteral(red: 0.8641486764, green: 0.8467296958, blue: 0.8957042098, alpha: 1)
     
-    let colorList = colorList0().color
+    let colorList = colorList0().widgetColor
     
     override func viewDidLoad() {
         super.viewDidLoad()
