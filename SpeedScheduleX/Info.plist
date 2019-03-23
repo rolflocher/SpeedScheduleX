@@ -17,11 +17,12 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Aller_Std_Bd.ttf</string>
 		<string>Aller_Std_Rg.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

@@ -94,7 +94,7 @@
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="59" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="59" translatesAutoresizingMaskIntoConstraints="NO" id="7GP-Eq-nCM">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="59" translatesAutoresizingMaskIntoConstraints="NO" id="7GP-Eq-nCM">
                                                 <rect key="frame" x="234" y="32" width="233" height="390"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
