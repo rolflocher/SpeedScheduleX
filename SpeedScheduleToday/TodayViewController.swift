@@ -20,42 +20,300 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet var daysView: UIView!
     
-    let textColor = #colorLiteral(red: 0.8958979249, green: 0.8874892592, blue: 0.9416337609, alpha: 0.6466181506)
+    @IBOutlet var dayLabelView: UIView!
+    
+    @IBOutlet var expandedWatermark: UIImageView!
+    
+    @IBOutlet var wideCompactContainer: wideProgressContainer!
+    
+    @IBOutlet var leftArrowView: UIView!
+    
+    @IBOutlet var rightArrowView: UIView!
+    
+    @IBOutlet var leftArrowImage: UIImageView!
+    
+    @IBOutlet var rightArrowImage: UIImageView!
+    
+    @IBOutlet var compactPageControl: UIPageControl!
+    
+    let textColor = #colorLiteral(red: 0.8958979249, green: 0.8874892592, blue: 0.9416337609, alpha: 0.4500749143)
+    // #colorLiteral(red: 0.8958979249, green: 0.8874892592, blue: 0.9416337609, alpha: 0.6466181506)
     
     let colorList = colorList0().widgetColor
+    
+    var isFirstLoad = true
+    
+    var startTime = 0
+    var endTime = 700
+    
+    var compactX = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         preferredContentSize = CGSize(width: 359, height: 490)
         
+        let leftTap = UITapGestureRecognizer(target: self, action: #selector(leftTapped))
+        leftArrowView.addGestureRecognizer(leftTap)
+        leftArrowView.isUserInteractionEnabled = true
+        
+        let rightTap = UITapGestureRecognizer(target: self, action: #selector(rightTapped))
+        rightArrowView.addGestureRecognizer(rightTap)
+        rightArrowView.isUserInteractionEnabled = true
+        
+        var test = [String:Any]()
+        test["start"] = 380
+        test["end"] = 395
+        wideCompactContainer.breakProgress0.classInfo = test
+        wideCompactContainer.breakProgress0.updateProgress()
+        
+        populateFakeClasses()
+        generateTimeBounds()
+        drawClasses(classList: classListGlobal)
+        setupLabels()
+        isFirstLoad = false
+        wideCompactContainer.frame = CGRect(x: 0, y: 0, width: 1436, height: 110)
+        
+        wideCompactContainer.todayProgress0.nameLabel.text = "CPE II"
+        wideCompactContainer.todayProgress1.nameLabel.text = "Computer Networks"
+        wideCompactContainer.todayProgress2.nameLabel.text = "Discrete Structures"
+        
+        wideCompactContainer.todayProgress0.timeLabel.text = "8:10 - 9:20"
+        wideCompactContainer.todayProgress1.timeLabel.text = "11:30 - 12:45"
+        wideCompactContainer.todayProgress2.timeLabel.text = "1:30 - 2:45"
+        
+        wideCompactContainer.todayProgress0.roomLabel.text = "Tol 305"
+        wideCompactContainer.todayProgress1.roomLabel.text = "CEER 001"
+        wideCompactContainer.todayProgress2.roomLabel.text = "Mendel 290"
+        
+        wideCompactContainer.todayProgress0.contentView.backgroundColor = colorList[0]
+        wideCompactContainer.todayProgress1.contentView.backgroundColor = colorList[1]
+        wideCompactContainer.todayProgress2.contentView.backgroundColor = colorList[2]
+        
+        
+        wideCompactContainer.homeworkProgress0.nameLabel.text = "CPE II"
+        wideCompactContainer.homeworkProgress1.nameLabel.text = "Computer Networks"
+        wideCompactContainer.homeworkProgress2.nameLabel.text = "Discrete Structures"
+        
+        wideCompactContainer.homeworkProgress0.timeLabel.text = "Homework"
+        wideCompactContainer.homeworkProgress1.timeLabel.text = "Essay"
+        wideCompactContainer.homeworkProgress2.timeLabel.text = "Reading"
+        
+        wideCompactContainer.homeworkProgress0.roomLabel.text = "Monday"
+        wideCompactContainer.homeworkProgress1.roomLabel.text = "Monday"
+        wideCompactContainer.homeworkProgress2.roomLabel.text = "Tuesday"
+        
+        wideCompactContainer.homeworkProgress0.contentView.backgroundColor = colorList[0]
+        wideCompactContainer.homeworkProgress1.contentView.backgroundColor = colorList[1]
+        wideCompactContainer.homeworkProgress2.contentView.backgroundColor = colorList[2]
+        
+        
+        wideCompactContainer.testProgress0.nameLabel.text = "CPE II"
+        wideCompactContainer.testProgress1.nameLabel.text = "Computer Networks"
+        wideCompactContainer.testProgress2.nameLabel.text = "Discrete Structures"
+        
+        wideCompactContainer.testProgress0.timeLabel.text = "Test"
+        wideCompactContainer.testProgress1.timeLabel.text = "Essay"
+        wideCompactContainer.testProgress2.timeLabel.text = "Quiz"
+        
+        wideCompactContainer.testProgress0.roomLabel.text = "Tuesday"
+        wideCompactContainer.testProgress1.roomLabel.text = "Thurday"
+        wideCompactContainer.testProgress2.roomLabel.text = "3/28"
+        
+        wideCompactContainer.testProgress0.contentView.backgroundColor = colorList[0]
+        wideCompactContainer.testProgress1.contentView.backgroundColor = colorList[1]
+        wideCompactContainer.testProgress2.contentView.backgroundColor = colorList[2]
+        
+        
+        wideCompactContainer.breakProgress0.nameLabel.text = ""
+        wideCompactContainer.breakProgress1.nameLabel.text = ""
+        wideCompactContainer.breakProgress2.nameLabel.text = ""
+        
+        wideCompactContainer.breakProgress0.timeLabel.text = "Easter Break"
+        wideCompactContainer.breakProgress1.timeLabel.text = "Last Classes"
+        wideCompactContainer.breakProgress2.timeLabel.text = "Graduation"
+        
+        wideCompactContainer.breakProgress0.roomLabel.text = ""
+        wideCompactContainer.breakProgress1.roomLabel.text = ""
+        wideCompactContainer.breakProgress2.roomLabel.text = ""
+        
+        wideCompactContainer.breakProgress0.contentView.backgroundColor = colorList[3]
+        wideCompactContainer.breakProgress1.contentView.backgroundColor = colorList[4]
+        wideCompactContainer.breakProgress2.contentView.backgroundColor = colorList[5]
+    }
+    
+    @objc func leftTapped() {
+        if compactX < 0 {
+            compactX = compactX + Int(self.view.frame.size.width)
+            rightArrowImage.isHidden = false
+            rightArrowView.isHidden = false
+            compactPageControl.currentPage = compactPageControl.currentPage-1
+        }
+        else {
+            
+        }
+        UIView.animate(withDuration: 0.5, animations: {
+            self.wideCompactContainer.frame = CGRect(x: self.compactX, y: 0, width: 1436, height: 110)
+            if self.compactX < 0 {
+                //self.leftArrowImage.alpha = 0
+                self.rightArrowImage.alpha = 1
+            }
+            else {
+                self.leftArrowImage.alpha = 0
+                self.rightArrowImage.alpha = 1
+            }
+        }) { (value) in
+            if self.compactX > 0 {
+                self.leftArrowImage.isHidden = true
+            }
+            //self.leftArrowView.isHidden = true
+        }
+    }
+    
+    @objc func rightTapped() {
+        if compactX > -1077 {
+            compactX = compactX - Int(self.view.frame.size.width)
+            leftArrowImage.isHidden = false
+            leftArrowView.isHidden = false
+            compactPageControl.currentPage = compactPageControl.currentPage+1
+        }
+        else {
+            
+        }
+        UIView.animate(withDuration: 0.5, animations: {
+            self.wideCompactContainer.frame = CGRect(x: self.compactX, y: 0, width: 1436, height: 110)
+            if self.compactX > -1077 {
+                self.leftArrowImage.alpha = 1
+                //self.rightArrowImage.alpha = 0
+            }
+            else {
+                self.leftArrowImage.alpha = 1
+                self.rightArrowImage.alpha = 0
+            }
+        }) { (value) in
+            if self.compactX < -1077 {
+                self.rightArrowImage.isHidden = true
+            }
+            
+            //self.leftArrowView.isHidden = true
+        }
     }
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .expanded {
             preferredContentSize = CGSize(width: 359, height: 490)
+            showExpanded()
         }
         else {
             preferredContentSize = CGSize(width: 359, height: 110)
+            compactX = 0
+            compactPageControl.currentPage = 0
+            showCompact()
         }
     }
         
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        
-        
         completionHandler(NCUpdateResult.newData)
     }
     
-    var isFirstLoad = true
-    
     override func viewDidAppear(_ animated: Bool) {
-        if isFirstLoad {
-            setupLabels()
-            populateFakeClasses()
-            isFirstLoad = false
+//        if isFirstLoad {
+//
+//        }
+    }
+    
+    func showCompact() {
+        self.wideCompactContainer.isHidden = false
+        self.compactPageControl.isHidden = false
+        self.rightArrowImage.isHidden = false
+        self.rightArrowView.isHidden = false
+        if wideCompactContainer.frame.minX == 0 {
+            self.leftArrowImage.isHidden = true
+            self.leftArrowView.isHidden = true
+        }
+        else {
+            self.leftArrowImage.isHidden = false
+            self.leftArrowView.isHidden = false
+        }
+        UIView.animate(withDuration: 0.2, animations: {
+            self.daysView.alpha = 0
+            self.timeLabelView.alpha = 0
+            self.dayLabelView.alpha = 0
+            self.expandedWatermark.alpha = 0
+            
+        }) { (value) in
+            self.daysView.isHidden = true
+            self.timeLabelView.isHidden = true
+            self.dayLabelView.isHidden = true
+            self.expandedWatermark.isHidden = true
+            if self.extensionContext?.widgetActiveDisplayMode == .expanded {
+                self.showExpanded()
+            }
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.wideCompactContainer.alpha = 1
+                self.leftArrowImage.alpha = 1
+                self.leftArrowView.alpha = 1
+                self.rightArrowImage.alpha = 1
+                self.rightArrowView.alpha = 1
+                self.compactPageControl.alpha = 1
+            })
+        }
+    }
+    
+    func showExpanded() {
+        self.daysView.isHidden = false
+        self.timeLabelView.isHidden = false
+        self.dayLabelView.isHidden = false
+        self.expandedWatermark.isHidden = false
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.wideCompactContainer.alpha = 0
+            self.leftArrowImage.alpha = 0
+            self.leftArrowView.alpha = 0
+            self.rightArrowImage.alpha = 0
+            self.rightArrowView.alpha = 0
+            self.compactPageControl.alpha = 0
+        }) { (value) in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.daysView.alpha = 1
+                self.timeLabelView.alpha = 1
+                self.dayLabelView.alpha = 1
+                self.expandedWatermark.alpha = 1
+                
+            }) { (value) in
+                self.wideCompactContainer.isHidden = true
+                self.leftArrowImage.isHidden = true
+                self.leftArrowView.isHidden = true
+                self.rightArrowImage.isHidden = true
+                self.rightArrowView.isHidden = true
+                self.compactPageControl.isHidden = true
+                if self.extensionContext?.widgetActiveDisplayMode == .compact {
+                    self.showCompact()
+                }
+            }
         }
         
         
+    }
+    
+    func generateTimeBounds () {
+        startTime = 90000
+        endTime = 0
+        for x in classListGlobal {
+            if (x["start"] as! Int) < startTime {
+                startTime = (x["start"] as! Int)
+            }
+            if (x["end"] as! Int) > endTime {
+                endTime = (x["end"] as! Int)
+            }
+        }
+        //print(startTime)
+        //print(endTime)
+        //print( floor( Double(startTime)/30.0 )*30 )
+        //print( ceil( Double(endTime)/30.0 )*30 )
+        startTime = Int(floor( Double(startTime)/30.0 )*30)
+        endTime = Int(ceil( Double(endTime)/30.0 )*30)
     }
     
     func drawClasses (classList : [[String:Any]]) {
@@ -81,9 +339,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
         
         for classInfo in classList {
-            print(self.daysView.frame.height)
-            let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int)-30)/720//780
-            let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int)-30)/720//780
+            //print(endTime-startTime)
+            print(endTime-startTime)
+            let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int)-startTime)/CGFloat(endTime-startTime)//780
+            let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int)-startTime)/CGFloat(endTime-startTime)//780
             
             let classView0 = ClassView(frame: CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight)))
             classView0.drawClass(name: classInfo["name"] as! String, room: classInfo["room"] as! String, start: classInfo["start"] as! Int, end: classInfo["end"] as! Int, color: classInfo["color"] as! UIColor)
@@ -227,6 +486,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         var numSegments = 2 * (21 - 7)
         numSegments += (30 - 30) / 30
         numSegments = 23//27
+        numSegments = (endTime-startTime)/30
+        print("numsegments \(numSegments)")
         
         for x in 0...5 {
             let path = UIBezierPath()
@@ -242,13 +503,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
         
         for x in 1...numSegments { //1..
-            let height = CGFloat((usableHeight/CGFloat(numSegments+1)) * CGFloat(x))
-            
-            if x == 1 {
-                print("time label drawer thinks height is \(usableHeight)")
-            }
-            
-            print("height: \(height)")
+            let height = CGFloat((usableHeight/CGFloat(numSegments)) * CGFloat(x))
             
             if x % 2 == 1  { //0
                 let path = UIBezierPath()
@@ -326,7 +581,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             //textLayer.display()
             //let switchInt = x+startOffset
             
-            switch (x+1) {
+            switch (x+Int(floor(Double(startTime/30)))) {
                 
             case 1:
                 print("")
@@ -534,6 +789,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         classListGlobal = classList
         
-        drawClasses(classList: classList)
+        classListGlobal.sort(by: {($0["start"] as! Int) + ($0["day"] as! Int)*10000 < ($1["start"] as! Int) + ($1["day"] as! Int)*10000 })
     }
 }

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Aller_Std_Bd.ttf">
+            <string>Aller-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="wideProgressContainer" customModule="SpeedScheduleToday" customModuleProvider="target">
+            <connections>
+                <outlet property="breakProgress0" destination="fAn-qZ-T68" id="ybJ-vw-ggo"/>
+                <outlet property="breakProgress1" destination="f2u-HG-lGG" id="v4z-p7-Ybh"/>
+                <outlet property="breakProgress2" destination="yeo-zh-fd8" id="dWO-o5-GSp"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="hWs-Lx-3dJ"/>
+                <outlet property="homeworkProgress0" destination="jKR-rG-IQu" id="dal-Lh-n91"/>
+                <outlet property="homeworkProgress1" destination="55R-iB-W2b" id="rDU-Tn-WY4"/>
+                <outlet property="homeworkProgress2" destination="rCd-x6-aep" id="dU3-4R-Syl"/>
+                <outlet property="testProgress0" destination="Azq-4m-SdO" id="VeC-Lh-Cfu"/>
+                <outlet property="testProgress1" destination="43K-5N-wub" id="2Ik-jz-tKW"/>
+                <outlet property="testProgress2" destination="jVt-fv-u4f" id="VRn-wm-81W"/>
+                <outlet property="todayProgress0" destination="H9k-ZD-onJ" id="kQP-v8-98X"/>
+                <outlet property="todayProgress1" destination="rBx-cd-eX2" id="Mig-LX-jZe"/>
+                <outlet property="todayProgress2" destination="hl1-NO-vnR" id="a7g-cb-FdD"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1436" height="110"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hl1-NO-vnR" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="20" y="74" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="qXm-Wq-JFa"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rBx-cd-eX2" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="20" y="47" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="7b8-Cp-kFL"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9k-ZD-onJ" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="20" y="20" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="4EK-hC-byJ"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MwR-9X-fyN">
+                    <rect key="frame" x="160" y="0.0" width="40.5" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="19" id="hXU-Bz-ieg"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Bold" family="Aller" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rCd-x6-aep" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="379" y="74" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="Mlo-bO-Xw3"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55R-iB-W2b" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="379" y="47" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="Coh-jy-aGL"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKR-rG-IQu" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="379" y="20" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="Mpf-P1-sBL"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assignments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sz0-HF-29v">
+                    <rect key="frame" x="495" y="0.0" width="88" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="19" id="fib-Q4-64Q"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Bold" family="Aller" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jVt-fv-u4f" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="738.5" y="74" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="7xl-50-TXD"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43K-5N-wub" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="738.5" y="47" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="b0i-jV-Noe"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Azq-4m-SdO" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="738.5" y="20" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="g0b-AR-4cY"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-FP-5vL">
+                    <rect key="frame" x="881" y="0.0" width="35" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="19" id="IWG-Yo-Ytn"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Bold" family="Aller" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yeo-zh-fd8" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="1097.5" y="74" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="GKB-RO-4OJ"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2u-HG-lGG" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="1097.5" y="47" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="ez3-kc-Sgn"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fAn-qZ-T68" customClass="ProgressBar" customModule="SpeedScheduleToday" customModuleProvider="target">
+                    <rect key="frame" x="1097.5" y="20" width="320" height="23"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="9a0-GB-Izd"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breaks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rS8-gl-ur2">
+                    <rect key="frame" x="1234.5" y="0.0" width="46.5" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="19" id="x7B-MM-gF1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Bold" family="Aller" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ys4-FP-5vL" firstAttribute="centerX" secondItem="Azq-4m-SdO" secondAttribute="centerX" id="0V0-78-KzQ"/>
+                <constraint firstItem="43K-5N-wub" firstAttribute="height" secondItem="Azq-4m-SdO" secondAttribute="height" id="4QA-PZ-MT2"/>
+                <constraint firstItem="rBx-cd-eX2" firstAttribute="top" secondItem="H9k-ZD-onJ" secondAttribute="bottom" constant="4" id="5vQ-kW-uk9"/>
+                <constraint firstItem="f2u-HG-lGG" firstAttribute="height" secondItem="fAn-qZ-T68" secondAttribute="height" id="8a6-2E-uIm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rCd-x6-aep" secondAttribute="bottom" constant="13" id="8qL-rl-hNV"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="jVt-fv-u4f" secondAttribute="bottom" constant="13" id="8ws-FT-7ve"/>
+                <constraint firstItem="Azq-4m-SdO" firstAttribute="top" secondItem="ys4-FP-5vL" secondAttribute="bottom" constant="1" id="DFG-hC-GFP"/>
+                <constraint firstItem="hl1-NO-vnR" firstAttribute="height" secondItem="H9k-ZD-onJ" secondAttribute="height" id="EPj-Za-tCN"/>
+                <constraint firstItem="yeo-zh-fd8" firstAttribute="leading" secondItem="jVt-fv-u4f" secondAttribute="trailing" constant="39.200000000000003" id="F9O-7O-BIm"/>
+                <constraint firstItem="55R-iB-W2b" firstAttribute="top" secondItem="jKR-rG-IQu" secondAttribute="bottom" constant="4" id="GSf-qS-Dh0"/>
+                <constraint firstItem="yeo-zh-fd8" firstAttribute="height" secondItem="fAn-qZ-T68" secondAttribute="height" id="Gvi-46-v7E"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="hl1-NO-vnR" secondAttribute="bottom" constant="13" id="HDC-W2-lv5"/>
+                <constraint firstItem="43K-5N-wub" firstAttribute="top" secondItem="Azq-4m-SdO" secondAttribute="bottom" constant="4" id="J11-FB-17o"/>
+                <constraint firstItem="H9k-ZD-onJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="JRJ-Nd-t0w"/>
+                <constraint firstItem="jKR-rG-IQu" firstAttribute="top" secondItem="sz0-HF-29v" secondAttribute="bottom" constant="1" id="JbF-DI-VOa"/>
+                <constraint firstItem="f2u-HG-lGG" firstAttribute="leading" secondItem="43K-5N-wub" secondAttribute="trailing" constant="39.200000000000003" id="LaA-GR-IQ9"/>
+                <constraint firstItem="55R-iB-W2b" firstAttribute="leading" secondItem="rBx-cd-eX2" secondAttribute="trailing" constant="39.200000000000003" id="LuU-JW-Qku"/>
+                <constraint firstItem="43K-5N-wub" firstAttribute="leading" secondItem="55R-iB-W2b" secondAttribute="trailing" constant="39.200000000000003" id="NCR-rY-klM"/>
+                <constraint firstItem="rS8-gl-ur2" firstAttribute="centerX" secondItem="fAn-qZ-T68" secondAttribute="centerX" id="PzM-TR-1ja"/>
+                <constraint firstItem="yeo-zh-fd8" firstAttribute="top" secondItem="f2u-HG-lGG" secondAttribute="bottom" constant="4" id="RtL-QI-0RU"/>
+                <constraint firstItem="f2u-HG-lGG" firstAttribute="top" secondItem="fAn-qZ-T68" secondAttribute="bottom" constant="4" id="SHk-ts-kEL"/>
+                <constraint firstItem="rCd-x6-aep" firstAttribute="height" secondItem="jKR-rG-IQu" secondAttribute="height" id="Stv-Vp-DSy"/>
+                <constraint firstItem="fAn-qZ-T68" firstAttribute="top" secondItem="rS8-gl-ur2" secondAttribute="bottom" constant="1" id="TLV-fu-HwX"/>
+                <constraint firstItem="MwR-9X-fyN" firstAttribute="centerX" secondItem="H9k-ZD-onJ" secondAttribute="centerX" id="VsI-Jo-9GB"/>
+                <constraint firstItem="jVt-fv-u4f" firstAttribute="leading" secondItem="rCd-x6-aep" secondAttribute="trailing" constant="39.200000000000003" id="Wo3-g7-mgT"/>
+                <constraint firstItem="hl1-NO-vnR" firstAttribute="top" secondItem="rBx-cd-eX2" secondAttribute="bottom" constant="4" id="Xxd-hW-8tZ"/>
+                <constraint firstItem="rBx-cd-eX2" firstAttribute="height" secondItem="H9k-ZD-onJ" secondAttribute="height" id="avQ-bW-St1"/>
+                <constraint firstItem="ys4-FP-5vL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="but-xY-H9C"/>
+                <constraint firstItem="MwR-9X-fyN" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="bwO-eu-dOw"/>
+                <constraint firstItem="jVt-fv-u4f" firstAttribute="height" secondItem="Azq-4m-SdO" secondAttribute="height" id="d13-1I-nbb"/>
+                <constraint firstItem="rS8-gl-ur2" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="gWc-1l-yo5"/>
+                <constraint firstItem="jKR-rG-IQu" firstAttribute="leading" secondItem="H9k-ZD-onJ" secondAttribute="trailing" constant="39.200000000000003" id="h2y-HR-AcG"/>
+                <constraint firstItem="sz0-HF-29v" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="hE2-34-dtm"/>
+                <constraint firstItem="jVt-fv-u4f" firstAttribute="top" secondItem="43K-5N-wub" secondAttribute="bottom" constant="4" id="hdx-Kg-HXr"/>
+                <constraint firstItem="rBx-cd-eX2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="jIy-7U-bu6"/>
+                <constraint firstItem="rCd-x6-aep" firstAttribute="top" secondItem="55R-iB-W2b" secondAttribute="bottom" constant="4" id="n2s-rC-Nys"/>
+                <constraint firstItem="rCd-x6-aep" firstAttribute="leading" secondItem="hl1-NO-vnR" secondAttribute="trailing" constant="39.200000000000003" id="n3t-vi-AZW"/>
+                <constraint firstItem="sz0-HF-29v" firstAttribute="centerX" secondItem="jKR-rG-IQu" secondAttribute="centerX" id="nwM-Mz-fqb"/>
+                <constraint firstItem="hl1-NO-vnR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="oUb-73-3dk"/>
+                <constraint firstItem="Azq-4m-SdO" firstAttribute="leading" secondItem="jKR-rG-IQu" secondAttribute="trailing" constant="39.200000000000003" id="riC-ul-BB2"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="yeo-zh-fd8" secondAttribute="bottom" constant="13" id="tRq-fV-bZj"/>
+                <constraint firstItem="H9k-ZD-onJ" firstAttribute="top" secondItem="MwR-9X-fyN" secondAttribute="bottom" constant="1" id="uJ7-17-R7f"/>
+                <constraint firstItem="fAn-qZ-T68" firstAttribute="leading" secondItem="Azq-4m-SdO" secondAttribute="trailing" constant="39.200000000000003" id="uUc-pG-0E9"/>
+                <constraint firstItem="55R-iB-W2b" firstAttribute="height" secondItem="jKR-rG-IQu" secondAttribute="height" id="xQ3-1Q-wOy"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="52.799999999999997" y="48.575712143928037"/>
+        </view>
+    </objects>
+</document>

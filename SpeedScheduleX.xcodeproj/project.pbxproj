@@ -56,6 +56,10 @@
 		4CD7399D2242CC710016B8ED /* datePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7399C2242CC710016B8ED /* datePicker.swift */; };
 		4CD73DB122415B830038438E /* HomeworkMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD73DB022415B830038438E /* HomeworkMenuView.swift */; };
 		4CD73DB322415B9F0038438E /* HomeworkMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD73DB222415B9F0038438E /* HomeworkMenuView.xib */; };
+		4CE774B12247040200EFE6AC /* wideProgressContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE774B02247040200EFE6AC /* wideProgressContainer.swift */; };
+		4CE774B32247042300EFE6AC /* wideProgressContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CE774B22247042300EFE6AC /* wideProgressContainer.xib */; };
+		4CE774B522470B6F00EFE6AC /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE774B422470B6F00EFE6AC /* ProgressBar.swift */; };
+		4CE774B722470B8000EFE6AC /* ProgressBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CE774B622470B8000EFE6AC /* ProgressBar.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +171,10 @@
 		4CD7399C2242CC710016B8ED /* datePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = datePicker.swift; sourceTree = "<group>"; };
 		4CD73DB022415B830038438E /* HomeworkMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkMenuView.swift; sourceTree = "<group>"; };
 		4CD73DB222415B9F0038438E /* HomeworkMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeworkMenuView.xib; sourceTree = "<group>"; };
+		4CE774B02247040200EFE6AC /* wideProgressContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wideProgressContainer.swift; sourceTree = "<group>"; };
+		4CE774B22247042300EFE6AC /* wideProgressContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = wideProgressContainer.xib; sourceTree = "<group>"; };
+		4CE774B422470B6F00EFE6AC /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		4CE774B622470B8000EFE6AC /* ProgressBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressBar.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +284,10 @@
 			isa = PBXGroup;
 			children = (
 				4CA94697224552EE003FC20F /* TodayViewController.swift */,
+				4CE774B422470B6F00EFE6AC /* ProgressBar.swift */,
+				4CE774B622470B8000EFE6AC /* ProgressBar.xib */,
+				4CE774B02247040200EFE6AC /* wideProgressContainer.swift */,
+				4CE774B22247042300EFE6AC /* wideProgressContainer.xib */,
 				4CA94699224552EE003FC20F /* MainInterface.storyboard */,
 				4CA9469C224552EE003FC20F /* Info.plist */,
 			);
@@ -497,7 +509,9 @@
 			files = (
 				4CA9469B224552EE003FC20F /* MainInterface.storyboard in Resources */,
 				4C7521A92245BD7F000B0D0E /* Assets.xcassets in Resources */,
+				4CE774B722470B8000EFE6AC /* ProgressBar.xib in Resources */,
 				4C7521A12245987F000B0D0E /* Aller_Std_Bd.ttf in Resources */,
+				4CE774B32247042300EFE6AC /* wideProgressContainer.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,7 +558,9 @@
 			files = (
 				4C7521A42245AE7A000B0D0E /* classView.swift in Sources */,
 				4C7521A52245AFD0000B0D0E /* colorFile.swift in Sources */,
+				4CE774B12247040200EFE6AC /* wideProgressContainer.swift in Sources */,
 				4CA94698224552EE003FC20F /* TodayViewController.swift in Sources */,
+				4CE774B522470B6F00EFE6AC /* ProgressBar.swift in Sources */,
 				4CA946A422455B5B003FC20F /* typePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
