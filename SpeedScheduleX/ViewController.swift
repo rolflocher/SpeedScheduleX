@@ -73,6 +73,37 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 print( "notification :" + "\(x.identifier) \(x.content.body)" )
             }
         }
+        updateSavedColors()
+    }
+    
+    func updateSavedColors() {
+        
+        if !hasPreviousData() {
+            return
+        }
+        
+        var newList = [[String:Any]]()
+        var buffer = [[String:Any]]()
+        var index = 0
+
+        while classListGlobal.count != 0 {
+            
+            buffer = classListGlobal.filter({($0["color"] as! UIColor) == (classListGlobal.first!["color"] as! UIColor)})
+            for x in 0..<buffer.count {
+                buffer[x]["color"] = colors[index]
+                newList.append(buffer[x])
+            }
+            classListGlobal = classListGlobal.filter({($0["color"] as! UIColor) != (classListGlobal.first!["color"] as! UIColor)})
+            index += 1
+        }
+
+        classListGlobal = newList
+        
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            let encodedDic: Data = try! NSKeyedArchiver.archivedData(withRootObject: classListGlobal, requiringSecureCoding: false)
+            userDefaults.set(encodedDic, forKey: "classListX")
+            userDefaults.synchronize()
+        }
     }
     
     @objc func homeworkPickerCancelTapped() {
@@ -290,6 +321,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         homeworkListGlobal.sort(by: {($0["date"] as! Date) < ($1["date"] as! Date)})
         homeworkTable0.reloadData() //imp
+        
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            let encodedDic: Data = try! NSKeyedArchiver.archivedData(withRootObject:homeworkListGlobal, requiringSecureCoding: false)
+            userDefaults.set(encodedDic, forKey: "hwListX")
+            userDefaults.synchronize()
+        }
         
         if isEditingNoti {
             
@@ -516,6 +553,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         testListGlobal.sort(by: {($0["date"] as! Date) < ($1["date"] as! Date)})
         testTable0.reloadData() //imp
         
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            let encodedDic: Data = try! NSKeyedArchiver.archivedData(withRootObject:testListGlobal, requiringSecureCoding: false)
+            userDefaults.set(encodedDic, forKey: "testListX")
+            userDefaults.synchronize()
+        }
+        
         if isEditingNoti {
             
             if !testMenu0.notificationSwitch.isOn {
@@ -622,7 +665,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let content = UNMutableNotificationContent()
             content.title = "Tomorrow: "
             for x in testListGlobal + homeworkListGlobal {
-                print(x["date"] as! Date)
+                //print(x["date"] as! Date)
                 if x["date"] as! Date == calendar.date(from: dateComponents)! {
                     if content.body.count == 0 {
                         content.body += (x["class"] as! String) + " " + (x["type"] as! String)
@@ -1094,14 +1137,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let fullScheduleTap = UITapGestureRecognizer(target: self, action: #selector(fullScheduleTapped))
         fullScheduleButton.addGestureRecognizer(fullScheduleTap)
         
-        populateFakeEvents()
-        homeworkTable0.reloadData()
+        //populateFakeEvents()
+        //homeworkTable0.reloadData()
         
-//        if hasPreviousData() {
-//            singleDayView0.drawClasses(classList: classListGlobal)
-//        }
-        populateFakeClasses() //imp
-        singleDayView0.drawClasses(classList: classListGlobal)
+        if hasPreviousHw() {
+            homeworkTable0.reloadData()
+        }
+        if hasPreviousTests() {
+            testTable0.reloadData()
+        }
+        if hasPreviousData() {
+            singleDayView0.drawClasses(classList: classListGlobal)
+        }
         
         homeworkTable0.bounces = false
         
@@ -1287,126 +1334,152 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         testListGlobal = testList
     }
     
-    func populateFakeClasses () {
-        var classList = [[String:Any]]()
-        var classInfo = [String:Any]()
-        classInfo["name"] = "CPE II"
-        classInfo["start"] = 30
-        classInfo["end"] = 80
-        classInfo["day"] = 2
-        classInfo["room"] = "Tolentine 305"
-        classInfo["id"] = 9345
-        classInfo["color"] = colors.first!
-        classList.append(classInfo)
-        
-        classInfo["name"] = "CPE II"
-        classInfo["start"] = 30
-        classInfo["end"] = 80
-        classInfo["day"] = 4
-        classInfo["room"] = "Tolentine 305"
-        classInfo["id"] = 9346
-        classInfo["color"] = colors.first!
-        classList.append(classInfo)
-        
-        classInfo["name"] = "CPE II"
-        classInfo["start"] = 30
-        classInfo["end"] = 80
-        classInfo["day"] = 6
-        classInfo["room"] = "Tolentine 305"
-        classInfo["id"] = 9347
-        classInfo["color"] = colors.removeFirst()
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Computer Networks"
-        classInfo["start"] = 330
-        classInfo["end"] = 405
-        classInfo["day"] = 2
-        classInfo["room"] = "CEER 001"
-        classInfo["id"] = 9348
-        classInfo["color"] = colors.first!
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Computer Networks"
-        classInfo["start"] = 330
-        classInfo["end"] = 405
-        classInfo["day"] = 4
-        classInfo["room"] = "CEER 001"
-        classInfo["id"] = 9349
-        classInfo["color"] = colors.removeFirst()
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Design Seminar"
-        classInfo["start"] = 60
-        classInfo["end"] = 200
-        classInfo["day"] = 3
-        classInfo["room"] = "CEER 001"
-        classInfo["id"] = 9350
-        classInfo["color"] = colors.removeFirst()
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Compiler Construction"
-        classInfo["start"] = 210
-        classInfo["end"] = 285
-        classInfo["day"] = 3
-        classInfo["room"] = "Mendel 290"
-        classInfo["id"] = 9351
-        classInfo["color"] = colors.first!
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Compiler Construction"
-        classInfo["start"] = 210
-        classInfo["end"] = 285
-        classInfo["day"] = 5
-        classInfo["room"] = "Mendel 290"
-        classInfo["id"] = 9352
-        classInfo["color"] = colors.removeFirst()
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Discrete Structures"
-        classInfo["start"] = 390
-        classInfo["end"] = 465
-        classInfo["day"] = 3
-        classInfo["room"] = "Mendel 290"
-        classInfo["id"] = 9353
-        classInfo["color"] = colors.first!
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Discrete Structures"
-        classInfo["start"] = 390
-        classInfo["end"] = 465
-        classInfo["day"] = 5
-        classInfo["room"] = "Mendel 290"
-        classInfo["id"] = 9354
-        classInfo["color"] = colors.removeFirst()
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Computer Networks Lab"
-        classInfo["start"] = 495
-        classInfo["end"] = 615
-        classInfo["day"] = 3
-        classInfo["room"] = "Tolentine 208"
-        classInfo["id"] = 9355
-        classInfo["color"] = classList[3]["color"] as! UIColor
-        classList.append(classInfo)
-        
-        classInfo["name"] = "CPE II Lab"
-        classInfo["start"] = 570
-        classInfo["end"] = 735
-        classInfo["day"] = 4
-        classInfo["room"] = "CEER 206"
-        classInfo["id"] = 9356
-        classInfo["color"] = classList[1]["color"] as! UIColor
-        classList.append(classInfo)
-        
-        classListGlobal = classList
-        
+//    func populateFakeClasses () {
+//        var classList = [[String:Any]]()
+//        var classInfo = [String:Any]()
+//        classInfo["name"] = "CPE II"
+//        classInfo["start"] = 30
+//        classInfo["end"] = 80
+//        classInfo["day"] = 2
+//        classInfo["room"] = "Tolentine 305"
+//        classInfo["id"] = 9345
+//        classInfo["color"] = colors.first!
+//        classList.append(classInfo)
+//
+//        classInfo["name"] = "CPE II"
+//        classInfo["start"] = 30
+//        classInfo["end"] = 80
+//        classInfo["day"] = 4
+//        classInfo["room"] = "Tolentine 305"
+//        classInfo["id"] = 9346
+//        classInfo["color"] = colors.first!
+//        classList.append(classInfo)
+//
+//        classInfo["name"] = "CPE II"
+//        classInfo["start"] = 30
+//        classInfo["end"] = 80
+//        classInfo["day"] = 6
+//        classInfo["room"] = "Tolentine 305"
+//        classInfo["id"] = 9347
+//        classInfo["color"] = colors.removeFirst()
+//        classList.append(classInfo)
+//
+//        classInfo["name"] = "Computer Networks"
+//        classInfo["start"] = 330
+//        classInfo["end"] = 405
+//        classInfo["day"] = 2
+//        classInfo["room"] = "CEER 001"
+//        classInfo["id"] = 9348
+//        classInfo["color"] = colors.first!
+//        classList.append(classInfo)
+//
+//        classInfo["name"] = "Computer Networks"
+//        classInfo["start"] = 330
+//        classInfo["end"] = 405
+//        classInfo["day"] = 4
+//        classInfo["room"] = "CEER 001"
+//        classInfo["id"] = 9349
+//        classInfo["color"] = colors.removeFirst()
+//        classList.append(classInfo)
+//
+//        classInfo["name"] = "Design Seminar"
+//        classInfo["start"] = 60
+//        classInfo["end"] = 200
+//        classInfo["day"] = 3
+//        classInfo["room"] = "CEER 001"
+//        classInfo["id"] = 9350
+//        classInfo["color"] = colors.removeFirst()
+//        classList.append(classInfo)
+//
+//        classInfo["name"] = "Compiler Construction"
+//        classInfo["start"] = 210
+//        classInfo["end"] = 285
+//        classInfo["day"] = 3
+//        classInfo["room"] = "Mendel 290"
+//        classInfo["id"] = 9351
+//        classInfo["color"] = colors.first!
+//        classList.append(classInfo)
+//
+//        classInfo["name"] = "Compiler Construction"
+//        classInfo["start"] = 210
+//        classInfo["end"] = 285
+//        classInfo["day"] = 5
+//        classInfo["room"] = "Mendel 290"
+//        classInfo["id"] = 9352
+//        classInfo["color"] = colors.removeFirst()
+//        classList.append(classInfo)
+//
+//        classInfo["name"] = "Discrete Structures"
+//        classInfo["start"] = 390
+//        classInfo["end"] = 465
+//        classInfo["day"] = 3
+//        classInfo["room"] = "Mendel 290"
+//        classInfo["id"] = 9353
+//        classInfo["color"] = colors.first!
+//        classList.append(classInfo)
+//
+//        classInfo["name"] = "Discrete Structures"
+//        classInfo["start"] = 390
+//        classInfo["end"] = 465
+//        classInfo["day"] = 5
+//        classInfo["room"] = "Mendel 290"
+//        classInfo["id"] = 9354
+//        classInfo["color"] = colors.removeFirst()
+//        classList.append(classInfo)
+//
+//        classInfo["name"] = "Computer Networks Lab"
+//        classInfo["start"] = 495
+//        classInfo["end"] = 615
+//        classInfo["day"] = 3
+//        classInfo["room"] = "Tolentine 208"
+//        classInfo["id"] = 9355
+//        classInfo["color"] = classList[3]["color"] as! UIColor
+//        classList.append(classInfo)
+//
+//        classInfo["name"] = "CPE II Lab"
+//        classInfo["start"] = 570
+//        classInfo["end"] = 735
+//        classInfo["day"] = 4
+//        classInfo["room"] = "CEER 206"
+//        classInfo["id"] = 9356
+//        classInfo["color"] = classList[1]["color"] as! UIColor
+//        classList.append(classInfo)
+//
+//        classListGlobal = classList
+//
+//    }
+    
+    func hasPreviousHw () -> Bool {
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            if let hwListData = userDefaults.object(forKey: "hwListX") as? Data {
+                let hwListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(hwListData) as? [[String:Any]]
+                homeworkListGlobal = hwListDecoded!
+                if homeworkListGlobal.count != 0 {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func hasPreviousTests () -> Bool {
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            if let testListData = userDefaults.object(forKey: "testListX") as? Data {
+                let testListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(testListData) as? [[String:Any]]
+                testListGlobal = testListDecoded!
+                if testListGlobal.count != 0 {
+                    return true
+                }
+            }
+        }
+        return false
     }
     
     func hasPreviousData () -> Bool {
         if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
             
-            if let classListData = userDefaults.object(forKey: "classList") as? Data {
-                let classListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(classListData) as! [[String:Any]]
+            if let classListData = userDefaults.object(forKey: "classListX") as? Data {
+                let classListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(classListData) as? [[String:Any]]
                 classListGlobal = classListDecoded!
                 if classListGlobal.count != 0 {
                     return true
@@ -1415,7 +1488,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     return false
                 }
             }
-            
         }
         return false
     }

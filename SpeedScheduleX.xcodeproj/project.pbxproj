@@ -158,6 +158,7 @@
 		4C33CA4622374BDB00A52E0A /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		4C33CA4A223836A000A52E0A /* classView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classView.swift; sourceTree = "<group>"; };
 		4C75219E2245987F000B0D0E /* Aller_Std_Bd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Aller_Std_Bd.ttf; sourceTree = "<group>"; };
+		4C91236A224E882800453827 /* SpeedScheduleToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeedScheduleToday.entitlements; sourceTree = "<group>"; };
 		4CA0D2C2223A0B130072A9E3 /* timeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeView.swift; sourceTree = "<group>"; };
 		4CA0D2C4223AA72F0072A9E3 /* addClassPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addClassPickerView.swift; sourceTree = "<group>"; };
 		4CA0D2C6223AA75B0072A9E3 /* addClassPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = addClassPickerView.xib; sourceTree = "<group>"; };
@@ -283,6 +284,7 @@
 		4CA94696224552EE003FC20F /* SpeedScheduleToday */ = {
 			isa = PBXGroup;
 			children = (
+				4C91236A224E882800453827 /* SpeedScheduleToday.entitlements */,
 				4CA94697224552EE003FC20F /* TodayViewController.swift */,
 				4CE774B422470B6F00EFE6AC /* ProgressBar.swift */,
 				4CE774B622470B8000EFE6AC /* ProgressBar.xib */,
@@ -420,6 +422,7 @@
 				TargetAttributes = {
 					4C33C9FA2236A73D00A52E0A = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -431,6 +434,7 @@
 					};
 					4C33CA1B2236A73E00A52E0A = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -439,6 +443,12 @@
 					};
 					4CA94691224552EE003FC20F = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -754,7 +764,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 5.1;
 			};
@@ -777,7 +787,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 5.1;
 			};
@@ -787,7 +797,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UX7GPB828A;
 				IBSC_MODULE = SpeedScheduleX_WatchKit_Extension;
@@ -806,7 +815,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UX7GPB828A;
 				IBSC_MODULE = SpeedScheduleX_WatchKit_Extension;
@@ -836,7 +844,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = rolflocher.SpeedScheduleXX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -856,7 +864,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = rolflocher.SpeedScheduleXX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -864,6 +872,7 @@
 		4CA946A1224552EE003FC20F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SpeedScheduleToday/SpeedScheduleToday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UX7GPB828A;
 				INFOPLIST_FILE = SpeedScheduleToday/Info.plist;
@@ -875,7 +884,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = rolflocher.SpeedScheduleXX.SpeedScheduleToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -883,6 +892,7 @@
 		4CA946A2224552EE003FC20F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SpeedScheduleToday/SpeedScheduleToday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UX7GPB828A;
 				INFOPLIST_FILE = SpeedScheduleToday/Info.plist;
@@ -894,7 +904,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = rolflocher.SpeedScheduleXX.SpeedScheduleToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

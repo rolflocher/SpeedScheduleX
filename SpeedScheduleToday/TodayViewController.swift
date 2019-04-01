@@ -9,12 +9,23 @@
 import UIKit
 import NotificationCenter
 
-class TodayViewController: UIViewController, NCWidgetProviding {
+class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate {
+    
+    func classDone() {
+        setupProgressBars()
+    }
+    
+    func shouldContinue(id: Int) -> Bool {
+        return sessionID == id
+    }
+    
     
     var usableHeight : CGFloat = 459.0
     var usableWidth : CGFloat = 57.0
     
     var classListGlobal = [[String:Any]]()
+    var homeworkListGlobal = [[String:Any]]()
+    var testListGlobal = [[String:Any]]()
     
     @IBOutlet var timeLabelView: UIView!
     
@@ -24,7 +35,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet var expandedWatermark: UIImageView!
     
-    @IBOutlet var wideCompactContainer: wideProgressContainer!
+    @IBOutlet weak var wideCompactContainer: wideProgressContainer!
     
     @IBOutlet var leftArrowView: UIView!
     
@@ -48,6 +59,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     var compactX = 0
     
+    var sessionID = Int()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
@@ -61,85 +74,427 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         rightArrowView.addGestureRecognizer(rightTap)
         rightArrowView.isUserInteractionEnabled = true
         
-        var test = [String:Any]()
-        test["start"] = 380
-        test["end"] = 395
-        wideCompactContainer.breakProgress0.classInfo = test
-        wideCompactContainer.breakProgress0.updateProgress()
+        //var test = [String:Any]()
+        //test["start"] = 380
+        //test["end"] = 395
+        //wideCompactContainer.breakProgress0.classInfo = test
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        wideCompactContainer.breakProgress0.startDate = formatter.date(from: "2019/1/14 22:31")!
+        wideCompactContainer.breakProgress0.endDate = formatter.date(from: "2019/4/17 22:31")!
+        wideCompactContainer.breakProgress0.updateBreak()
+        wideCompactContainer.breakProgress0.timeLabel.text = "Easter Break"
+        wideCompactContainer.breakProgress0.nameLabel.text = ""
+        wideCompactContainer.breakProgress0.roomLabel.text = ""
+        wideCompactContainer.breakProgress0.contentView.backgroundColor = #colorLiteral(red: 0.9816584941, green: 0.8707194067, blue: 0.8047215154, alpha: 0.9036815068)
+        wideCompactContainer.breakProgress0.progressCompletion.backgroundColor = #colorLiteral(red: 1, green: 0.7629813352, blue: 0.4159827176, alpha: 0.900577911)
+        wideCompactContainer.breakProgress0.timeLabelWidth.constant = 100
         
-        populateFakeClasses()
-        generateTimeBounds()
-        drawClasses(classList: classListGlobal)
-        setupLabels()
+        wideCompactContainer.breakProgress1.startDate = formatter.date(from: "2019/1/14 22:31")!
+        wideCompactContainer.breakProgress1.endDate = formatter.date(from: "2019/5/2 22:31")!
+        wideCompactContainer.breakProgress1.updateBreak()
+        wideCompactContainer.breakProgress1.timeLabel.text = "Last Day of Class"
+        wideCompactContainer.breakProgress1.nameLabel.text = ""
+        wideCompactContainer.breakProgress1.roomLabel.text = ""
+        wideCompactContainer.breakProgress1.contentView.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 0.8973405394)
+        wideCompactContainer.breakProgress1.progressCompletion.backgroundColor = #colorLiteral(red: 0.3779870569, green: 0.5440931561, blue: 1, alpha: 0.900577911)
+        wideCompactContainer.breakProgress1.timeLabelWidth.constant = 100 
+        
+        wideCompactContainer.breakProgress2.startDate = formatter.date(from: "2019/1/14 22:31")!
+        wideCompactContainer.breakProgress2.endDate = formatter.date(from: "2019/5/10 22:31")!
+        wideCompactContainer.breakProgress2.updateBreak()
+        wideCompactContainer.breakProgress2.timeLabel.text = "Last Day of Finals"
+        wideCompactContainer.breakProgress2.nameLabel.text = ""
+        wideCompactContainer.breakProgress2.roomLabel.text = ""
+        wideCompactContainer.breakProgress2.contentView.backgroundColor = #colorLiteral(red: 0.9816584941, green: 0.6243301325, blue: 0.6805883039, alpha: 0.9036815068)
+        wideCompactContainer.breakProgress2.progressCompletion.backgroundColor = #colorLiteral(red: 1, green: 0.4446860132, blue: 0.4183087496, alpha: 0.900577911)
+        wideCompactContainer.breakProgress2.timeLabelWidth.constant = 100
+        
+        sessionID = Int.random(in: 1..<999)
+        print("session ID: \(sessionID)")
+        wideCompactContainer.todayProgress0.id = sessionID
+        
+        wideCompactContainer.todayProgress0.delegate0 = self
+        
+        //populateFakeClasses()
+        if hasPreviousData() {
+            generateTimeBounds()
+            drawClasses(classList: classListGlobal)
+            setupLabels()
+            setupProgressBars()
+        }
+        else {
+            // defaults for new user
+        }
+        
         isFirstLoad = false
         wideCompactContainer.frame = CGRect(x: 0, y: 0, width: 1436, height: 110)
         
-        wideCompactContainer.todayProgress0.nameLabel.text = "CPE II"
-        wideCompactContainer.todayProgress1.nameLabel.text = "Computer Networks"
-        wideCompactContainer.todayProgress2.nameLabel.text = "Discrete Structures"
+        if hasPreviousHw() {
+            setupCompactHomework()
+        }
+        else {
+            
+        }
+        if hasPreviousTests() {
+            setupCompactTests()
+        }
+        else {
+            
+        }
+
+    }
+    
+    func hasPreviousHw () -> Bool {
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            if let hwListData = userDefaults.object(forKey: "hwListX") as? Data {
+                let hwListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(hwListData) as? [[String:Any]]
+                homeworkListGlobal = hwListDecoded!
+                if homeworkListGlobal.count != 0 {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func hasPreviousTests () -> Bool {
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            if let testListData = userDefaults.object(forKey: "testListX") as? Data {
+                let testListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(testListData) as? [[String:Any]]
+                testListGlobal = testListDecoded!
+                if testListGlobal.count != 0 {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func setupCompactHomework () {
+        let calendar = Calendar.current
+        var comps0 = calendar.dateComponents([.month, .day], from: Date())
+        if homeworkListGlobal.count == 1 {
+            print(homeworkListGlobal[0])
+            comps0 = calendar.dateComponents([.month, .day], from: homeworkListGlobal[0]["date"] as! Date)
+            wideCompactContainer.homeworkProgress0.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.homeworkProgress0.nameLabel.text = homeworkListGlobal[0]["class"] as? String
+            wideCompactContainer.homeworkProgress0.roomLabel.text = homeworkListGlobal[0]["type"] as? String
+            wideCompactContainer.homeworkProgress0.backgroundColor = homeworkListGlobal[0]["color"] as? UIColor
+            
+            
+            wideCompactContainer.homeworkProgress1.timeLabel.text = ""
+            wideCompactContainer.homeworkProgress1.nameLabel.text = ""
+            wideCompactContainer.homeworkProgress1.roomLabel.text = ""
+            wideCompactContainer.homeworkProgress1.backgroundColor = UIColor.clear
+            
+            wideCompactContainer.homeworkProgress2.timeLabel.text = ""
+            wideCompactContainer.homeworkProgress2.nameLabel.text = ""
+            wideCompactContainer.homeworkProgress2.roomLabel.text = ""
+            wideCompactContainer.homeworkProgress2.backgroundColor = UIColor.clear
+        }
+        else if homeworkListGlobal.count == 2 {
+            comps0 = calendar.dateComponents([.month, .day], from: homeworkListGlobal[0]["date"] as! Date)
+            wideCompactContainer.homeworkProgress0.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.homeworkProgress0.nameLabel.text = homeworkListGlobal[0]["class"] as? String
+            wideCompactContainer.homeworkProgress0.roomLabel.text = homeworkListGlobal[0]["type"] as? String
+            wideCompactContainer.homeworkProgress0.backgroundColor = homeworkListGlobal[0]["color"] as? UIColor
+            
+            comps0 = calendar.dateComponents([.month, .day], from: homeworkListGlobal[1]["date"] as! Date)
+            wideCompactContainer.homeworkProgress1.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.homeworkProgress1.nameLabel.text = homeworkListGlobal[1]["class"] as? String
+            wideCompactContainer.homeworkProgress1.roomLabel.text = homeworkListGlobal[1]["type"] as? String
+            wideCompactContainer.homeworkProgress1.backgroundColor = homeworkListGlobal[1]["color"] as? UIColor
+            
+            wideCompactContainer.homeworkProgress2.timeLabel.text = ""
+            wideCompactContainer.homeworkProgress2.nameLabel.text = ""
+            wideCompactContainer.homeworkProgress2.roomLabel.text = ""
+            wideCompactContainer.homeworkProgress2.backgroundColor = UIColor.clear
+        }
+        else if homeworkListGlobal.count >= 3 {
+            comps0 = calendar.dateComponents([.month, .day], from: homeworkListGlobal[0]["date"] as! Date)
+            wideCompactContainer.homeworkProgress0.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.homeworkProgress0.nameLabel.text = homeworkListGlobal[0]["class"] as? String
+            wideCompactContainer.homeworkProgress0.roomLabel.text = homeworkListGlobal[0]["type"] as? String
+            wideCompactContainer.homeworkProgress0.backgroundColor = homeworkListGlobal[0]["color"] as? UIColor
+            
+            comps0 = calendar.dateComponents([.month, .day], from: homeworkListGlobal[1]["date"] as! Date)
+            wideCompactContainer.homeworkProgress1.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.homeworkProgress1.nameLabel.text = homeworkListGlobal[1]["class"] as? String
+            wideCompactContainer.homeworkProgress1.roomLabel.text = homeworkListGlobal[1]["type"] as? String
+            wideCompactContainer.homeworkProgress1.backgroundColor = homeworkListGlobal[1]["color"] as? UIColor
+            
+            comps0 = calendar.dateComponents([.month, .day], from: homeworkListGlobal[2]["date"] as! Date)
+            wideCompactContainer.homeworkProgress2.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.homeworkProgress2.nameLabel.text = homeworkListGlobal[2]["class"] as? String
+            wideCompactContainer.homeworkProgress2.roomLabel.text = homeworkListGlobal[2]["type"] as? String
+            wideCompactContainer.homeworkProgress2.backgroundColor = homeworkListGlobal[2]["color"] as? UIColor
+        }
+        else {
+            wideCompactContainer.homeworkProgress0.timeLabel.text = ""
+            wideCompactContainer.homeworkProgress0.nameLabel.text = ""
+            wideCompactContainer.homeworkProgress0.roomLabel.text = ""
+            wideCompactContainer.homeworkProgress0.backgroundColor = UIColor.clear
+            
+            wideCompactContainer.homeworkProgress1.timeLabel.text = ""
+            wideCompactContainer.homeworkProgress1.nameLabel.text = ""
+            wideCompactContainer.homeworkProgress1.roomLabel.text = ""
+            wideCompactContainer.homeworkProgress1.backgroundColor = UIColor.clear
+            
+            wideCompactContainer.homeworkProgress2.timeLabel.text = ""
+            wideCompactContainer.homeworkProgress2.nameLabel.text = ""
+            wideCompactContainer.homeworkProgress2.roomLabel.text = ""
+            wideCompactContainer.homeworkProgress2.backgroundColor = UIColor.clear
+        }
+    }
+    
+    func setupCompactTests () {
+        let calendar = Calendar.current
+        var comps0 = calendar.dateComponents([.month, .day], from: Date())
+        if testListGlobal.count == 1 {
+            print(testListGlobal[0])
+            comps0 = calendar.dateComponents([.month, .day], from: testListGlobal[0]["date"] as! Date)
+            wideCompactContainer.testProgress0.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.testProgress0.nameLabel.text = testListGlobal[0]["class"] as? String
+            wideCompactContainer.testProgress0.roomLabel.text = testListGlobal[0]["type"] as? String
+            wideCompactContainer.testProgress0.backgroundColor = testListGlobal[0]["color"] as? UIColor
+            
+            
+            wideCompactContainer.testProgress1.timeLabel.text = ""
+            wideCompactContainer.testProgress1.nameLabel.text = ""
+            wideCompactContainer.testProgress1.roomLabel.text = ""
+            wideCompactContainer.testProgress1.backgroundColor = UIColor.clear
+            
+            wideCompactContainer.testProgress2.timeLabel.text = ""
+            wideCompactContainer.testProgress2.nameLabel.text = ""
+            wideCompactContainer.testProgress2.roomLabel.text = ""
+            wideCompactContainer.testProgress2.backgroundColor = UIColor.clear
+        }
+        else if testListGlobal.count == 2 {
+            comps0 = calendar.dateComponents([.month, .day], from: testListGlobal[0]["date"] as! Date)
+            wideCompactContainer.testProgress0.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.testProgress0.nameLabel.text = testListGlobal[0]["class"] as? String
+            wideCompactContainer.testProgress0.roomLabel.text = testListGlobal[0]["type"] as? String
+            wideCompactContainer.testProgress0.backgroundColor = testListGlobal[0]["color"] as? UIColor
+            
+            comps0 = calendar.dateComponents([.month, .day], from: testListGlobal[1]["date"] as! Date)
+            wideCompactContainer.testProgress1.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.testProgress1.nameLabel.text = testListGlobal[1]["class"] as? String
+            wideCompactContainer.testProgress1.roomLabel.text = testListGlobal[1]["type"] as? String
+            wideCompactContainer.testProgress1.backgroundColor = testListGlobal[1]["color"] as? UIColor
+            
+            wideCompactContainer.testProgress2.timeLabel.text = ""
+            wideCompactContainer.testProgress2.nameLabel.text = ""
+            wideCompactContainer.testProgress2.roomLabel.text = ""
+            wideCompactContainer.testProgress2.backgroundColor = UIColor.clear
+        }
+        else if testListGlobal.count >= 3 {
+            comps0 = calendar.dateComponents([.month, .day], from: testListGlobal[0]["date"] as! Date)
+            wideCompactContainer.testProgress0.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.testProgress0.nameLabel.text = testListGlobal[0]["class"] as? String
+            wideCompactContainer.testProgress0.roomLabel.text = testListGlobal[0]["type"] as? String
+            wideCompactContainer.testProgress0.backgroundColor = testListGlobal[0]["color"] as? UIColor
+            
+            comps0 = calendar.dateComponents([.month, .day], from: testListGlobal[1]["date"] as! Date)
+            wideCompactContainer.testProgress1.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.testProgress1.nameLabel.text = testListGlobal[1]["class"] as? String
+            wideCompactContainer.testProgress1.roomLabel.text = testListGlobal[1]["type"] as? String
+            wideCompactContainer.testProgress1.backgroundColor = testListGlobal[1]["color"] as? UIColor
+            
+            comps0 = calendar.dateComponents([.month, .day], from: testListGlobal[2]["date"] as! Date)
+            wideCompactContainer.testProgress2.timeLabel.text = String(comps0.month!) + " / " + String(comps0.day!)
+            wideCompactContainer.testProgress2.nameLabel.text = testListGlobal[2]["class"] as? String
+            wideCompactContainer.testProgress2.roomLabel.text = testListGlobal[2]["type"] as? String
+            wideCompactContainer.testProgress2.backgroundColor = testListGlobal[2]["color"] as? UIColor
+        }
+        else {
+            wideCompactContainer.testProgress0.timeLabel.text = ""
+            wideCompactContainer.testProgress0.nameLabel.text = ""
+            wideCompactContainer.testProgress0.roomLabel.text = ""
+            wideCompactContainer.testProgress0.backgroundColor = UIColor.clear
+            
+            wideCompactContainer.testProgress1.timeLabel.text = ""
+            wideCompactContainer.testProgress1.nameLabel.text = ""
+            wideCompactContainer.testProgress1.roomLabel.text = ""
+            wideCompactContainer.testProgress1.backgroundColor = UIColor.clear
+            
+            wideCompactContainer.testProgress2.timeLabel.text = ""
+            wideCompactContainer.testProgress2.nameLabel.text = ""
+            wideCompactContainer.testProgress2.roomLabel.text = ""
+            wideCompactContainer.testProgress2.backgroundColor = UIColor.clear
+        }
+    }
+    
+    func setupProgressBars () {
         
-        wideCompactContainer.todayProgress0.timeLabel.text = "8:10 - 9:20"
-        wideCompactContainer.todayProgress1.timeLabel.text = "11:30 - 12:45"
-        wideCompactContainer.todayProgress2.timeLabel.text = "1:30 - 2:45"
+        let calendar = Calendar.current
+        let date = Date()
+        let comps = calendar.dateComponents([.weekday, .hour, .minute], from: date)
         
-        wideCompactContainer.todayProgress0.roomLabel.text = "Tol 305"
-        wideCompactContainer.todayProgress1.roomLabel.text = "CEER 001"
-        wideCompactContainer.todayProgress2.roomLabel.text = "Mendel 290"
+        //for x in classListGlobal { print("\(x)\n") }
+        //print(classListGlobal[0]["end"] as! Int + (classListGlobal[0]["day"] as! Int)*10000)
+        //print(comps.minute! + (comps.hour!-8)*60 + comps.weekday!*10000)
         
-        wideCompactContainer.todayProgress0.contentView.backgroundColor = colorList[0]
-        wideCompactContainer.todayProgress1.contentView.backgroundColor = colorList[1]
-        wideCompactContainer.todayProgress2.contentView.backgroundColor = colorList[2]
+        var todaysClasses = classListGlobal.filter({($0["end"] as! Int) + ($0["day"] as! Int)*10000 > comps.minute! + (comps.hour!-8)*60 + comps.weekday!*10000 && ($0["end"] as! Int) + ($0["day"] as! Int)*10000 < comps.minute! + (comps.hour!-8)*60 + comps.weekday!*10000 + 5000})
+        todaysClasses.sort(by: {($0["end"] as! Int) < ($1["end"] as! Int)})
         
-        
-        wideCompactContainer.homeworkProgress0.nameLabel.text = "CPE II"
-        wideCompactContainer.homeworkProgress1.nameLabel.text = "Computer Networks"
-        wideCompactContainer.homeworkProgress2.nameLabel.text = "Discrete Structures"
-        
-        wideCompactContainer.homeworkProgress0.timeLabel.text = "Homework"
-        wideCompactContainer.homeworkProgress1.timeLabel.text = "Essay"
-        wideCompactContainer.homeworkProgress2.timeLabel.text = "Reading"
-        
-        wideCompactContainer.homeworkProgress0.roomLabel.text = "Monday"
-        wideCompactContainer.homeworkProgress1.roomLabel.text = "Monday"
-        wideCompactContainer.homeworkProgress2.roomLabel.text = "Tuesday"
-        
-        wideCompactContainer.homeworkProgress0.contentView.backgroundColor = colorList[0]
-        wideCompactContainer.homeworkProgress1.contentView.backgroundColor = colorList[1]
-        wideCompactContainer.homeworkProgress2.contentView.backgroundColor = colorList[2]
+        var hourFormater0 = 0
+        var hourFormater1 = 0
         
         
-        wideCompactContainer.testProgress0.nameLabel.text = "CPE II"
-        wideCompactContainer.testProgress1.nameLabel.text = "Computer Networks"
-        wideCompactContainer.testProgress2.nameLabel.text = "Discrete Structures"
+        UIView.transition(with: wideCompactContainer, duration: 1, options: .transitionCrossDissolve, animations: {
+            if todaysClasses.count == 0 {
+                self.wideCompactContainer.todayProgress0.nameLabel.text = ""
+                self.wideCompactContainer.todayProgress0.timeLabel.text = ""
+                self.wideCompactContainer.todayProgress0.roomLabel.text = ""
+                self.wideCompactContainer.todayProgress0.backgroundColor = UIColor.clear
+                self.wideCompactContainer.todayProgress0.progressCompletion.backgroundColor = UIColor.clear
+                
+                self.wideCompactContainer.todayProgress1.nameLabel.text = ""
+                self.wideCompactContainer.todayProgress1.timeLabel.text = ""
+                self.wideCompactContainer.todayProgress1.roomLabel.text = ""
+                self.wideCompactContainer.todayProgress1.backgroundColor = UIColor.clear
+                
+                self.wideCompactContainer.todayProgress2.nameLabel.text = ""
+                self.wideCompactContainer.todayProgress2.timeLabel.text = ""
+                self.wideCompactContainer.todayProgress2.roomLabel.text = ""
+                self.wideCompactContainer.todayProgress2.backgroundColor = UIColor.clear
+            }
+            else if todaysClasses.count == 1 {
+                self.wideCompactContainer.todayProgress0.progressCompletion.backgroundColor = UIColor.green
+                self.wideCompactContainer.todayProgress0.classInfo = todaysClasses[0]
+                //self.wideCompactContainer.todayProgress0.updateProgress()
+                self.wideCompactContainer.todayProgress0.nameLabel.text = todaysClasses[0]["name"] as? String
+                hourFormater0 = Int(floor(Double((todaysClasses[0]["start"] as! Int)))/60)+8
+                hourFormater1 = Int(floor(Double((todaysClasses[0]["end"] as! Int)))/60)+8
+                if hourFormater0 > 12 {
+                    hourFormater0 -= 12
+                }
+                if hourFormater1 > 12 {
+                    hourFormater1 -= 12
+                }
+                self.wideCompactContainer.todayProgress0.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[0]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[0]["end"] as! Int % 60)
+                self.wideCompactContainer.todayProgress0.roomLabel.text = todaysClasses[0]["room"] as? String
+                self.wideCompactContainer.todayProgress0.backgroundColor = todaysClasses[0]["color"] as? UIColor
+                
+                self.wideCompactContainer.todayProgress1.nameLabel.text = ""
+                self.wideCompactContainer.todayProgress1.timeLabel.text = ""
+                self.wideCompactContainer.todayProgress1.roomLabel.text = ""
+                self.wideCompactContainer.todayProgress1.backgroundColor = UIColor.clear
+                
+                self.wideCompactContainer.todayProgress2.nameLabel.text = ""
+                self.wideCompactContainer.todayProgress2.timeLabel.text = ""
+                self.wideCompactContainer.todayProgress2.roomLabel.text = ""
+                self.wideCompactContainer.todayProgress2.backgroundColor = UIColor.clear
+            }
+            else if todaysClasses.count == 2 {
+                self.wideCompactContainer.todayProgress0.progressCompletion.backgroundColor = UIColor.green
+                self.wideCompactContainer.todayProgress0.classInfo = todaysClasses[0]
+                //self.wideCompactContainer.todayProgress0.updateProgress()
+                self.wideCompactContainer.todayProgress0.nameLabel.text = todaysClasses[0]["name"] as? String
+                hourFormater0 = Int(floor(Double((todaysClasses[0]["start"] as! Int)))/60)+8
+                hourFormater1 = Int(floor(Double((todaysClasses[0]["end"] as! Int)))/60)+8
+                if hourFormater0 > 12 {
+                    hourFormater0 -= 12
+                }
+                if hourFormater1 > 12 {
+                    hourFormater1 -= 12
+                }
+                self.wideCompactContainer.todayProgress0.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[0]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[0]["end"] as! Int % 60)
+                self.wideCompactContainer.todayProgress0.roomLabel.text = todaysClasses[0]["room"] as? String
+                self.wideCompactContainer.todayProgress0.backgroundColor = todaysClasses[0]["color"] as? UIColor
+                
+                self.wideCompactContainer.todayProgress1.nameLabel.text = todaysClasses[1]["name"] as? String
+                hourFormater0 = Int(floor(Double((todaysClasses[1]["start"] as! Int)))/60)+8
+                hourFormater1 = Int(floor(Double((todaysClasses[1]["end"] as! Int)))/60)+8
+                if hourFormater0 > 12 {
+                    hourFormater0 -= 12
+                }
+                if hourFormater1 > 12 {
+                    hourFormater1 -= 12
+                }
+                self.wideCompactContainer.todayProgress1.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[1]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[1]["end"] as! Int % 60)
+                self.wideCompactContainer.todayProgress1.roomLabel.text = todaysClasses[1]["room"] as? String
+                self.wideCompactContainer.todayProgress1.backgroundColor = todaysClasses[1]["color"] as? UIColor
+                
+                self.wideCompactContainer.todayProgress2.nameLabel.text = ""
+                self.wideCompactContainer.todayProgress2.timeLabel.text = ""
+                self.wideCompactContainer.todayProgress2.roomLabel.text = ""
+                self.wideCompactContainer.todayProgress2.backgroundColor = UIColor.clear
+            }
+            else if todaysClasses.count >= 3 {
+                self.wideCompactContainer.todayProgress0.progressCompletion.backgroundColor = UIColor.green
+                self.wideCompactContainer.todayProgress0.classInfo = todaysClasses[0]
+                //self.wideCompactContainer.todayProgress0.updateProgress()
+                self.wideCompactContainer.todayProgress0.nameLabel.text = todaysClasses[0]["name"] as? String
+                hourFormater0 = Int(floor(Double((todaysClasses[0]["start"] as! Int)))/60)+8
+                hourFormater1 = Int(floor(Double((todaysClasses[0]["end"] as! Int)))/60)+8
+                if hourFormater0 > 12 {
+                    hourFormater0 -= 12
+                }
+                if hourFormater1 > 12 {
+                    hourFormater1 -= 12
+                }
+                self.wideCompactContainer.todayProgress0.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[0]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[0]["end"] as! Int % 60)
+                self.wideCompactContainer.todayProgress0.roomLabel.text = todaysClasses[0]["room"] as? String
+                self.wideCompactContainer.todayProgress0.backgroundColor = todaysClasses[0]["color"] as? UIColor
+                
+                self.wideCompactContainer.todayProgress1.nameLabel.text = todaysClasses[1]["name"] as? String
+                hourFormater0 = Int(floor(Double((todaysClasses[1]["start"] as! Int)))/60)+8
+                hourFormater1 = Int(floor(Double((todaysClasses[1]["end"] as! Int)))/60)+8
+                if hourFormater0 > 12 {
+                    hourFormater0 -= 12
+                }
+                if hourFormater1 > 12 {
+                    hourFormater1 -= 12
+                }
+                self.wideCompactContainer.todayProgress1.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[1]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[1]["end"] as! Int % 60)
+                self.wideCompactContainer.todayProgress1.roomLabel.text = todaysClasses[1]["room"] as? String
+                self.wideCompactContainer.todayProgress1.backgroundColor = todaysClasses[1]["color"] as? UIColor
+                
+                self.wideCompactContainer.todayProgress2.nameLabel.text = todaysClasses[2]["name"] as? String
+                hourFormater0 = Int(floor(Double((todaysClasses[2]["start"] as! Int)))/60)+8
+                hourFormater1 = Int(floor(Double((todaysClasses[2]["end"] as! Int)))/60)+8
+                if hourFormater0 > 12 {
+                    hourFormater0 -= 12
+                }
+                if hourFormater1 > 12 {
+                    hourFormater1 -= 12
+                }
+                self.wideCompactContainer.todayProgress2.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[2]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[2]["end"] as! Int % 60)
+                self.wideCompactContainer.todayProgress2.roomLabel.text = todaysClasses[2]["room"] as? String
+                self.wideCompactContainer.todayProgress2.backgroundColor = todaysClasses[2]["color"] as? UIColor
+            }
+        })
+        if todaysClasses.count > 0 {
+            wideCompactContainer.todayProgress0.progressCompletion.backgroundColor = UIColor.green
+            wideCompactContainer.todayProgress0.updateProgress()
+        }
         
-        wideCompactContainer.testProgress0.timeLabel.text = "Test"
-        wideCompactContainer.testProgress1.timeLabel.text = "Essay"
-        wideCompactContainer.testProgress2.timeLabel.text = "Quiz"
-        
-        wideCompactContainer.testProgress0.roomLabel.text = "Tuesday"
-        wideCompactContainer.testProgress1.roomLabel.text = "Thurday"
-        wideCompactContainer.testProgress2.roomLabel.text = "3/28"
-        
-        wideCompactContainer.testProgress0.contentView.backgroundColor = colorList[0]
-        wideCompactContainer.testProgress1.contentView.backgroundColor = colorList[1]
-        wideCompactContainer.testProgress2.contentView.backgroundColor = colorList[2]
         
         
-        wideCompactContainer.breakProgress0.nameLabel.text = ""
-        wideCompactContainer.breakProgress1.nameLabel.text = ""
-        wideCompactContainer.breakProgress2.nameLabel.text = ""
+//        for x in todaysClasses {
+//            print("\(x)+\n")
+//        }
+//        print(date)
         
-        wideCompactContainer.breakProgress0.timeLabel.text = "Easter Break"
-        wideCompactContainer.breakProgress1.timeLabel.text = "Last Classes"
-        wideCompactContainer.breakProgress2.timeLabel.text = "Graduation"
-        
-        wideCompactContainer.breakProgress0.roomLabel.text = ""
-        wideCompactContainer.breakProgress1.roomLabel.text = ""
-        wideCompactContainer.breakProgress2.roomLabel.text = ""
-        
-        wideCompactContainer.breakProgress0.contentView.backgroundColor = colorList[3]
-        wideCompactContainer.breakProgress1.contentView.backgroundColor = colorList[4]
-        wideCompactContainer.breakProgress2.contentView.backgroundColor = colorList[5]
+    }
+    
+    func hasPreviousData () -> Bool {
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            
+            if let classListData = userDefaults.object(forKey: "classListX") as? Data {
+                let classListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(classListData) as? [[String:Any]]
+                classListGlobal = classListDecoded!
+                if classListGlobal.count != 0 {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+        }
+        return false
     }
     
     @objc func leftTapped() {
@@ -340,7 +695,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         for classInfo in classList {
             //print(endTime-startTime)
-            print(endTime-startTime)
+            //print(endTime-startTime)
             let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int)-startTime)/CGFloat(endTime-startTime)//780
             let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int)-startTime)/CGFloat(endTime-startTime)//780
             
@@ -487,7 +842,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         numSegments += (30 - 30) / 30
         numSegments = 23//27
         numSegments = (endTime-startTime)/30
-        print("numsegments \(numSegments)")
+        //print("numsegments \(numSegments)")
         
         for x in 0...5 {
             let path = UIBezierPath()
@@ -583,73 +938,73 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             
             switch (x+Int(floor(Double(startTime/30)))) {
                 
-            case 1:
-                print("")
+//            case 1:
+//                print("")
             case 2:
                 textLayer.string = NSAttributedString(string: "9 AM", attributes: myAttributes )
                 //textLayer.string = "9 AM"
-            case 3:
-                print("")
+//            case 3:
+//                print("")
             case 4:
                 textLayer.string = NSAttributedString(string: "10 AM", attributes: myAttributes )
                 //textLayer.string = "10 AM"
-            case 5:
-                print("")
+//            case 5:
+//                print("")
             case 6:
                 textLayer.string = NSAttributedString(string: "11 AM", attributes: myAttributes )
                 //textLayer.string = "11 AM"
-            case 7:
-                print("")
+//            case 7:
+//                print("")
             case 8:
                 textLayer.string = NSAttributedString(string: "Noon", attributes: myAttributes )
                 //textLayer.string = "Noon"
-            case 9:
-                print("")
+//            case 9:
+//                print("")
             case 10:
                 textLayer.string = NSAttributedString(string: "1 PM", attributes: myAttributes )
                 //textLayer.string = "1 PM"
-            case 11:
-                print("")
+//            case 11:
+//                print("")
             case 12:
                 textLayer.string = NSAttributedString(string: "2 PM", attributes: myAttributes )
                 //textLayer.string = "2 PM"
-            case 13:
-                print("")
+//            case 13:
+//                print("")
             case 14:
                 textLayer.string = NSAttributedString(string: "3 PM", attributes: myAttributes )
                 //textLayer.string = "3 PM"
-            case 15:
-                print("")
+//            case 15:
+//                print("")
             case 16:
                 textLayer.string = NSAttributedString(string: "4 PM", attributes: myAttributes )
                 //textLayer.string = "4 PM"
-            case 17:
-                print("")
+//            case 17:
+//                print("")
             case 18:
                 textLayer.string = NSAttributedString(string: "5 PM", attributes: myAttributes )
                 //textLayer.string = "5 PM"
-            case 19:
-                print("")
+//            case 19:
+//                print("")
             case 20:
                 textLayer.string = NSAttributedString(string: "6 PM", attributes: myAttributes )
                 //textLayer.string = "6 PM"
-            case 21:
-                print("")
+//            case 21:
+//                print("")
             case 22:
                 textLayer.string = NSAttributedString(string: "7 PM", attributes: myAttributes )
                 //textLayer.string = "7 PM"
-            case 23:
-                print("")
+//            case 23:
+//                print("")
             case 24:
                 textLayer.string = NSAttributedString(string: "8 PM", attributes: myAttributes )
                 //textLayer.string = "8 PM"
-            case 25:
-                print("")
+//            case 25:
+//                print("")
             case 26:
                 textLayer.string = NSAttributedString(string: "9 PM", attributes: myAttributes )
                 //textLayer.string = "9 PM"
             default:
-                print("f")
+                textLayer.string = ""
             }
             textLayer.alignmentMode = .right
             //if (deviceSize == 667.0) {
@@ -676,119 +1031,4 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
     }
     
-    func populateFakeClasses () {
-        var classList = [[String:Any]]()
-        var classInfo = [String:Any]()
-        classInfo["name"] = "CPE II"
-        classInfo["start"] = 30
-        classInfo["end"] = 80
-        classInfo["day"] = 2
-        classInfo["room"] = "Tol 305"
-        classInfo["id"] = 9345
-        classInfo["color"] = colorList.first!
-        classList.append(classInfo)
-        
-        classInfo["name"] = "CPE II"
-        classInfo["start"] = 30
-        classInfo["end"] = 80
-        classInfo["day"] = 4
-        classInfo["room"] = "Tol 305"
-        classInfo["id"] = 9346
-        classInfo["color"] = colorList.first!
-        classList.append(classInfo)
-        
-        classInfo["name"] = "CPE II"
-        classInfo["start"] = 30
-        classInfo["end"] = 80
-        classInfo["day"] = 6
-        classInfo["room"] = "Tol 305"
-        classInfo["id"] = 9347
-        classInfo["color"] = colorList[0]
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Computer Networks"
-        classInfo["start"] = 330
-        classInfo["end"] = 405
-        classInfo["day"] = 2
-        classInfo["room"] = "CEER 001"
-        classInfo["id"] = 9348
-        classInfo["color"] = colorList[1]
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Computer Networks"
-        classInfo["start"] = 330
-        classInfo["end"] = 405
-        classInfo["day"] = 4
-        classInfo["room"] = "CEER 001"
-        classInfo["id"] = 9349
-        classInfo["color"] = colorList[1]
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Design Seminar"
-        classInfo["start"] = 60
-        classInfo["end"] = 200
-        classInfo["day"] = 3
-        classInfo["room"] = "CEER 001"
-        classInfo["id"] = 9350
-        classInfo["color"] = colorList[2]
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Compiler Construction"
-        classInfo["start"] = 210
-        classInfo["end"] = 285
-        classInfo["day"] = 3
-        classInfo["room"] = "Mendel 290"
-        classInfo["id"] = 9351
-        classInfo["color"] = colorList[3]
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Compiler Construction"
-        classInfo["start"] = 210
-        classInfo["end"] = 285
-        classInfo["day"] = 5
-        classInfo["room"] = "Mendel 290"
-        classInfo["id"] = 9352
-        classInfo["color"] = colorList[3]
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Discrete Structures"
-        classInfo["start"] = 390
-        classInfo["end"] = 465
-        classInfo["day"] = 3
-        classInfo["room"] = "Mendel 290"
-        classInfo["id"] = 9353
-        classInfo["color"] = colorList[4]
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Discrete Structures"
-        classInfo["start"] = 390
-        classInfo["end"] = 465
-        classInfo["day"] = 5
-        classInfo["room"] = "Mendel 290"
-        classInfo["id"] = 9354
-        classInfo["color"] = colorList[4]
-        classList.append(classInfo)
-        
-        classInfo["name"] = "Computer Networks Lab"
-        classInfo["start"] = 495
-        classInfo["end"] = 615
-        classInfo["day"] = 3
-        classInfo["room"] = "Tolentine 208"
-        classInfo["id"] = 9355
-        classInfo["color"] = colorList[1]
-        classList.append(classInfo)
-        
-        classInfo["name"] = "CPE II Lab"
-        classInfo["start"] = 570
-        classInfo["end"] = 735
-        classInfo["day"] = 4
-        classInfo["room"] = "CEER 206"
-        classInfo["id"] = 9356
-        classInfo["color"] = colorList[0]
-        classList.append(classInfo)
-        
-        classListGlobal = classList
-        
-        classListGlobal.sort(by: {($0["start"] as! Int) + ($0["day"] as! Int)*10000 < ($1["start"] as! Int) + ($1["day"] as! Int)*10000 })
-    }
 }
