@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDelegate, ClassTapDelegate {
+class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDelegate, ClassTapDelegate, UIViewControllerTransitioningDelegate {
     
     var colorList = [#colorLiteral(red: 0.7019607843, green: 0.9450980392, blue: 0.6823529412, alpha: 0.7022289787)] // dont touch !
     var colorListRead = colorList0()
@@ -583,6 +583,9 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     
     @objc func returnTapped () {
         let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainController") as UIViewController
+        viewController.transitioningDelegate = self
+        viewController.modalPresentationStyle = .custom
+        viewController.modalPresentationCapturesStatusBarAppearance = true
         self.present(viewController, animated: true, completion: nil)
     }
     
@@ -914,14 +917,24 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        let controller = segue.destination
+        
+        controller.transitioningDelegate = self
+        controller.modalPresentationStyle = .custom
+        controller.modalPresentationCapturesStatusBarAppearance = true
     }
-    */
+    
+    func animationController(forPresented presented: UIViewController,
+                             presenting: UIViewController,
+                             source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return FadePushAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return FadePopAnimator()
+    }
 
 }

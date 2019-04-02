@@ -32,9 +32,9 @@ class singleDayView: UIView, UIScrollViewDelegate {
         let date = Date()
         let calendar = Calendar.current
         
-        let usableHeight : CGFloat = 700.0
+        let usableHeight : CGFloat = 710.0 //700
         let usableWidth : CGFloat = 75.0
-        print("height \(self.frame.height)")
+        //print("height \(self.frame.height)")
         
         let day = calendar.component(.weekday, from: date)
         for classInfo in classList {
@@ -152,7 +152,7 @@ class singleDayView: UIView, UIScrollViewDelegate {
         Bundle.main.loadNibNamed("singleDayView", owner: self, options: nil)
         contentView.fixInView(self)
         
-        let usableHeight : CGFloat = 700
+        let usableHeight : CGFloat = 710
         //var startOffset = 2 * (7-8)
         //startOffset += (30-30) / 30
         
@@ -163,10 +163,10 @@ class singleDayView: UIView, UIScrollViewDelegate {
         
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 50, y: 0))
-        path.addLine(to: CGPoint(x: 50, y: 700))
+        path.addLine(to: CGPoint(x: 50, y: 710))
         
         path.move(to: CGPoint(x: 127, y: 0))
-        path.addLine(to: CGPoint(x: 127, y: 700))
+        path.addLine(to: CGPoint(x: 127, y: 710))
         
         let lineLayer = CAShapeLayer()
         lineLayer.path = path.cgPath

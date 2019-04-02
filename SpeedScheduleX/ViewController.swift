@@ -10,7 +10,7 @@ import UIKit
 import UserNotifications
 import AudioToolbox
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIViewControllerTransitioningDelegate {
 
     
     @IBOutlet var menuScrollView: UIScrollView!
@@ -1132,7 +1132,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         dayScrollView.isScrollEnabled = true
         
-        dayScrollView.contentSize = CGSize(width:128, height:700)
+        dayScrollView.contentSize = CGSize(width:128, height:710)
         
         let fullScheduleTap = UITapGestureRecognizer(target: self, action: #selector(fullScheduleTapped))
         fullScheduleButton.addGestureRecognizer(fullScheduleTap)
@@ -1288,166 +1288,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }) { (finish) in
             print(finish)
         }
+        testMenu0.notificationSwitch.isOn = false
+        testMenu0.notificationLabel.alpha = 0.5
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollView.bounces = (scrollView.contentOffset.y > 10)
     }
     
-    func populateFakeEvents () {
-        var homeworkList = [[String:Any]]()
-        var testList = [[String:Any]]()
-        var event = [String:Any]()
-        let calendar = Calendar.current
-        let dateComponents = DateComponents(year: 2019, month: 3, day: 25)
-        event["date"] = calendar.date(from: dateComponents)!
-        event["class"] = "Discrete Structures"
-        event["type"] = "Quiz"
-        event["color"] = colorList.color[4]
-        event["noti"] = false
-        testList.append(event)
-        event["date"] = calendar.date(from: dateComponents)!
-        event["class"] = "Compiler Construction"
-        event["type"] = "Test"
-        event["color"] = colorList.color[3]
-        event["noti"] = false
-        testList.append(event)
-        event["date"] = Date(timeIntervalSinceNow: 270)
-        event["class"] = "CPE II"
-        event["type"] = "Homework"
-        event["color"] = colorList.color[0]
-        event["noti"] = false
-        homeworkList.append(event)
-        event["date"] = Date(timeIntervalSinceNow: 350)
-        event["class"] = "Computer Networks"
-        event["type"] = "Lab"
-        event["color"] = colorList.color[1]
-        event["noti"] = false
-        homeworkList.append(event)
-        event["date"] = Date(timeIntervalSinceNow: 370)
-        event["class"] = "Design Seminar"
-        event["type"] = "Homework"
-        event["color"] = colorList.color[2]
-        event["noti"] = false
-        homeworkList.append(event)
-        homeworkListGlobal = homeworkList
-        testListGlobal = testList
-    }
-    
-//    func populateFakeClasses () {
-//        var classList = [[String:Any]]()
-//        var classInfo = [String:Any]()
-//        classInfo["name"] = "CPE II"
-//        classInfo["start"] = 30
-//        classInfo["end"] = 80
-//        classInfo["day"] = 2
-//        classInfo["room"] = "Tolentine 305"
-//        classInfo["id"] = 9345
-//        classInfo["color"] = colors.first!
-//        classList.append(classInfo)
-//
-//        classInfo["name"] = "CPE II"
-//        classInfo["start"] = 30
-//        classInfo["end"] = 80
-//        classInfo["day"] = 4
-//        classInfo["room"] = "Tolentine 305"
-//        classInfo["id"] = 9346
-//        classInfo["color"] = colors.first!
-//        classList.append(classInfo)
-//
-//        classInfo["name"] = "CPE II"
-//        classInfo["start"] = 30
-//        classInfo["end"] = 80
-//        classInfo["day"] = 6
-//        classInfo["room"] = "Tolentine 305"
-//        classInfo["id"] = 9347
-//        classInfo["color"] = colors.removeFirst()
-//        classList.append(classInfo)
-//
-//        classInfo["name"] = "Computer Networks"
-//        classInfo["start"] = 330
-//        classInfo["end"] = 405
-//        classInfo["day"] = 2
-//        classInfo["room"] = "CEER 001"
-//        classInfo["id"] = 9348
-//        classInfo["color"] = colors.first!
-//        classList.append(classInfo)
-//
-//        classInfo["name"] = "Computer Networks"
-//        classInfo["start"] = 330
-//        classInfo["end"] = 405
-//        classInfo["day"] = 4
-//        classInfo["room"] = "CEER 001"
-//        classInfo["id"] = 9349
-//        classInfo["color"] = colors.removeFirst()
-//        classList.append(classInfo)
-//
-//        classInfo["name"] = "Design Seminar"
-//        classInfo["start"] = 60
-//        classInfo["end"] = 200
-//        classInfo["day"] = 3
-//        classInfo["room"] = "CEER 001"
-//        classInfo["id"] = 9350
-//        classInfo["color"] = colors.removeFirst()
-//        classList.append(classInfo)
-//
-//        classInfo["name"] = "Compiler Construction"
-//        classInfo["start"] = 210
-//        classInfo["end"] = 285
-//        classInfo["day"] = 3
-//        classInfo["room"] = "Mendel 290"
-//        classInfo["id"] = 9351
-//        classInfo["color"] = colors.first!
-//        classList.append(classInfo)
-//
-//        classInfo["name"] = "Compiler Construction"
-//        classInfo["start"] = 210
-//        classInfo["end"] = 285
-//        classInfo["day"] = 5
-//        classInfo["room"] = "Mendel 290"
-//        classInfo["id"] = 9352
-//        classInfo["color"] = colors.removeFirst()
-//        classList.append(classInfo)
-//
-//        classInfo["name"] = "Discrete Structures"
-//        classInfo["start"] = 390
-//        classInfo["end"] = 465
-//        classInfo["day"] = 3
-//        classInfo["room"] = "Mendel 290"
-//        classInfo["id"] = 9353
-//        classInfo["color"] = colors.first!
-//        classList.append(classInfo)
-//
-//        classInfo["name"] = "Discrete Structures"
-//        classInfo["start"] = 390
-//        classInfo["end"] = 465
-//        classInfo["day"] = 5
-//        classInfo["room"] = "Mendel 290"
-//        classInfo["id"] = 9354
-//        classInfo["color"] = colors.removeFirst()
-//        classList.append(classInfo)
-//
-//        classInfo["name"] = "Computer Networks Lab"
-//        classInfo["start"] = 495
-//        classInfo["end"] = 615
-//        classInfo["day"] = 3
-//        classInfo["room"] = "Tolentine 208"
-//        classInfo["id"] = 9355
-//        classInfo["color"] = classList[3]["color"] as! UIColor
-//        classList.append(classInfo)
-//
-//        classInfo["name"] = "CPE II Lab"
-//        classInfo["start"] = 570
-//        classInfo["end"] = 735
-//        classInfo["day"] = 4
-//        classInfo["room"] = "CEER 206"
-//        classInfo["id"] = 9356
-//        classInfo["color"] = classList[1]["color"] as! UIColor
-//        classList.append(classInfo)
-//
-//        classListGlobal = classList
-//
-//    }
     
     func hasPreviousHw () -> Bool {
         if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
@@ -1493,8 +1341,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     @objc func fullScheduleTapped() {
-        //let secondViewController: ScheduleViewController = ScheduleViewController()
         let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "scheduleView") as UIViewController
+        viewController.transitioningDelegate = self
+        viewController.modalPresentationStyle = .custom
+        viewController.modalPresentationCapturesStatusBarAppearance = true
         self.present(viewController, animated: true, completion: nil)
     }
 
@@ -1553,7 +1403,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 dayList = Array(1...monthDayList[monthList[row]-1])
             }
             
-            homeworkMenu0.datePicker0.reloadAllComponents()
+            if pickerView == homeworkMenu0.datePicker0 {
+                homeworkMenu0.datePicker0.reloadAllComponents()
+            }
+            else if pickerView == testMenu0.datePicker0 {
+                testMenu0.datePicker0.reloadAllComponents()
+            }
+            
         }
         
     }
@@ -1566,6 +1422,74 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return 30
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        let controller = segue.destination
+
+        controller.transitioningDelegate = self
+        controller.modalPresentationStyle = .custom
+        controller.modalPresentationCapturesStatusBarAppearance = true
+    }
+    
+    func animationController(forPresented presented: UIViewController,
+                             presenting: UIViewController,
+                             source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return FadePushAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return FadePopAnimator()
+    }
 
 }
 
+open class FadePushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    
+    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.5
+    }
+    
+    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard
+            let toViewController = transitionContext.viewController(forKey: .to)
+            else {
+                return
+        }
+        transitionContext.containerView.addSubview(toViewController.view)
+        toViewController.view.alpha = 0
+        
+        let duration = self.transitionDuration(using: transitionContext)
+        UIView.animate(withDuration: duration, animations: {
+            toViewController.view.alpha = 1
+        }, completion: { _ in
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        })
+    }
+}
+
+open class FadePopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    
+    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.5
+    }
+    
+    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard
+            let fromViewController = transitionContext.viewController(forKey: .from),
+            let toViewController = transitionContext.viewController(forKey: .to)
+            else {
+                return
+        }
+        
+        transitionContext.containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
+        
+        let duration = self.transitionDuration(using: transitionContext)
+        UIView.animate(withDuration: duration, animations: {
+            fromViewController.view.alpha = 0
+        }, completion: { _ in
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        })
+    }
+}
