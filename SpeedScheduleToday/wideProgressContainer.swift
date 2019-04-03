@@ -36,6 +36,11 @@ class wideProgressContainer: UIView {
     
     @IBOutlet var breakProgress2: ProgressBar!
     
+    @IBOutlet var classOBLabel: UILabel!
+    
+    @IBOutlet var homeworkOBLabel: UILabel!
+    
+    @IBOutlet var testOBLabel: UILabel!
     
     
     override init(frame: CGRect) {

@@ -160,7 +160,6 @@ class singleDayView: UIView, UIScrollViewDelegate {
         numSegments += (30) / 30
         numSegments = 26
         
-        
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 50, y: 0))
         path.addLine(to: CGPoint(x: 50, y: 710))
@@ -285,7 +284,20 @@ class singleDayView: UIView, UIScrollViewDelegate {
                 lineLayer.fillColor = UIColor.clear.cgColor
                 lineLayer.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
                 // #colorLiteral(red: 0.2784313725, green: 0.5411764706, blue: 0.7333333333, alpha: 1).cgColor
-                lineLayer.lineWidth = 2
+                lineLayer.lineWidth = 1.2//2
+                
+                self.layer.addSublayer(lineLayer)
+            }
+            if x % 2 == 1 && x < 27{
+                let path1 = UIBezierPath()
+                path1.move(to: CGPoint(x: 50, y: height))
+                path1.addLine(to: CGPoint(x: 127, y: height))
+                
+                let lineLayer = CAShapeLayer()
+                lineLayer.path = path1.cgPath
+                lineLayer.fillColor = UIColor.clear.cgColor
+                lineLayer.strokeColor = #colorLiteral(red: 0.7922615469, green: 0.7922615469, blue: 0.7922615469, alpha: 1).cgColor
+                lineLayer.lineWidth = 0.5
                 
                 self.layer.addSublayer(lineLayer)
             }

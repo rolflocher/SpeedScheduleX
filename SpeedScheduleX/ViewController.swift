@@ -43,6 +43,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet var settingsButton: UIImageView!
     
+    @IBOutlet var homeworkOBLabel: UILabel!
+    
+    @IBOutlet var testOBLabel: UILabel!
     
     var classPickerClass : classPicker!
     var classPickerClass1 : classPicker!
@@ -473,6 +476,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         UIView.animate(withDuration: animationSpeed, animations: {
             self.homeworkMenu0.frame = CGRect(x: 0, y: 422, width: 233, height: 422)
             self.homeworkMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
+            self.homeworkOBLabel.isHidden = true
+            self.homeworkTable0.backgroundColor = UIColor.clear
         }, completion : { (value : Bool) in
             self.homeworkMenu0.homeworkPreviewName.text = ""
             self.homeworkMenu0.homeworkPreviewType.text = ""
@@ -697,6 +702,163 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             })
             
         }
+        isEditingIndex = -1
+        isEditingNoti = false
+        dateNotSet = true
+        menuScrollView.isScrollEnabled = true
+        UIView.animate(withDuration: animationSpeed, animations: {
+            self.testMenu0.frame = CGRect(x: 233, y: 422, width: 233, height: 422)
+            self.testMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
+            self.testOBLabel.isHidden = true
+            self.testTable0.backgroundColor = UIColor.clear
+        }, completion : { (value : Bool) in
+            self.testMenu0.homeworkPreviewName.text = ""
+            self.testMenu0.homeworkPreviewType.text = ""
+            self.testMenu0.homeworkPreviewDate.text = ""
+            self.testMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
+            self.testMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
+            self.testMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
+            self.testMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
+            let calendar = Calendar.current
+            self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
+            self.testMenu0.datePicker0.reloadComponent(1)
+            self.testMenu0.notificationSwitch.isOn = false
+        })
+    }
+    
+    @objc func homeworkDeleteTapped () {
+        
+        if (homeworkListGlobal[isEditingIndex]["noti"] as! Bool) {
+            let content = UNMutableNotificationContent()
+            content.title = "Tomorrow: "
+            let oldDate = testListGlobal[isEditingIndex]["date"] as! Date
+            for x in testListGlobal + homeworkListGlobal {
+                print(x["date"] as! Date)
+                print(oldDate)
+                if x["date"] as! Date == oldDate { // imp
+                    if content.body.count == 0 {
+                        content.body += (x["class"] as! String) + " " + (x["type"] as! String)
+                    }
+                    else {
+                        content.body += "\n" + (x["class"] as! String) + " " + (x["type"] as! String)
+                    }
+                }
+            }
+            content.sound = UNNotificationSound.default
+            let calendar = Calendar.current
+            var oldComponents = calendar.dateComponents([.year, .month, .day], from: oldDate)
+            var sentDate = oldDate.addingTimeInterval(-18000)
+            if sentDate < Date() {
+                sentDate = Date().addingTimeInterval(30)
+            }
+            let sentComp = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: sentDate)
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: sentComp,
+                                                        repeats: false)
+            let identifier = String(oldComponents.month!) + " " + String(oldComponents.day!) + " " + String(oldComponents.year!)
+            
+            if content.body.count == 0 {
+                center.removePendingNotificationRequests(withIdentifiers: [identifier])
+            }
+            else {
+                let request = UNNotificationRequest(identifier: identifier,
+                                                    content: content, trigger: trigger)
+                center.add(request, withCompletionHandler: { (error) in
+                    if let error = error {
+                        print(error)
+                    }
+                })
+            }
+        }
+        homeworkListGlobal.remove(at: isEditingIndex)
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            let encodedDic: Data = try! NSKeyedArchiver.archivedData(withRootObject:homeworkListGlobal, requiringSecureCoding: false)
+            userDefaults.set(encodedDic, forKey: "hwListX")
+            userDefaults.synchronize()
+        }
+        homeworkTable0.reloadData()
+        if homeworkListGlobal.count == 0 {
+            homeworkOBLabel.isHidden = false
+            homeworkTable0.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 0.3710402397)
+        }
+        
+        isEditingIndex = -1
+        isEditingNoti = false
+        dateNotSet = true
+        menuScrollView.isScrollEnabled = true
+        UIView.animate(withDuration: animationSpeed, animations: {
+            self.homeworkMenu0.frame = CGRect(x: 0, y: 422, width: 233, height: 422)
+            self.homeworkMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
+        }, completion : { (value : Bool) in
+            self.homeworkMenu0.homeworkPreviewName.text = ""
+            self.homeworkMenu0.homeworkPreviewType.text = ""
+            self.homeworkMenu0.homeworkPreviewDate.text = ""
+            self.homeworkMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
+            self.homeworkMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
+            self.homeworkMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
+            self.homeworkMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
+            let calendar = Calendar.current
+            self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
+            self.homeworkMenu0.datePicker0.reloadComponent(1)
+            self.homeworkMenu0.notificationSwitch.isOn = false
+        })
+    }
+    
+    @objc func testDeleteTapped () {
+        if (testListGlobal[isEditingIndex]["noti"] as! Bool) {
+            let content = UNMutableNotificationContent()
+            content.title = "Tomorrow: "
+            let oldDate = testListGlobal[isEditingIndex]["date"] as! Date
+            for x in testListGlobal + homeworkListGlobal {
+                print(x["date"] as! Date)
+                print(oldDate)
+                if x["date"] as! Date == oldDate { // imp
+                    if content.body.count == 0 {
+                        content.body += (x["class"] as! String) + " " + (x["type"] as! String)
+                    }
+                    else {
+                        content.body += "\n" + (x["class"] as! String) + " " + (x["type"] as! String)
+                    }
+                }
+            }
+            content.sound = UNNotificationSound.default
+            let calendar = Calendar.current
+            var oldComponents = calendar.dateComponents([.year, .month, .day], from: oldDate)
+            var sentDate = oldDate.addingTimeInterval(-18000)
+            if sentDate < Date() {
+                sentDate = Date().addingTimeInterval(30)
+            }
+            let sentComp = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: sentDate)
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: sentComp,
+                                                        repeats: false)
+            let identifier = String(oldComponents.month!) + " " + String(oldComponents.day!) + " " + String(oldComponents.year!)
+            
+            if content.body.count == 0 {
+                center.removePendingNotificationRequests(withIdentifiers: [identifier])
+            }
+            else {
+                let request = UNNotificationRequest(identifier: identifier,
+                                                    content: content, trigger: trigger)
+                center.add(request, withCompletionHandler: { (error) in
+                    if let error = error {
+                        print(error)
+                    }
+                })
+            }
+        }
+        testListGlobal.remove(at: isEditingIndex)
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            let encodedDic: Data = try! NSKeyedArchiver.archivedData(withRootObject:testListGlobal, requiringSecureCoding: false)
+            userDefaults.set(encodedDic, forKey: "testListX")
+            userDefaults.synchronize()
+        }
+        testTable0.reloadData()
+        if testListGlobal.count == 0 {
+            testOBLabel.isHidden = false
+            testTable0.backgroundColor = #colorLiteral(red: 0.611815691, green: 0.6081816554, blue: 0.6146111488, alpha: 0.2073523116)
+        }
+        
         isEditingIndex = -1
         isEditingNoti = false
         dateNotSet = true
@@ -945,8 +1107,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let dateFormatter = DateFormatter()
@@ -1008,6 +1168,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 homeworkMenu0.notificationLabel.alpha = 0.5
             }
             menuScrollView.isScrollEnabled = false
+            homeworkMenu0.deleteLabel.isHidden = false
             UIView.animate(withDuration: animationSpeed, animations: {
                 self.homeworkMenu0.frame = CGRect(x: 0, y: 0, width: 233, height: 422)
             }) { (finish) in
@@ -1029,8 +1190,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let calendar = Calendar.current
             let compontents = calendar.dateComponents([.year, .month, .day], from: testListGlobal[indexPath.section]["date"] as! Date)
             
-            testMenu0.datePicker0.selectRow(dayList.firstIndex(where: {$0 == compontents.day})!, inComponent: 1, animated: false)
-            testMenu0.datePicker0.selectRow(monthList.firstIndex(where: {$0 == compontents.month})!, inComponent: 0, animated: false)
+            testMenu0.datePicker0.selectRow(dayList.firstIndex(where: {$0 == compontents.day}) ?? 0, inComponent: 1, animated: false)
+            testMenu0.datePicker0.selectRow(monthList.firstIndex(where: {$0 == compontents.month}) ?? 0, inComponent: 0, animated: false)
             
             if testListGlobal[indexPath.section]["noti"] as! Bool {
                 testMenu0.notificationSwitch.isOn = true
@@ -1042,6 +1203,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 testMenu0.notificationLabel.alpha = 0.5
             }
             menuScrollView.isScrollEnabled = false
+            testMenu0.deleteLabel.isHidden = false
             UIView.animate(withDuration: animationSpeed, animations: {
                 self.testMenu0.frame = CGRect(x: 233, y: 0, width: 233, height: 422)
             }) { (finish) in
@@ -1064,7 +1226,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         //testMenu0.datePicker0.setValue(UIFont(name: "Aller", size: 14), forKey: "font")
         //homeworkMenu0.homeworkDelegate0 = self
-        
+//        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+//            let encodedDic: Data = try! NSKeyedArchiver.archivedData(withRootObject: [], requiringSecureCoding: false)
+//            userDefaults.set(encodedDic, forKey: "hwListX")
+//            userDefaults.synchronize()
+//        }
         
         super.viewDidLoad()
         
@@ -1142,12 +1308,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if hasPreviousHw() {
             homeworkTable0.reloadData()
+            homeworkOBLabel.isHidden = true
+        }
+        else {
+            homeworkOBLabel.isHidden = false
+            homeworkTable0.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 0.3710402397)
         }
         if hasPreviousTests() {
             testTable0.reloadData()
+            testOBLabel.isHidden = true
+        }
+        else {
+            testOBLabel.isHidden = false
+            testTable0.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 0.3710402397)
         }
         if hasPreviousData() {
             singleDayView0.drawClasses(classList: classListGlobal)
+        }
+        else {
+            singleDayView0.alpha = 0.7
         }
         
         homeworkTable0.bounces = false
@@ -1268,6 +1447,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let settingsTap = UITapGestureRecognizer(target: self, action: #selector(settingsTapped))
         settingsButton.addGestureRecognizer(settingsTap)
         settingsButton.isUserInteractionEnabled = true
+        
+        let deleteTap = UITapGestureRecognizer(target: self, action: #selector(homeworkDeleteTapped))
+        homeworkMenu0.deleteLabel.addGestureRecognizer(deleteTap)
+        homeworkMenu0.deleteLabel.isUserInteractionEnabled = true
+        
+        let deleteTap0 = UITapGestureRecognizer(target: self, action: #selector(testDeleteTapped))
+        testMenu0.deleteLabel.addGestureRecognizer(deleteTap0)
+        testMenu0.deleteLabel.isUserInteractionEnabled = true
     }
     
     @objc func homeworkTapped() {
@@ -1277,6 +1464,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }) { (finish) in
             print(finish)
         }
+        homeworkMenu0.deleteLabel.isHidden = true
         homeworkMenu0.notificationSwitch.isOn = false
         homeworkMenu0.notificationLabel.alpha = 0.5
     }
@@ -1288,6 +1476,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }) { (finish) in
             print(finish)
         }
+        testMenu0.deleteLabel.isHidden = true
         testMenu0.notificationSwitch.isOn = false
         testMenu0.notificationLabel.alpha = 0.5
     }
@@ -1295,7 +1484,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollView.bounces = (scrollView.contentOffset.y > 10)
     }
-    
     
     func hasPreviousHw () -> Bool {
         if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
@@ -1348,7 +1536,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.present(viewController, animated: true, completion: nil)
     }
 
-    
     var dayList : [Int] = []
     var monthList : [Int] = [1,2,3,4,5,6,7,8,9,10,11,12]
     let monthDayList = [31,28,31,30,31,30,31,31,30,31,30,31]

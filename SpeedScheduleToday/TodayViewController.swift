@@ -12,20 +12,21 @@ import NotificationCenter
 class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate {
     
     func classDone() {
-        setupProgressBars()
+        setupCompactClasses()
     }
     
     func shouldContinue(id: Int) -> Bool {
         return sessionID == id
     }
     
-    
     var usableHeight : CGFloat = 459.0
     var usableWidth : CGFloat = 57.0
+    var loading = true
     
     var classListGlobal = [[String:Any]]()
     var homeworkListGlobal = [[String:Any]]()
     var testListGlobal = [[String:Any]]()
+    var classToday = false
     
     @IBOutlet var timeLabelView: UIView!
     
@@ -47,23 +48,16 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
     
     @IBOutlet var compactPageControl: UIPageControl!
     
-    let textColor = #colorLiteral(red: 0.8958979249, green: 0.8874892592, blue: 0.9416337609, alpha: 0.4500749143)
-    // #colorLiteral(red: 0.8958979249, green: 0.8874892592, blue: 0.9416337609, alpha: 0.6466181506)
-    
+    let textColor = #colorLiteral(red: 0.8958979249, green: 0.8874892592, blue: 0.9416337609, alpha: 0.4500749143) // #colorLiteral(red: 0.8958979249, green: 0.8874892592, blue: 0.9416337609, alpha: 0.6466181506)
     let colorList = colorList0().widgetColor
-    
-    var isFirstLoad = true
-    
     var startTime = 0
     var endTime = 700
-    
     var compactX = 0
-    
     var sessionID = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        
         preferredContentSize = CGSize(width: 359, height: 490)
         
         let leftTap = UITapGestureRecognizer(target: self, action: #selector(leftTapped))
@@ -73,76 +67,125 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
         let rightTap = UITapGestureRecognizer(target: self, action: #selector(rightTapped))
         rightArrowView.addGestureRecognizer(rightTap)
         rightArrowView.isUserInteractionEnabled = true
-        
-        //var test = [String:Any]()
-        //test["start"] = 380
-        //test["end"] = 395
-        //wideCompactContainer.breakProgress0.classInfo = test
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
-        wideCompactContainer.breakProgress0.startDate = formatter.date(from: "2019/1/14 22:31")!
-        wideCompactContainer.breakProgress0.endDate = formatter.date(from: "2019/4/17 22:31")!
-        wideCompactContainer.breakProgress0.updateBreak()
-        wideCompactContainer.breakProgress0.timeLabel.text = "Easter Break"
-        wideCompactContainer.breakProgress0.nameLabel.text = ""
-        wideCompactContainer.breakProgress0.roomLabel.text = ""
-        wideCompactContainer.breakProgress0.contentView.backgroundColor = #colorLiteral(red: 0.9816584941, green: 0.8707194067, blue: 0.8047215154, alpha: 0.9036815068)
-        wideCompactContainer.breakProgress0.progressCompletion.backgroundColor = #colorLiteral(red: 1, green: 0.7629813352, blue: 0.4159827176, alpha: 0.900577911)
-        wideCompactContainer.breakProgress0.timeLabelWidth.constant = 100
-        
-        wideCompactContainer.breakProgress1.startDate = formatter.date(from: "2019/1/14 22:31")!
-        wideCompactContainer.breakProgress1.endDate = formatter.date(from: "2019/5/2 22:31")!
-        wideCompactContainer.breakProgress1.updateBreak()
-        wideCompactContainer.breakProgress1.timeLabel.text = "Last Day of Class"
-        wideCompactContainer.breakProgress1.nameLabel.text = ""
-        wideCompactContainer.breakProgress1.roomLabel.text = ""
-        wideCompactContainer.breakProgress1.contentView.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 0.8973405394)
-        wideCompactContainer.breakProgress1.progressCompletion.backgroundColor = #colorLiteral(red: 0.3779870569, green: 0.5440931561, blue: 1, alpha: 0.900577911)
-        wideCompactContainer.breakProgress1.timeLabelWidth.constant = 100 
-        
-        wideCompactContainer.breakProgress2.startDate = formatter.date(from: "2019/1/14 22:31")!
-        wideCompactContainer.breakProgress2.endDate = formatter.date(from: "2019/5/10 22:31")!
-        wideCompactContainer.breakProgress2.updateBreak()
-        wideCompactContainer.breakProgress2.timeLabel.text = "Last Day of Finals"
-        wideCompactContainer.breakProgress2.nameLabel.text = ""
-        wideCompactContainer.breakProgress2.roomLabel.text = ""
-        wideCompactContainer.breakProgress2.contentView.backgroundColor = #colorLiteral(red: 0.9816584941, green: 0.6243301325, blue: 0.6805883039, alpha: 0.9036815068)
-        wideCompactContainer.breakProgress2.progressCompletion.backgroundColor = #colorLiteral(red: 1, green: 0.4446860132, blue: 0.4183087496, alpha: 0.900577911)
-        wideCompactContainer.breakProgress2.timeLabelWidth.constant = 100
-        
+
         sessionID = Int.random(in: 1..<999)
-        print("session ID: \(sessionID)")
         wideCompactContainer.todayProgress0.id = sessionID
-        
         wideCompactContainer.todayProgress0.delegate0 = self
+        wideCompactContainer.frame = CGRect(x: 0, y: 0, width: 1436, height: 110)
         
-        //populateFakeClasses()
-        if hasPreviousData() {
-            generateTimeBounds()
-            drawClasses(classList: classListGlobal)
-            setupLabels()
-            setupProgressBars()
+        if hasPreviousClasses() {
+            self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+            setupCompactClasses()
+            if classToday {
+                wideCompactContainer.classOBLabel.isHidden = true
+            }
         }
         else {
-            // defaults for new user
+            self.extensionContext?.widgetLargestAvailableDisplayMode = .compact
+            wideCompactContainer.classOBLabel.text = "Set up SpeedSchedule in App"
+            self.wideCompactContainer.todayProgress0.nameLabel.text = ""
+            self.wideCompactContainer.todayProgress0.timeLabel.text = ""
+            self.wideCompactContainer.todayProgress0.roomLabel.text = ""
+            self.wideCompactContainer.todayProgress0.backgroundColor = UIColor.clear
+            self.wideCompactContainer.todayProgress0.progressCompletion.backgroundColor = UIColor.clear
+            
+            self.wideCompactContainer.todayProgress1.nameLabel.text = ""
+            self.wideCompactContainer.todayProgress1.timeLabel.text = ""
+            self.wideCompactContainer.todayProgress1.roomLabel.text = ""
+            self.wideCompactContainer.todayProgress1.backgroundColor = UIColor.clear
+            
+            self.wideCompactContainer.todayProgress2.nameLabel.text = ""
+            self.wideCompactContainer.todayProgress2.timeLabel.text = ""
+            self.wideCompactContainer.todayProgress2.roomLabel.text = ""
+            self.wideCompactContainer.todayProgress2.backgroundColor = UIColor.clear
         }
-        
-        isFirstLoad = false
-        wideCompactContainer.frame = CGRect(x: 0, y: 0, width: 1436, height: 110)
         
         if hasPreviousHw() {
             setupCompactHomework()
+            wideCompactContainer.homeworkOBLabel.isHidden = true
         }
         else {
+            wideCompactContainer.homeworkProgress0.timeLabel.text = ""
+            wideCompactContainer.homeworkProgress0.nameLabel.text = ""
+            wideCompactContainer.homeworkProgress0.roomLabel.text = ""
+            wideCompactContainer.homeworkProgress0.backgroundColor = UIColor.clear
             
+            wideCompactContainer.homeworkProgress1.timeLabel.text = ""
+            wideCompactContainer.homeworkProgress1.nameLabel.text = ""
+            wideCompactContainer.homeworkProgress1.roomLabel.text = ""
+            wideCompactContainer.homeworkProgress1.backgroundColor = UIColor.clear
+            
+            wideCompactContainer.homeworkProgress2.timeLabel.text = ""
+            wideCompactContainer.homeworkProgress2.nameLabel.text = ""
+            wideCompactContainer.homeworkProgress2.roomLabel.text = ""
+            wideCompactContainer.homeworkProgress2.backgroundColor = UIColor.clear
         }
+        
         if hasPreviousTests() {
             setupCompactTests()
+            wideCompactContainer.testOBLabel.isHidden = true
+        }
+        else {
+            wideCompactContainer.testProgress0.timeLabel.text = ""
+            wideCompactContainer.testProgress0.nameLabel.text = ""
+            wideCompactContainer.testProgress0.roomLabel.text = ""
+            wideCompactContainer.testProgress0.backgroundColor = UIColor.clear
+            
+            wideCompactContainer.testProgress1.timeLabel.text = ""
+            wideCompactContainer.testProgress1.nameLabel.text = ""
+            wideCompactContainer.testProgress1.roomLabel.text = ""
+            wideCompactContainer.testProgress1.backgroundColor = UIColor.clear
+            
+            wideCompactContainer.testProgress2.timeLabel.text = ""
+            wideCompactContainer.testProgress2.nameLabel.text = ""
+            wideCompactContainer.testProgress2.roomLabel.text = ""
+            wideCompactContainer.testProgress2.backgroundColor = UIColor.clear
+        }
+        
+        setupCompactBreaks()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if self.extensionContext?.widgetActiveDisplayMode == .expanded {
+            preferredContentSize = CGSize(width: 359, height: 490)
+            showExpanded()
+        }
+        else {
+            preferredContentSize = CGSize(width: 359, height: 110)
+            compactX = 0
+            compactPageControl.currentPage = 0
+            showCompact()
+        }
+        if self.classListGlobal.count > 0 || self.hasPreviousClasses() && self.classListGlobal.count > 0 {
+            self.generateTimeBounds()
+            self.drawClasses(classList: self.classListGlobal)
+            self.setupLabels()
         }
         else {
             
         }
-
+        loading = false
+    }
+    
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        if loading {
+            return
+        }
+        if activeDisplayMode == .expanded {
+            preferredContentSize = CGSize(width: 359, height: 490)
+            showExpanded()
+        }
+        else {
+            preferredContentSize = CGSize(width: 359, height: 110)
+            compactX = 0
+            compactPageControl.currentPage = 0
+            showCompact()
+        }
+    }
+    
+    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
+        completionHandler(NCUpdateResult.newData)
     }
     
     func hasPreviousHw () -> Bool {
@@ -165,6 +208,23 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
                 testListGlobal = testListDecoded!
                 if testListGlobal.count != 0 {
                     return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func hasPreviousClasses () -> Bool {
+        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
+            
+            if let classListData = userDefaults.object(forKey: "classListX") as? Data {
+                let classListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(classListData) as? [[String:Any]]
+                classListGlobal = classListDecoded!
+                if classListGlobal.count != 0 {
+                    return true
+                }
+                else {
+                    return false
                 }
             }
         }
@@ -245,6 +305,8 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
             wideCompactContainer.homeworkProgress2.nameLabel.text = ""
             wideCompactContainer.homeworkProgress2.roomLabel.text = ""
             wideCompactContainer.homeworkProgress2.backgroundColor = UIColor.clear
+            
+            wideCompactContainer.homeworkOBLabel.isHidden = false
         }
     }
     
@@ -269,6 +331,8 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
             wideCompactContainer.testProgress2.nameLabel.text = ""
             wideCompactContainer.testProgress2.roomLabel.text = ""
             wideCompactContainer.testProgress2.backgroundColor = UIColor.clear
+            
+            self.wideCompactContainer.testOBLabel.isHidden = false
         }
         else if testListGlobal.count == 2 {
             comps0 = calendar.dateComponents([.month, .day], from: testListGlobal[0]["date"] as! Date)
@@ -325,7 +389,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
         }
     }
     
-    func setupProgressBars () {
+    func setupCompactClasses () {
         
         let calendar = Calendar.current
         let date = Date()
@@ -340,6 +404,8 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
         
         var hourFormater0 = 0
         var hourFormater1 = 0
+        var minFormatter0 = ""
+        var minFormatter1 = ""
         
         
         UIView.transition(with: wideCompactContainer, duration: 1, options: .transitionCrossDissolve, animations: {
@@ -359,6 +425,8 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
                 self.wideCompactContainer.todayProgress2.timeLabel.text = ""
                 self.wideCompactContainer.todayProgress2.roomLabel.text = ""
                 self.wideCompactContainer.todayProgress2.backgroundColor = UIColor.clear
+                
+                self.wideCompactContainer.classOBLabel.isHidden = false
             }
             else if todaysClasses.count == 1 {
                 self.wideCompactContainer.todayProgress0.progressCompletion.backgroundColor = UIColor.green
@@ -373,7 +441,15 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
                 if hourFormater1 > 12 {
                     hourFormater1 -= 12
                 }
-                self.wideCompactContainer.todayProgress0.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[0]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[0]["end"] as! Int % 60)
+                minFormatter0 = String(todaysClasses[0]["start"] as! Int % 60)
+                minFormatter1 = String(todaysClasses[0]["end"] as! Int % 60)
+                if minFormatter0.count < 2 {
+                    minFormatter0 = "0" + minFormatter0
+                }
+                if minFormatter1.count < 2 {
+                    minFormatter1 = "0" + minFormatter1
+                }
+                self.wideCompactContainer.todayProgress0.timeLabel.text = String(hourFormater0) + ":" + minFormatter0 + " - " + String(hourFormater1) + ":" + minFormatter1
                 self.wideCompactContainer.todayProgress0.roomLabel.text = todaysClasses[0]["room"] as? String
                 self.wideCompactContainer.todayProgress0.backgroundColor = todaysClasses[0]["color"] as? UIColor
                 
@@ -400,7 +476,15 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
                 if hourFormater1 > 12 {
                     hourFormater1 -= 12
                 }
-                self.wideCompactContainer.todayProgress0.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[0]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[0]["end"] as! Int % 60)
+                minFormatter0 = String(todaysClasses[0]["start"] as! Int % 60)
+                minFormatter1 = String(todaysClasses[0]["end"] as! Int % 60)
+                if minFormatter0.count < 2 {
+                    minFormatter0 = "0" + minFormatter0
+                }
+                if minFormatter1.count < 2 {
+                    minFormatter1 = "0" + minFormatter1
+                }
+                self.wideCompactContainer.todayProgress0.timeLabel.text = String(hourFormater0) + ":" + minFormatter0 + " - " + String(hourFormater1) + ":" + minFormatter1
                 self.wideCompactContainer.todayProgress0.roomLabel.text = todaysClasses[0]["room"] as? String
                 self.wideCompactContainer.todayProgress0.backgroundColor = todaysClasses[0]["color"] as? UIColor
                 
@@ -413,7 +497,15 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
                 if hourFormater1 > 12 {
                     hourFormater1 -= 12
                 }
-                self.wideCompactContainer.todayProgress1.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[1]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[1]["end"] as! Int % 60)
+                minFormatter0 = String(todaysClasses[1]["start"] as! Int % 60)
+                minFormatter1 = String(todaysClasses[1]["end"] as! Int % 60)
+                if minFormatter0.count < 2 {
+                    minFormatter0 = "0" + minFormatter0
+                }
+                if minFormatter1.count < 2 {
+                    minFormatter1 = "0" + minFormatter1
+                }
+                self.wideCompactContainer.todayProgress1.timeLabel.text = String(hourFormater0) + ":" + minFormatter0 + " - " + String(hourFormater1) + ":" + minFormatter1
                 self.wideCompactContainer.todayProgress1.roomLabel.text = todaysClasses[1]["room"] as? String
                 self.wideCompactContainer.todayProgress1.backgroundColor = todaysClasses[1]["color"] as? UIColor
                 
@@ -435,7 +527,15 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
                 if hourFormater1 > 12 {
                     hourFormater1 -= 12
                 }
-                self.wideCompactContainer.todayProgress0.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[0]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[0]["end"] as! Int % 60)
+                minFormatter0 = String(todaysClasses[0]["start"] as! Int % 60)
+                minFormatter1 = String(todaysClasses[0]["end"] as! Int % 60)
+                if minFormatter0.count < 2 {
+                    minFormatter0 = "0" + minFormatter0
+                }
+                if minFormatter1.count < 2 {
+                    minFormatter1 = "0" + minFormatter1
+                }
+                self.wideCompactContainer.todayProgress0.timeLabel.text = String(hourFormater0) + ":" + minFormatter0 + " - " + String(hourFormater1) + ":" + minFormatter1
                 self.wideCompactContainer.todayProgress0.roomLabel.text = todaysClasses[0]["room"] as? String
                 self.wideCompactContainer.todayProgress0.backgroundColor = todaysClasses[0]["color"] as? UIColor
                 
@@ -448,7 +548,15 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
                 if hourFormater1 > 12 {
                     hourFormater1 -= 12
                 }
-                self.wideCompactContainer.todayProgress1.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[1]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[1]["end"] as! Int % 60)
+                minFormatter0 = String(todaysClasses[1]["start"] as! Int % 60)
+                minFormatter1 = String(todaysClasses[1]["end"] as! Int % 60)
+                if minFormatter0.count < 2 {
+                    minFormatter0 = "0" + minFormatter0
+                }
+                if minFormatter1.count < 2 {
+                    minFormatter1 = "0" + minFormatter1
+                }
+                self.wideCompactContainer.todayProgress1.timeLabel.text = String(hourFormater0) + ":" + minFormatter0 + " - " + String(hourFormater1) + ":" + minFormatter1
                 self.wideCompactContainer.todayProgress1.roomLabel.text = todaysClasses[1]["room"] as? String
                 self.wideCompactContainer.todayProgress1.backgroundColor = todaysClasses[1]["color"] as? UIColor
                 
@@ -461,7 +569,15 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
                 if hourFormater1 > 12 {
                     hourFormater1 -= 12
                 }
-                self.wideCompactContainer.todayProgress2.timeLabel.text = String(hourFormater0) + ":" + String(todaysClasses[2]["start"] as! Int % 60) + " - " + String(hourFormater1) + ":" + String(todaysClasses[2]["end"] as! Int % 60)
+                minFormatter0 = String(todaysClasses[2]["start"] as! Int % 60)
+                minFormatter1 = String(todaysClasses[2]["end"] as! Int % 60)
+                if minFormatter0.count < 2 {
+                    minFormatter0 = "0" + minFormatter0
+                }
+                if minFormatter1.count < 2 {
+                    minFormatter1 = "0" + minFormatter1
+                }
+                self.wideCompactContainer.todayProgress2.timeLabel.text = String(hourFormater0) + ":" + minFormatter0 + " - " + String(hourFormater1) + ":" + minFormatter1
                 self.wideCompactContainer.todayProgress2.roomLabel.text = todaysClasses[2]["room"] as? String
                 self.wideCompactContainer.todayProgress2.backgroundColor = todaysClasses[2]["color"] as? UIColor
             }
@@ -469,6 +585,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
         if todaysClasses.count > 0 {
             wideCompactContainer.todayProgress0.progressCompletion.backgroundColor = UIColor.green
             wideCompactContainer.todayProgress0.updateProgress()
+            classToday = true
         }
         
         
@@ -480,21 +597,38 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
         
     }
     
-    func hasPreviousData () -> Bool {
-        if let userDefaults = UserDefaults(suiteName: "group.rlocher.schedule") {
-            
-            if let classListData = userDefaults.object(forKey: "classListX") as? Data {
-                let classListDecoded = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(classListData) as? [[String:Any]]
-                classListGlobal = classListDecoded!
-                if classListGlobal.count != 0 {
-                    return true
-                }
-                else {
-                    return false
-                }
-            }
-        }
-        return false
+    func setupCompactBreaks () {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        wideCompactContainer.breakProgress0.startDate = formatter.date(from: "2019/1/14 22:31")!
+        wideCompactContainer.breakProgress0.endDate = formatter.date(from: "2019/4/17 22:31")!
+        wideCompactContainer.breakProgress0.updateBreak()
+        wideCompactContainer.breakProgress0.timeLabel.text = "Easter Break"
+        wideCompactContainer.breakProgress0.nameLabel.text = ""
+        wideCompactContainer.breakProgress0.roomLabel.text = ""
+        wideCompactContainer.breakProgress0.contentView.backgroundColor = #colorLiteral(red: 0.9816584941, green: 0.8707194067, blue: 0.8047215154, alpha: 0.9036815068)
+        wideCompactContainer.breakProgress0.progressCompletion.backgroundColor = #colorLiteral(red: 1, green: 0.7629813352, blue: 0.4159827176, alpha: 0.900577911)
+        wideCompactContainer.breakProgress0.timeLabelWidth.constant = 100
+        
+        wideCompactContainer.breakProgress1.startDate = formatter.date(from: "2019/1/14 22:31")!
+        wideCompactContainer.breakProgress1.endDate = formatter.date(from: "2019/5/2 22:31")!
+        wideCompactContainer.breakProgress1.updateBreak()
+        wideCompactContainer.breakProgress1.timeLabel.text = "Last Day of Class"
+        wideCompactContainer.breakProgress1.nameLabel.text = ""
+        wideCompactContainer.breakProgress1.roomLabel.text = ""
+        wideCompactContainer.breakProgress1.contentView.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 0.8973405394)
+        wideCompactContainer.breakProgress1.progressCompletion.backgroundColor = #colorLiteral(red: 0.3779870569, green: 0.5440931561, blue: 1, alpha: 0.900577911)
+        wideCompactContainer.breakProgress1.timeLabelWidth.constant = 100
+        
+        wideCompactContainer.breakProgress2.startDate = formatter.date(from: "2019/1/14 22:31")!
+        wideCompactContainer.breakProgress2.endDate = formatter.date(from: "2019/5/10 22:31")!
+        wideCompactContainer.breakProgress2.updateBreak()
+        wideCompactContainer.breakProgress2.timeLabel.text = "Last Day of Finals"
+        wideCompactContainer.breakProgress2.nameLabel.text = ""
+        wideCompactContainer.breakProgress2.roomLabel.text = ""
+        wideCompactContainer.breakProgress2.contentView.backgroundColor = #colorLiteral(red: 0.9816584941, green: 0.6243301325, blue: 0.6805883039, alpha: 0.9036815068)
+        wideCompactContainer.breakProgress2.progressCompletion.backgroundColor = #colorLiteral(red: 1, green: 0.4446860132, blue: 0.4183087496, alpha: 0.900577911)
+        wideCompactContainer.breakProgress2.timeLabelWidth.constant = 100
     }
     
     @objc func leftTapped() {
@@ -552,29 +686,6 @@ class TodayViewController: UIViewController, NCWidgetProviding, progressDelegate
             
             //self.leftArrowView.isHidden = true
         }
-    }
-    
-    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        if activeDisplayMode == .expanded {
-            preferredContentSize = CGSize(width: 359, height: 490)
-            showExpanded()
-        }
-        else {
-            preferredContentSize = CGSize(width: 359, height: 110)
-            compactX = 0
-            compactPageControl.currentPage = 0
-            showCompact()
-        }
-    }
-        
-    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        completionHandler(NCUpdateResult.newData)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-//        if isFirstLoad {
-//
-//        }
     }
     
     func showCompact() {

@@ -174,7 +174,15 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                         endMin = "0" + endMin
                     }
                     
-                    addClassView0.timeLabel.text = String(Int(floor(Double((classX["start"] as! Int)/60)))+8) + ":" + startMin + " - " + String(Int(floor(Double((classX["end"] as! Int)/60))+8)) + ":" + endMin
+                    var hourFormater0 = Int(floor(Double((classX["start"] as! Int)/60)))+8
+                    var hourFormater1 = Int(floor(Double((classX["end"] as! Int)/60))+8)
+                    if hourFormater0 > 12 {
+                        hourFormater0 -= 12
+                    }
+                    if hourFormater1 > 12 {
+                        hourFormater1 -= 12
+                    }
+                    addClassView0.timeLabel.text = String(hourFormater0) + ":" + startMin + " - " + String(hourFormater1) + ":" + endMin
                     
                     addClassView0.previewView.backgroundColor = classX["color"] as? UIColor
                     addClassView0.nameLabel.textColor = UIColor.black
@@ -241,7 +249,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     }
     
     func doneButtonTapped() {
-        
     }
     
     func pickerDidChange(isBuilding: Bool, building: String, num0: String, num1: String, num2: String, let0: String) {
@@ -249,11 +256,9 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     }
     
     func addClassTimeTapped() {
-        
     }
     
     func addClassBuildingTapped() {
-
     }
     
     var randomConv = 0
@@ -303,7 +308,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         for x in self.view.subviews {
             x.isUserInteractionEnabled = false
         }
-        UIView.animate(withDuration: 0.7, animations: {
+        UIView.animate(withDuration: 0.8, animations: {
             self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
         }, completion : { (value: Bool) in
@@ -318,7 +323,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         for x in self.view.subviews {
             x.isUserInteractionEnabled = false
         }
-        UIView.animate(withDuration: 0.7, animations: {
+        UIView.animate(withDuration: 0.8, animations: {
             self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
             self.view.setNeedsLayout()
         }, completion : { (value: Bool) in
@@ -358,6 +363,10 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     var usableWidth : CGFloat = 61.67
     
     var classListGlobal = [[String:Any]]()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print(mondayLongView.frame.height)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -643,8 +652,8 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         
         for classInfo in classList {
             
-            let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int))/780
-            let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int))/780
+            let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int))/810
+            let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int))/810
             
             let classView0 = ClassView(frame: CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight)))
             classView0.drawClass(name: classInfo["name"] as! String, room: classInfo["room"] as! String, start: classInfo["start"] as! Int, end: classInfo["end"] as! Int, color: classInfo["color"] as! UIColor)
@@ -791,31 +800,74 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                 lineLayer.path = path.cgPath
                 lineLayer.fillColor = UIColor.clear.cgColor
                 lineLayer.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
-                lineLayer.lineWidth = 1
+                lineLayer.lineWidth = 0.6
                 
                 let lineLayer0 = CAShapeLayer()
                 lineLayer0.path = path.cgPath
                 lineLayer0.fillColor = UIColor.clear.cgColor
                 lineLayer0.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
-                lineLayer0.lineWidth = 1
+                lineLayer0.lineWidth = 0.6
                 
                 let lineLayer1 = CAShapeLayer()
                 lineLayer1.path = path.cgPath
                 lineLayer1.fillColor = UIColor.clear.cgColor
                 lineLayer1.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
-                lineLayer1.lineWidth = 1
+                lineLayer1.lineWidth = 0.6
                 
                 let lineLayer2 = CAShapeLayer()
                 lineLayer2.path = path.cgPath
                 lineLayer2.fillColor = UIColor.clear.cgColor
                 lineLayer2.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
-                lineLayer2.lineWidth = 1
+                lineLayer2.lineWidth = 0.6
                 
                 let lineLayer3 = CAShapeLayer()
                 lineLayer3.path = path.cgPath
                 lineLayer3.fillColor = UIColor.clear.cgColor
                 lineLayer3.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
-                lineLayer3.lineWidth = 1
+                lineLayer3.lineWidth = 0.6
+                
+                mondayLongView.layer.addSublayer(lineLayer)
+                tuesdayLongView.layer.addSublayer(lineLayer0)
+                wednesdayLongView.layer.addSublayer(lineLayer1)
+                thursdayLongView.layer.addSublayer(lineLayer2)
+                fridayLongView.layer.addSublayer(lineLayer3)
+            }
+            if x % 2 == 1  {
+                let stroke = #colorLiteral(red: 0.2181768622, green: 0.2203370292, blue: 0.2203370292, alpha: 0.3548805138).cgColor
+                
+                let path = UIBezierPath()
+                path.move(to: CGPoint(x: -100, y: height))
+                path.addLine(to: CGPoint(x: 100, y: height))
+                
+                let lineLayer = CAShapeLayer()
+                lineLayer.path = path.cgPath
+                lineLayer.fillColor = UIColor.clear.cgColor
+                lineLayer.strokeColor = stroke
+                lineLayer.lineWidth = 0.3
+                
+                let lineLayer0 = CAShapeLayer()
+                lineLayer0.path = path.cgPath
+                lineLayer0.fillColor = UIColor.clear.cgColor
+                lineLayer0.strokeColor = stroke
+                lineLayer0.lineWidth = 0.3
+                
+                let lineLayer1 = CAShapeLayer()
+                lineLayer1.path = path.cgPath
+                lineLayer1.fillColor = UIColor.clear.cgColor
+                lineLayer1.strokeColor = stroke
+                lineLayer1.lineWidth = 0.3
+                
+                let lineLayer2 = CAShapeLayer()
+                lineLayer2.path = path.cgPath
+                lineLayer2.fillColor = UIColor.clear.cgColor
+                lineLayer2.strokeColor = stroke
+                lineLayer2.lineWidth = 0.3
+                
+                let lineLayer3 = CAShapeLayer()
+                lineLayer3.path = path.cgPath
+                lineLayer3.fillColor = UIColor.clear.cgColor
+                lineLayer3.strokeColor = stroke
+                lineLayer3.lineWidth = 0.3
                 
                 mondayLongView.layer.addSublayer(lineLayer)
                 tuesdayLongView.layer.addSublayer(lineLayer0)

@@ -142,8 +142,6 @@ class addClassView: UIView{
         }
     }
     
-    
-    
     @objc func mTapped() {
         if timeLabel.text == "Enter Class Time" {
             return
@@ -351,7 +349,6 @@ class addClassView: UIView{
         }
     }
     
-    
     @objc func fTapped() {
         if timeLabel.text == "Enter Class Time" {
             return
@@ -403,7 +400,6 @@ class addClassView: UIView{
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
     }
-    
     
     @IBAction func doneButton0Tapped(_ sender: Any) {
         doneButton0.isHidden = true
@@ -461,7 +457,6 @@ class addClassView: UIView{
         addClassPickerView0.isHidden = true
         addClassPickerView0.hyphenLabel.isHidden = true
     }
-    
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         
@@ -742,7 +737,6 @@ class addClassView: UIView{
         }
         
     }
-    
     
     func setupTaps () {
         let cancelTap = UITapGestureRecognizer(target: self, action: #selector(cancelTapped))

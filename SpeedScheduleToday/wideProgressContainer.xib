@@ -13,6 +13,9 @@
         <array key="Aller_Std_Bd.ttf">
             <string>Aller-Bold</string>
         </array>
+        <array key="Aller_Std_Rg.ttf">
+            <string>Aller-Regular</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="wideProgressContainer" customModule="SpeedScheduleToday" customModuleProvider="target">
@@ -20,10 +23,13 @@
                 <outlet property="breakProgress0" destination="fAn-qZ-T68" id="ybJ-vw-ggo"/>
                 <outlet property="breakProgress1" destination="f2u-HG-lGG" id="v4z-p7-Ybh"/>
                 <outlet property="breakProgress2" destination="yeo-zh-fd8" id="dWO-o5-GSp"/>
+                <outlet property="classOBLabel" destination="4gH-XF-WJt" id="ARu-14-FMf"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="hWs-Lx-3dJ"/>
+                <outlet property="homeworkOBLabel" destination="Gn6-U2-6RT" id="ewe-RO-p8l"/>
                 <outlet property="homeworkProgress0" destination="jKR-rG-IQu" id="dal-Lh-n91"/>
                 <outlet property="homeworkProgress1" destination="55R-iB-W2b" id="rDU-Tn-WY4"/>
                 <outlet property="homeworkProgress2" destination="rCd-x6-aep" id="dU3-4R-Syl"/>
+                <outlet property="testOBLabel" destination="eO5-dI-206" id="lrB-N4-Xyo"/>
                 <outlet property="testProgress0" destination="Azq-4m-SdO" id="VeC-Lh-Cfu"/>
                 <outlet property="testProgress1" destination="43K-5N-wub" id="2Ik-jz-tKW"/>
                 <outlet property="testProgress2" destination="jVt-fv-u4f" id="VRn-wm-81W"/>
@@ -157,6 +163,36 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Homework" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gn6-U2-6RT">
+                    <rect key="frame" x="483" y="44.5" width="112" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="4zo-f8-eos"/>
+                        <constraint firstAttribute="width" constant="112" id="Gah-cQ-Hk1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.31945633559999997" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Examinations" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eO5-dI-206">
+                    <rect key="frame" x="832" y="44.5" width="133" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="M3E-bq-evm"/>
+                        <constraint firstAttribute="width" constant="133" id="qZl-Di-4P4"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.31945633559999997" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Classes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gH-XF-WJt">
+                    <rect key="frame" x="60" y="44.5" width="240" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="RCw-GY-K8Z"/>
+                        <constraint firstAttribute="width" constant="240" id="SjV-6R-O4S"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.31945633561643832" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -167,6 +203,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rCd-x6-aep" secondAttribute="bottom" constant="13" id="8qL-rl-hNV"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="jVt-fv-u4f" secondAttribute="bottom" constant="13" id="8ws-FT-7ve"/>
                 <constraint firstItem="Azq-4m-SdO" firstAttribute="top" secondItem="ys4-FP-5vL" secondAttribute="bottom" constant="1" id="DFG-hC-GFP"/>
+                <constraint firstItem="4gH-XF-WJt" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ED2-iH-bUv"/>
                 <constraint firstItem="hl1-NO-vnR" firstAttribute="height" secondItem="H9k-ZD-onJ" secondAttribute="height" id="EPj-Za-tCN"/>
                 <constraint firstItem="yeo-zh-fd8" firstAttribute="leading" secondItem="jVt-fv-u4f" secondAttribute="trailing" constant="39.200000000000003" id="F9O-7O-BIm"/>
                 <constraint firstItem="55R-iB-W2b" firstAttribute="top" secondItem="jKR-rG-IQu" secondAttribute="bottom" constant="4" id="GSf-qS-Dh0"/>
@@ -176,13 +213,16 @@
                 <constraint firstItem="H9k-ZD-onJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="JRJ-Nd-t0w"/>
                 <constraint firstItem="jKR-rG-IQu" firstAttribute="top" secondItem="sz0-HF-29v" secondAttribute="bottom" constant="1" id="JbF-DI-VOa"/>
                 <constraint firstItem="f2u-HG-lGG" firstAttribute="leading" secondItem="43K-5N-wub" secondAttribute="trailing" constant="39.200000000000003" id="LaA-GR-IQ9"/>
+                <constraint firstItem="4gH-XF-WJt" firstAttribute="centerX" secondItem="MwR-9X-fyN" secondAttribute="centerX" id="Lt7-Rg-JFU"/>
                 <constraint firstItem="55R-iB-W2b" firstAttribute="leading" secondItem="rBx-cd-eX2" secondAttribute="trailing" constant="39.200000000000003" id="LuU-JW-Qku"/>
                 <constraint firstItem="43K-5N-wub" firstAttribute="leading" secondItem="55R-iB-W2b" secondAttribute="trailing" constant="39.200000000000003" id="NCR-rY-klM"/>
                 <constraint firstItem="rS8-gl-ur2" firstAttribute="centerX" secondItem="fAn-qZ-T68" secondAttribute="centerX" id="PzM-TR-1ja"/>
+                <constraint firstItem="Gn6-U2-6RT" firstAttribute="centerX" secondItem="sz0-HF-29v" secondAttribute="centerX" id="QwY-Cj-6mv"/>
                 <constraint firstItem="yeo-zh-fd8" firstAttribute="top" secondItem="f2u-HG-lGG" secondAttribute="bottom" constant="4" id="RtL-QI-0RU"/>
                 <constraint firstItem="f2u-HG-lGG" firstAttribute="top" secondItem="fAn-qZ-T68" secondAttribute="bottom" constant="4" id="SHk-ts-kEL"/>
                 <constraint firstItem="rCd-x6-aep" firstAttribute="height" secondItem="jKR-rG-IQu" secondAttribute="height" id="Stv-Vp-DSy"/>
                 <constraint firstItem="fAn-qZ-T68" firstAttribute="top" secondItem="rS8-gl-ur2" secondAttribute="bottom" constant="1" id="TLV-fu-HwX"/>
+                <constraint firstItem="ys4-FP-5vL" firstAttribute="centerX" secondItem="eO5-dI-206" secondAttribute="centerX" id="TWG-x9-3o9"/>
                 <constraint firstItem="MwR-9X-fyN" firstAttribute="centerX" secondItem="H9k-ZD-onJ" secondAttribute="centerX" id="VsI-Jo-9GB"/>
                 <constraint firstItem="jVt-fv-u4f" firstAttribute="leading" secondItem="rCd-x6-aep" secondAttribute="trailing" constant="39.200000000000003" id="Wo3-g7-mgT"/>
                 <constraint firstItem="hl1-NO-vnR" firstAttribute="top" secondItem="rBx-cd-eX2" secondAttribute="bottom" constant="4" id="Xxd-hW-8tZ"/>
@@ -190,6 +230,8 @@
                 <constraint firstItem="ys4-FP-5vL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="but-xY-H9C"/>
                 <constraint firstItem="MwR-9X-fyN" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="bwO-eu-dOw"/>
                 <constraint firstItem="jVt-fv-u4f" firstAttribute="height" secondItem="Azq-4m-SdO" secondAttribute="height" id="d13-1I-nbb"/>
+                <constraint firstItem="Gn6-U2-6RT" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="duN-u0-0Du"/>
+                <constraint firstItem="eO5-dI-206" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="fws-Wp-Qlc"/>
                 <constraint firstItem="rS8-gl-ur2" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="gWc-1l-yo5"/>
                 <constraint firstItem="jKR-rG-IQu" firstAttribute="leading" secondItem="H9k-ZD-onJ" secondAttribute="trailing" constant="39.200000000000003" id="h2y-HR-AcG"/>
                 <constraint firstItem="sz0-HF-29v" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="hE2-34-dtm"/>

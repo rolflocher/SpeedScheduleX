@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,6 +26,7 @@
                 <outlet property="datePicker0" destination="unP-gt-2J5" id="cAH-46-hXM"/>
                 <outlet property="dateSeperator" destination="yZ5-EG-gQr" id="LcG-3g-Ugk"/>
                 <outlet property="dateView" destination="cLU-bl-2nC" id="eOz-gf-ekp"/>
+                <outlet property="deleteLabel" destination="KyG-9o-ANb" id="9w6-px-Ltl"/>
                 <outlet property="donePickerButton" destination="95s-1r-nB3" id="2pd-Om-kgH"/>
                 <outlet property="homeworkPickerView" destination="AH8-ma-8CI" id="eX4-aw-45B"/>
                 <outlet property="homeworkPreviewDate" destination="tVL-UH-Koi" id="3mT-a4-hJf"/>
@@ -248,6 +249,16 @@
                         <action selector="notificationSwitchToggled:" destination="-1" eventType="primaryActionTriggered" id="ZvZ-NY-Sm8"/>
                     </connections>
                 </switch>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-Delete-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KyG-9o-ANb">
+                    <rect key="frame" x="93" y="353" width="47" height="12"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="12" id="2DH-IJ-nk8"/>
+                        <constraint firstAttribute="width" constant="47" id="vhW-f6-vxd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="10"/>
+                    <color key="textColor" red="0.43148531027251691" green="0.43148531027251691" blue="0.43148531027251691" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -260,6 +271,7 @@
                 <constraint firstItem="cLU-bl-2nC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ByB-Cn-rHI"/>
                 <constraint firstItem="TRz-w3-qMO" firstAttribute="top" secondItem="qwH-D6-wJ9" secondAttribute="bottom" constant="52" id="DGU-3k-bw5"/>
                 <constraint firstItem="TRz-w3-qMO" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="F0g-L1-yGc"/>
+                <constraint firstItem="KyG-9o-ANb" firstAttribute="top" secondItem="aiB-Zn-KyT" secondAttribute="bottom" constant="3" id="H3l-LN-sSH"/>
                 <constraint firstAttribute="bottom" secondItem="1Cb-qG-PZU" secondAttribute="bottom" id="KCP-3S-mLt"/>
                 <constraint firstItem="aiB-Zn-KyT" firstAttribute="top" secondItem="KmG-ve-P8g" secondAttribute="bottom" constant="39.5" id="M4P-CT-RFI"/>
                 <constraint firstItem="aiB-Zn-KyT" firstAttribute="top" secondItem="A3b-cW-mnR" secondAttribute="bottom" constant="5" id="PMB-vp-uwr"/>
@@ -274,6 +286,7 @@
                 <constraint firstItem="iar-FC-y5r" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dQb-CI-DlN"/>
                 <constraint firstItem="jkb-ZS-Y4T" firstAttribute="top" secondItem="iar-FC-y5r" secondAttribute="bottom" constant="8" id="iMa-EW-dWB"/>
                 <constraint firstItem="qwH-D6-wJ9" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="6" id="iVo-FL-pap"/>
+                <constraint firstItem="KyG-9o-ANb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kfP-LM-p7d"/>
                 <constraint firstItem="iar-FC-y5r" firstAttribute="top" secondItem="LYV-rw-HUL" secondAttribute="bottom" constant="23" id="qon-PI-CWJ"/>
                 <constraint firstItem="V9x-jf-c7x" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="sok-Qg-Zxq"/>
                 <constraint firstItem="jkb-ZS-Y4T" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="34" id="w83-5u-s8T"/>

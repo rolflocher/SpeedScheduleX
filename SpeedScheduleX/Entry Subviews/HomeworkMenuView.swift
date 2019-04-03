@@ -68,6 +68,8 @@ class HomeworkMenuView: UIView {
     
     @IBOutlet var notificationLabel: UILabel!
     
+    @IBOutlet var deleteLabel: UILabel!
+    
     var isEditing = false
     
     //weak var homeworkDelegate0 : homeworkDelegate?
@@ -84,7 +86,6 @@ class HomeworkMenuView: UIView {
             })
         }
     }
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
