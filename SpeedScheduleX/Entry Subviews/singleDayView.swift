@@ -13,6 +13,10 @@ class singleDayView: UIView, UIScrollViewDelegate {
 
     @IBOutlet var contentView: UIView!
     
+    var borderColor = #colorLiteral(red: 0.9906585633, green: 0.9856564626, blue: 1, alpha: 0.9077248832)
+    var mainColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8839734229)
+    var subColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.9169136974)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -164,27 +168,31 @@ class singleDayView: UIView, UIScrollViewDelegate {
         path.move(to: CGPoint(x: 50, y: 0))
         path.addLine(to: CGPoint(x: 50, y: 710))
         
-        path.move(to: CGPoint(x: 127, y: 0))
-        path.addLine(to: CGPoint(x: 127, y: 710))
-        
         let lineLayer = CAShapeLayer()
         lineLayer.path = path.cgPath
         lineLayer.fillColor = UIColor.clear.cgColor
-        lineLayer.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
+        lineLayer.strokeColor = mainColor.cgColor//UIColor.lightGray.cgColor//UIColor.white.cgColor
         // #colorLiteral(red: 0.2784313725, green: 0.5411764706, blue: 0.7333333333, alpha: 1).cgColor
-        lineLayer.lineWidth = 2
+        lineLayer.lineWidth = 1.3
         
         self.layer.addSublayer(lineLayer)
         
-        print("linedrawrr called")
+        let path0 = UIBezierPath()
+        path0.move(to: CGPoint(x: 127, y: 0))
+        path0.addLine(to: CGPoint(x: 127, y: 710))
+        
+        let lineLayer0 = CAShapeLayer()
+        lineLayer0.path = path0.cgPath
+        lineLayer0.fillColor = UIColor.clear.cgColor
+        lineLayer0.strokeColor = mainColor.cgColor//UIColor.lightGray.cgColor//UIColor.white.cgColor
+        // #colorLiteral(red: 0.2784313725, green: 0.5411764706, blue: 0.7333333333, alpha: 1).cgColor
+        lineLayer0.lineWidth = 2
+        
+        self.layer.addSublayer(lineLayer0)
         
         for x in 1...numSegments+1 {
             let height = CGFloat((usableHeight/CGFloat(numSegments+1)) * CGFloat(x))
-            
-            if x == 1 {
-                print("time label drawer thinks height is \(usableHeight)")
-            }
-            
+
             let textLayer = CATextLayer()
             textLayer.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 20) // may need to hardcode
             textLayer.backgroundColor = UIColor.clear.cgColor
@@ -196,60 +204,60 @@ class singleDayView: UIView, UIScrollViewDelegate {
             let switchInt = x
             
             switch (switchInt) {
-            case 1:
-                print("")
+            //case 1:
+            //    print("")
             case 2:
                 textLayer.string = "9 AM"
-            case 3:
-                print("")
+            //case 3:
+            //    print("")
             case 4:
                 textLayer.string = "10 AM"
-            case 5:
-                print("")
+            //case 5:
+            //    print("")
             case 6:
                 textLayer.string = "11 AM"
-            case 7:
-                print("")
+            //case 7:
+            //    print("")
             case 8:
                 textLayer.string = "Noon"
-            case 9:
-                print("")
+            //case 9:
+            //    print("")
             case 10:
                 textLayer.string = "1 PM"
-            case 11:
-                print("")
+            //case 11:
+            //    print("")
             case 12:
                 textLayer.string = "2 PM"
-            case 13:
-                print("")
+            //case 13:
+            //    print("")
             case 14:
                 textLayer.string = "3 PM"
-            case 15:
-                print("")
+            //case 15:
+            //    print("")
             case 16:
                 textLayer.string = "4 PM"
-            case 17:
-                print("")
+            //case 17:
+            //    print("")
             case 18:
                 textLayer.string = "5 PM"
-            case 19:
-                print("")
+            //case 19:
+            //    print("")
             case 20:
                 textLayer.string = "6 PM"
-            case 21:
-                print("")
+            //case 21:
+            //    print("")
             case 22:
                 textLayer.string = "7 PM"
-            case 23:
-                print("")
+            //case 23:
+            //    print("")
             case 24:
                 textLayer.string = "8 PM"
-            case 25:
-                print("")
+            //case 25:
+            //    print("")
             case 26:
                 textLayer.string = "9 PM"
             default:
-                print("f")
+                textLayer.string = ""
             }
             textLayer.alignmentMode = .right
             //if (deviceSize == 667.0) {
@@ -282,9 +290,9 @@ class singleDayView: UIView, UIScrollViewDelegate {
                 let lineLayer = CAShapeLayer()
                 lineLayer.path = path1.cgPath
                 lineLayer.fillColor = UIColor.clear.cgColor
-                lineLayer.strokeColor = UIColor.lightGray.cgColor//UIColor.white.cgColor
+                lineLayer.strokeColor = mainColor.cgColor//UIColor.white.cgColor
                 // #colorLiteral(red: 0.2784313725, green: 0.5411764706, blue: 0.7333333333, alpha: 1).cgColor
-                lineLayer.lineWidth = 1.2//2
+                lineLayer.lineWidth = 1//2
                 
                 self.layer.addSublayer(lineLayer)
             }
@@ -296,7 +304,7 @@ class singleDayView: UIView, UIScrollViewDelegate {
                 let lineLayer = CAShapeLayer()
                 lineLayer.path = path1.cgPath
                 lineLayer.fillColor = UIColor.clear.cgColor
-                lineLayer.strokeColor = #colorLiteral(red: 0.7922615469, green: 0.7922615469, blue: 0.7922615469, alpha: 1).cgColor
+                lineLayer.strokeColor = subColor.cgColor
                 lineLayer.lineWidth = 0.5
                 
                 self.layer.addSublayer(lineLayer)

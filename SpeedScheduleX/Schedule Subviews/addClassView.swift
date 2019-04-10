@@ -75,14 +75,14 @@ class addClassView: UIView{
     var lastStart = 0
     var lastEnd = 0
     
-    var colorList = [#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)] {
-        didSet {
-            print("color list was set")
-        }
-        willSet {
-            print("color list will set")
-        }
-    }
+    var colorList = [#colorLiteral(red: 0.9899892211, green: 0.5301069021, blue: 0.5151737332, alpha: 1),#colorLiteral(red: 0.4656473994, green: 0.6525627375, blue: 0.8985714316, alpha: 1),#colorLiteral(red: 0.456913054, green: 0.8761506081, blue: 0.8840636611, alpha: 1),#colorLiteral(red: 0.9931351542, green: 0.6843765378, blue: 0.09469392151, alpha: 1)] //{
+//        didSet {
+//            print("color list was set")
+//        }
+//        willSet {
+//            print("color list will set")
+//        }
+    //}
     
     var id = 0
     

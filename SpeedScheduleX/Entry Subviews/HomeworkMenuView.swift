@@ -46,9 +46,9 @@ class HomeworkMenuView: UIView {
     
     @IBOutlet var homeworkPickerView: UIView!
     
-    @IBOutlet var cancelPickerButton: UILabel!
-    
     @IBOutlet var donePickerButton: UILabel!
+    
+    @IBOutlet var cancelPickerButton: UILabel!
     
     @IBOutlet var classPicker0: classPicker!
     
@@ -69,6 +69,10 @@ class HomeworkMenuView: UIView {
     @IBOutlet var notificationLabel: UILabel!
     
     @IBOutlet var deleteLabel: UILabel!
+    
+    @IBOutlet var cancelHeight: NSLayoutConstraint!
+    
+    @IBOutlet var doneHeight: NSLayoutConstraint!
     
     var isEditing = false
     
@@ -138,6 +142,12 @@ class HomeworkMenuView: UIView {
         
         dateView.layer.cornerRadius = 10.0
         dateView.clipsToBounds = true
+        
+        donePickerButton.layer.cornerRadius = 8.5
+        donePickerButton.clipsToBounds = true
+        
+        cancelPickerButton.layer.cornerRadius = 8.5
+        cancelPickerButton.clipsToBounds = true
         
         homeworkPickerView.layer.cornerRadius = 10.0
         homeworkPickerView.clipsToBounds = true

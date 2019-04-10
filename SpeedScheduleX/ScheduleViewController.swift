@@ -52,7 +52,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         classInfo["room"] = room
         classInfo["repeat"] = repeat0
         classInfo["color"] = color
-        print(repeat0)
+        //print(repeat0)
         
         var isUsed = false
         for classX in classListGlobal {
@@ -291,7 +291,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         
         for x in repeat0 {
             classInfo["day"] = x
-            print(randomId())
+            //print(randomId())
             classInfo["id"] = randomId()
             classListGlobal.append(classInfo)
         }
@@ -364,9 +364,9 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
     
     var classListGlobal = [[String:Any]]()
     
-    override func viewDidAppear(_ animated: Bool) {
-        print(mondayLongView.frame.height)
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        print(mondayLongView.frame.height)
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -785,12 +785,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
         for x in 1...numSegments {
             let height = CGFloat((usableHeight/CGFloat(numSegments+1)) * CGFloat(x))
             
-            if x == 1 {
-                print("time label drawer thinks height is \(usableHeight)")
-            }
-            
-            print("height: \(height)")
-            
             if x % 2 == 0  {
                 let path = UIBezierPath()
                 path.move(to: CGPoint(x: -100, y: height))
@@ -889,60 +883,60 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             
             switch (x) {
             
-            case 1:
-                print("")
+            //case 1:
+            //    print("")
             case 2:
                 textLayer.string = "9 AM"
-            case 3:
-                print("")
+            //case 3:
+            //    print("")
             case 4:
                 textLayer.string = "10 AM"
-            case 5:
-                print("")
+            //case 5:
+            //    print("")
             case 6:
                 textLayer.string = "11 AM"
-            case 7:
-                print("")
+            //case 7:
+            //    print("")
             case 8:
                 textLayer.string = "Noon"
-            case 9:
-                print("")
+            //case 9:
+            //    print("")
             case 10:
                 textLayer.string = "1 PM"
-            case 11:
-                print("")
+            //case 11:
+            //    print("")
             case 12:
                 textLayer.string = "2 PM"
-            case 13:
-                print("")
+            //case 13:
+            //    print("")
             case 14:
                 textLayer.string = "3 PM"
-            case 15:
-                print("")
+            //case 15:
+            //    print("")
             case 16:
                 textLayer.string = "4 PM"
-            case 17:
-                print("")
+            //case 17:
+            //    print("")
             case 18:
                 textLayer.string = "5 PM"
-            case 19:
-                print("")
+            //case 19:
+            //    print("")
             case 20:
                 textLayer.string = "6 PM"
-            case 21:
-                print("")
+            //case 21:
+            //    print("")
             case 22:
                 textLayer.string = "7 PM"
-            case 23:
-                print("")
+            //case 23:
+            //    print("")
             case 24:
                 textLayer.string = "8 PM"
-            case 25:
-                print("")
+            //case 25:
+            //    print("")
             case 26:
                 textLayer.string = "9 PM"
             default:
-                print("f")
+                textLayer.string = ""
             }
             textLayer.alignmentMode = .right
             //if (deviceSize == 667.0) {

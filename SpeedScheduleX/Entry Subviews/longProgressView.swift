@@ -53,9 +53,9 @@ class longProgressView: UIView {
         let components1 = calendar.dateComponents([.day], from: date2, to: date1)
         let currentDays = CGFloat(components1.day!)
         
-        print("time between current \(date1)")
-        print("time between start \(date2)")
-        print("time between end \(date3) \n")
+        //print("time between current \(date1)")
+        //print("time between start \(date2)")
+        //print("time between end \(date3) \n")
         
         UIView.animate(withDuration: 3, animations: {
             self.completionSlider.frame = CGRect(x: self.frame.size.width*(currentDays/totalDays)-self.frame.size.width, y: 0, width: self.frame.size.width, height: self.frame.size.height)
