@@ -953,6 +953,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.homeworkMenu0.nameHeight.constant = 151
             self.homeworkMenu0.cancelHeight.constant = 29
             self.homeworkMenu0.doneHeight.constant = 29
+            self.homeworkMenu0.donePickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
+            self.homeworkMenu0.cancelPickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
             self.view.layoutIfNeeded()
         })
         showHomeworkPicker()
@@ -966,6 +968,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.homeworkMenu0.typeHeight.constant = 151
             self.homeworkMenu0.cancelHeight.constant = 29
             self.homeworkMenu0.doneHeight.constant = 29
+            self.homeworkMenu0.donePickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
+            self.homeworkMenu0.cancelPickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
             self.view.layoutIfNeeded()
         })
         showHomeworkPicker()
@@ -979,6 +983,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.homeworkMenu0.dateHeight.constant = 151
             self.homeworkMenu0.cancelHeight.constant = 29
             self.homeworkMenu0.doneHeight.constant = 29
+            self.homeworkMenu0.donePickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
+            self.homeworkMenu0.cancelPickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
             self.view.layoutIfNeeded()
         })
         showHomeworkPicker()
@@ -1087,6 +1093,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         UIView.animate(withDuration: 0.6) {
             self.homeworkMenu0.cancelHeight.constant = 0
             self.homeworkMenu0.doneHeight.constant = 0
+            
+            self.homeworkMenu0.donePickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 0.1)
+            self.homeworkMenu0.cancelPickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 0.1)
+            
             //self.homeworkMenu0.cancelPickerButton.alpha = 0
             //self.homeworkMenu0.donePickerButton.alpha = 0
             self.view.layoutIfNeeded()
@@ -1130,6 +1140,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         UIView.animate(withDuration: 0.6) {
             self.testMenu0.cancelHeight.constant = 0
             self.testMenu0.doneHeight.constant = 0
+            
+            self.testMenu0.donePickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 0.1)
+            self.testMenu0.cancelPickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 0.1)
+            
             self.view.layoutIfNeeded()
         }
     }
@@ -1140,6 +1154,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.testMenu0.nameHeight.constant = 151
             self.testMenu0.cancelHeight.constant = 29
             self.testMenu0.doneHeight.constant = 29
+            self.testMenu0.donePickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
+            self.testMenu0.cancelPickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
             self.view.layoutIfNeeded()
         })
         showTestPicker()
@@ -1152,6 +1168,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.testMenu0.typeHeight.constant = 151
             self.testMenu0.cancelHeight.constant = 29
             self.testMenu0.doneHeight.constant = 29
+            self.testMenu0.donePickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
+            self.testMenu0.cancelPickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
             self.view.layoutIfNeeded()
         })
         showTestPicker()
@@ -1165,6 +1183,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.testMenu0.dateHeight.constant = 151
             self.testMenu0.cancelHeight.constant = 29
             self.testMenu0.doneHeight.constant = 29
+            self.testMenu0.donePickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
+            self.testMenu0.cancelPickerButton.transform = CGAffineTransform(scaleX: 1.0, y: 1)
             self.view.layoutIfNeeded()
         })
         showTestPicker()

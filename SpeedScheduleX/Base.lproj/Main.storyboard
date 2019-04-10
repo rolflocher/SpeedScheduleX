@@ -47,7 +47,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Proto Class Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Qi-gT-Qdj">
-                                                                    <rect key="frame" x="30" y="6.6666666666666679" width="164" height="14"/>
+                                                                    <rect key="frame" x="29.666666666666671" y="6.6666666666666679" width="164" height="14"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="164" id="fku-EC-98O"/>
                                                                         <constraint firstAttribute="height" constant="14" id="l5u-2H-16A"/>
@@ -57,7 +57,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Proto Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DeS-Hg-awu">
-                                                                    <rect key="frame" x="48.666666666666657" y="38.333333333333336" width="127" height="14"/>
+                                                                    <rect key="frame" x="48" y="38.333333333333336" width="127" height="14"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="127" id="IDy-hk-tPb"/>
                                                                         <constraint firstAttribute="height" constant="14" id="Pby-lF-G8l"/>
@@ -67,7 +67,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Proto Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boD-Mg-cnW">
-                                                                    <rect key="frame" x="60" y="22.666666666666668" width="104" height="14.000000000000004"/>
+                                                                    <rect key="frame" x="59.666666666666657" y="22.666666666666668" width="104" height="14.000000000000004"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="104" id="BaD-Sj-tg1"/>
                                                                         <constraint firstAttribute="height" constant="14" id="dv9-lc-qXQ"/>
@@ -110,7 +110,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Proto Class Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycX-Zu-Gyu">
-                                                                    <rect key="frame" x="34.666666666666657" y="6.6666666666666679" width="164" height="14"/>
+                                                                    <rect key="frame" x="29.666666666666671" y="6.6666666666666679" width="164" height="14"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="14" id="F2R-n4-qWL"/>
                                                                         <constraint firstAttribute="width" constant="164" id="OAX-pM-JT9"/>
@@ -120,7 +120,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Proto Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3D-R3-wNS">
-                                                                    <rect key="frame" x="53" y="38.333333333333336" width="127" height="14"/>
+                                                                    <rect key="frame" x="48" y="38.333333333333336" width="127" height="14"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="127" id="hLr-1o-ySS"/>
                                                                         <constraint firstAttribute="height" constant="14" id="xWE-Kl-UVr"/>
@@ -130,7 +130,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Proto Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ueR-9n-dF2">
-                                                                    <rect key="frame" x="64.666666666666671" y="22.666666666666668" width="104.00000000000001" height="14.000000000000004"/>
+                                                                    <rect key="frame" x="59.666666666666657" y="22.666666666666668" width="104" height="14.000000000000004"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="14" id="3il-py-Wnu"/>
                                                                         <constraint firstAttribute="width" constant="104" id="XOA-Q1-Zie"/>
