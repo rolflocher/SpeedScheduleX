@@ -368,6 +368,10 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
 //        print(mondayLongView.frame.height)
 //    }
     
+    override func viewDidLayoutSubviews() {
+        print(mondayLongView.frame.width)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -410,15 +414,52 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
 //            userDefaults.synchronize()
 //        }
         
-        if hasPreviousData() {
-            drawClasses(classList: classListGlobal)
-        }
+        
         
         self.addClassView0.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.addClassView0.frame.height)
         self.addClassView0.setupTaps()
         
         //populateFakeClasses()
         //drawClasses(classList: classListGlobal)
+        
+        let deviceSize = UIScreen.main.bounds
+        let width = deviceSize.width
+        //let height = deviceSize.height
+        if (width == 667.0) {
+            print(width)
+        }
+        else if (width == 736.0) {
+            print(width)
+        }
+        else if (width == 568.0) {
+            print(width)
+        }
+        else if (width == 812.0) {
+            print(width)
+        }
+        else if (width == 896.0) {
+            print(width)
+        }
+        else if (width == 414.0) { // iphone 6, 7 plus, 8 plus
+            print(width)
+            usableWidth = 69.3333
+        }
+        else if (width == 375.0) { // iphone 7, 8
+            print(width)
+            usableWidth = 61.5
+        }
+        else if (width == 320) { // iphone SE, 5
+            print(width)
+            usableWidth = 50.5
+        }
+        else {
+            print(width)
+            print("unknown device height^")
+        }
+        
+        if hasPreviousData() {
+            drawClasses(classList: classListGlobal)
+        }
     }
     
 //    func populateFakeClasses () {
@@ -655,7 +696,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
             let startHeight = usableHeight * CGFloat((classInfo["start"] as! Int))/810
             let endHeight = usableHeight * CGFloat((classInfo["end"] as! Int))/810
             
-            let classView0 = ClassView(frame: CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight)))
+            let classView0 = ClassView(frame: CGRect(x: 0, y: startHeight, width: usableWidth, height: (endHeight-startHeight))) // width was self.usableWidth
             classView0.drawClass(name: classInfo["name"] as! String, room: classInfo["room"] as! String, start: classInfo["start"] as! Int, end: classInfo["end"] as! Int, color: classInfo["color"] as! UIColor)
             
             if classView0.frame.height < 60 {
@@ -939,25 +980,8 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate, AddClassDel
                 textLayer.string = ""
             }
             textLayer.alignmentMode = .right
-            //if (deviceSize == 667.0) {
             textLayer.position = CGPoint(x:15,y:height)
-            //}
-            //            else if (deviceSize == 736.0) {
-            //                textLayer.position = CGPoint(x:17,y:height+168)
-            //            }
-            //            else if (deviceSize == 568.0) {
-            //                textLayer.position = CGPoint(x:17,y:height+169)
-            //            }
-            //            else if (deviceSize == 812.0) {
-            //                textLayer.position = CGPoint(x:17,y:height+169)
-            //            }
-            //            else if (deviceSize == 896.0) {
-            //                textLayer.position = CGPoint(x:17,y:height+169)//8
-            //            }
-            //            else {
-            //                textLayer.position = CGPoint(x:-2,y:height+301)
-            //                print("default text position used, unknown device height")
-            //            }
+            
             
             timeLabelView.layer.addSublayer(textLayer)
         }

@@ -51,6 +51,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet var backgroundImage: UIImageView!
     
+    @IBOutlet var menuScrollViewHeight: NSLayoutConstraint!
+    
+    
     var classPickerClass : classPicker!
     var classPickerClass1 : classPicker!
     var typePickerClass0 : typePicker!
@@ -75,12 +78,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var cancelBuffer = [-1,-1]
     
     @objc func settingsTapped () {
-        center.getPendingNotificationRequests { (object) in
-            for x in object {
-                print( "notification :" + "\(x.identifier) \(x.content.body)" )
-            }
-        }
-        updateSavedColors()
+        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "settingsView") as UIViewController
+        viewController.transitioningDelegate = self
+        viewController.modalPresentationStyle = .custom
+        viewController.modalPresentationCapturesStatusBarAppearance = true
+        self.present(viewController, animated: true, completion: nil)
+//        center.getPendingNotificationRequests { (object) in
+//            for x in object {
+//                print( "notification :" + "\(x.identifier) \(x.content.body)" )
+//            }
+//        }
+//        updateSavedColors()
     }
     
 //    func applyBlurEffect(image: UIImage){
@@ -298,32 +306,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         isEditingNoti = false
         dateNotSet = true // imp
         menuScrollView.isScrollEnabled = true
-        self.homeworkTable0.isHidden = false
-        if self.homeworkListGlobal.count == 0 {
-            self.homeworkOBLabel.isHidden = false
-        }
-        UIView.animate(withDuration: animationSpeed, animations: {
-            self.homeworkMenu0.frame = CGRect(x: 0, y: 422, width: 233, height: 422)
-            self.homeworkMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
-            self.homeworkLabel.alpha = 1
-            self.homeworkTable0.alpha = 1
-            if self.homeworkListGlobal.count == 0 {
-                self.homeworkOBLabel.alpha = 1
-                self.homeworkTable0.backgroundColor = #colorLiteral(red: 0.611815691, green: 0.6081816554, blue: 0.6146111488, alpha: 0.2073523116)
-            }
-            self.homeworkTable0.alpha = 1
-        }, completion : { (value : Bool) in
-            self.homeworkMenu0.homeworkPreviewName.text = ""
-            self.homeworkMenu0.homeworkPreviewType.text = ""
-            self.homeworkMenu0.homeworkPreviewDate.text = ""
-            self.homeworkMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
-            self.homeworkMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.homeworkMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.homeworkMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
-            let calendar = Calendar.current
-            self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
-            self.homeworkMenu0.datePicker0.reloadComponent(1)
-        })
+        hideMenuView(sender: "hw")
     }
     
     var dateNotSet = true
@@ -520,26 +503,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         isEditingNoti = false
         dateNotSet = true
         menuScrollView.isScrollEnabled = true
-        homeworkTable0.isHidden = false
-        UIView.animate(withDuration: animationSpeed, animations: {
-            self.homeworkMenu0.frame = CGRect(x: 0, y: 422, width: 233, height: 422)
-            self.homeworkMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
-            self.homeworkOBLabel.isHidden = true
-            self.homeworkLabel.alpha = 1
-            self.homeworkTable0.backgroundColor = UIColor.clear
-            self.homeworkTable0.alpha = 1
-        }, completion : { (value : Bool) in
-            self.homeworkMenu0.homeworkPreviewName.text = ""
-            self.homeworkMenu0.homeworkPreviewType.text = ""
-            self.homeworkMenu0.homeworkPreviewDate.text = ""
-            self.homeworkMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
-            self.homeworkMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.homeworkMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.homeworkMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
-            let calendar = Calendar.current
-            self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
-            self.homeworkMenu0.datePicker0.reloadComponent(1)
-        })
+        hideMenuView(sender: "hw")
     }
     
     @objc func backTestButtonTapped() {
@@ -547,28 +511,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         isEditingNoti = false
         dateNotSet = true // imp
         menuScrollView.isScrollEnabled = true
-        self.testTable0.isHidden = false
-        UIView.animate(withDuration: animationSpeed, animations: {
-            self.testMenu0.frame = CGRect(x: 233, y: 422, width: 233, height: 422)
-            self.testMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
-            self.testLabel.alpha = 1
-            if self.testListGlobal.count == 0 {
-                self.testOBLabel.isHidden = false
-            }
-            self.testTable0.alpha = 1
-        }, completion : { (value : Bool) in
-            self.testMenu0.homeworkPreviewName.text = ""
-            self.testMenu0.homeworkPreviewType.text = ""
-            self.testMenu0.homeworkPreviewDate.text = ""
-            self.testMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
-            self.testMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.testMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.testMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
-            let calendar = Calendar.current
-            self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
-            self.testMenu0.datePicker0.reloadComponent(1)
-            self.testMenu0.notificationSwitch.isOn = false
-        })
+        hideMenuView(sender: "test")
     }
     
     @objc func saveTestButtonTapped() {
@@ -762,27 +705,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         isEditingNoti = false
         dateNotSet = true
         menuScrollView.isScrollEnabled = true
-        self.testTable0.isHidden = false
-        UIView.animate(withDuration: animationSpeed, animations: {
-            self.testMenu0.frame = CGRect(x: 233, y: 422, width: 233, height: 422)
-            self.testMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
-            self.testOBLabel.isHidden = true
-            self.testTable0.alpha = 1
-            self.testTable0.backgroundColor = UIColor.clear
-            self.testLabel.alpha = 1
-        }, completion : { (value : Bool) in
-            self.testMenu0.homeworkPreviewName.text = ""
-            self.testMenu0.homeworkPreviewType.text = ""
-            self.testMenu0.homeworkPreviewDate.text = ""
-            self.testMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
-            self.testMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.testMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.testMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
-            let calendar = Calendar.current
-            self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
-            self.testMenu0.datePicker0.reloadComponent(1)
-            self.testMenu0.notificationSwitch.isOn = false
-        })
+        hideMenuView(sender: "test")
     }
     
     @objc func homeworkDeleteTapped () {
@@ -845,25 +768,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         isEditingNoti = false
         dateNotSet = true
         menuScrollView.isScrollEnabled = true
-        homeworkTable0.isHidden = false
-        UIView.animate(withDuration: animationSpeed, animations: {
-            self.homeworkMenu0.frame = CGRect(x: 0, y: 422, width: 233, height: 422)
-            self.homeworkMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
-            self.homeworkTable0.alpha = 1
-            self.homeworkLabel.alpha = 1
-        }, completion : { (value : Bool) in
-            self.homeworkMenu0.homeworkPreviewName.text = ""
-            self.homeworkMenu0.homeworkPreviewType.text = ""
-            self.homeworkMenu0.homeworkPreviewDate.text = ""
-            self.homeworkMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
-            self.homeworkMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.homeworkMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.homeworkMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
-            let calendar = Calendar.current
-            self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
-            self.homeworkMenu0.datePicker0.reloadComponent(1)
-            self.homeworkMenu0.notificationSwitch.isOn = false
-        })
+        hideMenuView(sender: "hw")
     }
     
     @objc func testDeleteTapped () {
@@ -925,27 +830,73 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         isEditingNoti = false
         dateNotSet = true
         menuScrollView.isScrollEnabled = true
-        testTable0.isHidden = false
-        UIView.animate(withDuration: animationSpeed, animations: {
-            self.testMenu0.frame = CGRect(x: 233, y: 422, width: 233, height: 422)
-            self.testMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
-            self.testTable0.alpha = 1
-            self.testLabel.alpha = 1
-        }, completion : { (value : Bool) in
-            self.testMenu0.homeworkPreviewName.text = ""
-            self.testMenu0.homeworkPreviewType.text = ""
-            self.testMenu0.homeworkPreviewDate.text = ""
-            self.testMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
-            self.testMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.testMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
-            self.testMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
-            let calendar = Calendar.current
-            self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
-            self.testMenu0.datePicker0.reloadComponent(1)
-            self.testMenu0.notificationSwitch.isOn = false
-        })
+        hideMenuView(sender: "test")
     }
     
+    func hideMenuView(sender: String) {
+        if sender == "hw" {
+            homeworkTable0.isHidden = false
+            UIView.animate(withDuration: animationSpeed, animations: {
+                self.homeworkMenu0.frame = CGRect(x: 0, y: 422, width: 233, height: 422)
+                self.homeworkMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
+                self.homeworkTable0.alpha = 1
+                self.homeworkLabel.alpha = 1
+                self.addHomeworkButton.alpha = 1
+                if self.homeworkListGlobal.count == 0 {
+                    self.homeworkOBLabel.alpha = 1
+                    self.homeworkTable0.backgroundColor = #colorLiteral(red: 0.611815691, green: 0.6081816554, blue: 0.6146111488, alpha: 0.2073523116)
+                }
+                else {
+                    self.homeworkTable0.backgroundColor = UIColor.clear
+                }
+            }, completion : { (value : Bool) in
+                self.homeworkMenu0.homeworkPreviewName.text = ""
+                self.homeworkMenu0.homeworkPreviewType.text = ""
+                self.homeworkMenu0.homeworkPreviewDate.text = ""
+                self.homeworkMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
+                self.homeworkMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
+                self.homeworkMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
+                self.homeworkMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
+                let calendar = Calendar.current
+                self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
+                self.homeworkMenu0.datePicker0.reloadComponent(1)
+                self.homeworkMenu0.notificationSwitch.isOn = false
+            })
+        }
+        else if sender == "test" {
+            testTable0.isHidden = false
+            UIView.animate(withDuration: animationSpeed, animations: {
+                self.testMenu0.frame = CGRect(x: 233, y: 422, width: 233, height: 422)
+                self.testMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
+                self.testTable0.alpha = 1
+                self.testLabel.alpha = 1
+                self.addTestButton.alpha = 1
+                if self.testListGlobal.count == 0 {
+                    self.testOBLabel.alpha = 1
+                    self.testTable0.backgroundColor = #colorLiteral(red: 0.611815691, green: 0.6081816554, blue: 0.6146111488, alpha: 0.2073523116)
+                }
+                else {
+                    self.testTable0.backgroundColor = UIColor.clear
+                }
+            }, completion : { (value : Bool) in
+                self.testMenu0.homeworkPreviewName.text = ""
+                self.testMenu0.homeworkPreviewType.text = ""
+                self.testMenu0.homeworkPreviewDate.text = ""
+                self.testMenu0.classPicker0.selectRow(0, inComponent: 0, animated: false)
+                self.testMenu0.typePicker0.selectRow(0, inComponent: 0, animated: false)
+                self.testMenu0.datePicker0.selectRow(0, inComponent: 0, animated: false)
+                self.testMenu0.datePicker0.selectRow(0, inComponent: 1, animated: false)
+                let calendar = Calendar.current
+                self.dayList = Array(calendar.component(.day, from: Date())...self.monthDayList[self.sentMonthList.first!-1])
+                self.testMenu0.datePicker0.reloadComponent(1)
+                self.testMenu0.notificationSwitch.isOn = false
+            })
+        }
+        else {
+            print("hideMenuView called by unknown sender")
+        }
+    }
+
     @objc func homeworkClassLabelTapped() {
         homeworkMenu0.classPicker0.isHidden = false
         
@@ -1090,7 +1041,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.homeworkMenu0.notificationSwitch.isUserInteractionEnabled = true
             })
         })
-        UIView.animate(withDuration: 0.6) {
+        UIView.animate(withDuration: 0.7) {
             self.homeworkMenu0.cancelHeight.constant = 0
             self.homeworkMenu0.doneHeight.constant = 0
             
@@ -1283,6 +1234,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.homeworkMenu0.frame = CGRect(x: 0, y: 0, width: 233, height: 422)
                 self.homeworkTable0.alpha = 0
                 self.homeworkLabel.alpha = 0
+                self.addHomeworkButton.alpha = 0
             }) { (finish) in
                 self.homeworkTable0.isHidden = true
             }
@@ -1292,7 +1244,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat="M/d"
             dateFormatter.locale = Locale(identifier: "en_US")
-            testMenu0.titleLabel.text = "Edit Assignment"
+            testMenu0.titleLabel.text = "Edit Exam"
             isEditingIndex = indexPath.section
             testMenu0.previewView.backgroundColor = testListGlobal[indexPath.section]["color"] as? UIColor
             testMenu0.homeworkPreviewName.text = testListGlobal[indexPath.section]["class"] as? String
@@ -1320,6 +1272,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.testMenu0.frame = CGRect(x: 233, y: 0, width: 233, height: 422)
                 self.testTable0.alpha = 0
                 self.testLabel.alpha = 0
+                self.addTestButton.alpha = 0
             }) { (finish) in
                 self.testTable0.isHidden = true
             }
@@ -1332,7 +1285,46 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var sentNameList = [String]()
     var sentMonthList = [Int]()
     
+    func scaleToDevice() {
+        let deviceSize = UIScreen.main.bounds
+        let width = deviceSize.width
+        //let height = deviceSize.height
+        if (width == 667.0) {
+            print(width)
+        }
+        else if (width == 736.0) {
+            print(width)
+        }
+        else if (width == 568.0) {
+            print(width)
+        }
+        else if (width == 812.0) {
+            print(width)
+        }
+        else if (width == 896.0) {
+            print(width)
+        }
+        else if (width == 414.0) { // iphone 6, 7 plus, 8 plus
+            print(width)
+        }
+        else if (width == 375.0) { // iphone 7, 8
+            print(width)
+        }
+        else if (width == 320) { // iphone SE, 5
+            print(width)
+        }
+        else {
+            print(width)
+            print("unknown device height^")
+        }
+        
+        menuScrollViewHeight.constant = deviceSize.height * 0.5
+        menuScrollView.layoutIfNeeded()
+    }
+    
     override func viewDidLoad() {
+        
+        scaleToDevice()
         
         //applyBlurEffect(image: UIImage(named: "background0")!)
         //backgroundImage.image = UIImage(named: "backgroundImage")
@@ -1576,14 +1568,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @objc func homeworkTapped() {
         menuScrollView.isScrollEnabled = false
+        homeworkMenu0.titleLabel.text = "Add Assignment"
         UIView.animate(withDuration: animationSpeed, animations: {
             self.homeworkMenu0.frame = CGRect(x: 0, y: 0, width: 233, height: 422)
+            self.addHomeworkButton.alpha = 0
             self.homeworkLabel.alpha = 0
             self.homeworkOBLabel.alpha = 0
-            //self.homeworkTable0.backgroundColor = UIColor.clear
             self.homeworkTable0.alpha = 0
         }) { (value) in
-            self.homeworkOBLabel.isHidden = true
+            self.homeworkTable0.isHidden = true
         }
         homeworkMenu0.deleteLabel.isHidden = true
         homeworkMenu0.notificationSwitch.isOn = false
@@ -1592,13 +1585,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @objc func testTapped() {
         menuScrollView.isScrollEnabled = false
+        testMenu0.titleLabel.text = "Add Test / Quiz"
         UIView.animate(withDuration: animationSpeed, animations: {
             self.testMenu0.frame = CGRect(x: 233, y: 0, width: 233, height: 422)
+            self.addTestButton.alpha = 0
             self.testLabel.alpha = 0
             self.testOBLabel.alpha = 0
             self.testTable0.alpha = 0
         }) { (value) in
-            self.testOBLabel.isHidden = true
             self.testTable0.isHidden = true
         }
         testMenu0.deleteLabel.isHidden = true

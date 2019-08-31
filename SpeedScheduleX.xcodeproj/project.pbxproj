@@ -14,6 +14,8 @@
 		4C17F3C6223960A000061154 /* addClassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C17F3C5223960A000061154 /* addClassView.xib */; };
 		4C2BB575224042C800B84E10 /* HomeworkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2BB574224042C800B84E10 /* HomeworkTableViewCell.swift */; };
 		4C2BB577224042DA00B84E10 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2BB576224042DA00B84E10 /* TestTableViewCell.swift */; };
+		4C32BB882260F8440051010E /* aboutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32BB872260F8440051010E /* aboutSettings.swift */; };
+		4C32BB8A2260F8530051010E /* aboutSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C32BB892260F8530051010E /* aboutSettings.xib */; };
 		4C33C9FF2236A73D00A52E0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33C9FE2236A73D00A52E0A /* AppDelegate.swift */; };
 		4C33CA012236A73D00A52E0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33CA002236A73D00A52E0A /* ViewController.swift */; };
 		4C33CA042236A73D00A52E0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C33CA022236A73D00A52E0A /* Main.storyboard */; };
@@ -26,6 +28,10 @@
 		4C33CA452237253D00A52E0A /* singleDayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C33CA442237253D00A52E0A /* singleDayView.xib */; };
 		4C33CA4722374BDB00A52E0A /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33CA4622374BDB00A52E0A /* ScheduleViewController.swift */; };
 		4C33CA4B223836A000A52E0A /* classView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33CA4A223836A000A52E0A /* classView.swift */; };
+		4C4EE552225ED2E3000A5D9D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4EE551225ED2E3000A5D9D /* SettingsViewController.swift */; };
+		4C4EE557225F9DE5000A5D9D /* settingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4EE556225F9DE5000A5D9D /* settingsTableViewCell.swift */; };
+		4C4EE559225FC2F5000A5D9D /* notificationsSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C4EE558225FC2F5000A5D9D /* notificationsSettings.xib */; };
+		4C4EE55B225FC536000A5D9D /* notificationsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4EE55A225FC536000A5D9D /* notificationsSettings.swift */; };
 		4C75219F2245987F000B0D0E /* Aller_Std_Bd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C75219E2245987F000B0D0E /* Aller_Std_Bd.ttf */; };
 		4C7521A12245987F000B0D0E /* Aller_Std_Bd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C75219E2245987F000B0D0E /* Aller_Std_Bd.ttf */; };
 		4C7521A42245AE7A000B0D0E /* classView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33CA4A223836A000A52E0A /* classView.swift */; };
@@ -93,6 +99,8 @@
 		4C17F3C5223960A000061154 /* addClassView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = addClassView.xib; sourceTree = "<group>"; };
 		4C2BB574224042C800B84E10 /* HomeworkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkTableViewCell.swift; sourceTree = "<group>"; };
 		4C2BB576224042DA00B84E10 /* TestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
+		4C32BB872260F8440051010E /* aboutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aboutSettings.swift; sourceTree = "<group>"; };
+		4C32BB892260F8530051010E /* aboutSettings.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = aboutSettings.xib; sourceTree = "<group>"; };
 		4C33C9FB2236A73D00A52E0A /* SpeedScheduleX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedScheduleX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C33C9FE2236A73D00A52E0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C33CA002236A73D00A52E0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +115,10 @@
 		4C33CA442237253D00A52E0A /* singleDayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = singleDayView.xib; sourceTree = "<group>"; };
 		4C33CA4622374BDB00A52E0A /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		4C33CA4A223836A000A52E0A /* classView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classView.swift; sourceTree = "<group>"; };
+		4C4EE551225ED2E3000A5D9D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		4C4EE556225F9DE5000A5D9D /* settingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsTableViewCell.swift; sourceTree = "<group>"; };
+		4C4EE558225FC2F5000A5D9D /* notificationsSettings.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = notificationsSettings.xib; sourceTree = "<group>"; };
+		4C4EE55A225FC536000A5D9D /* notificationsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notificationsSettings.swift; sourceTree = "<group>"; };
 		4C75219E2245987F000B0D0E /* Aller_Std_Bd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Aller_Std_Bd.ttf; sourceTree = "<group>"; };
 		4C91236A224E882800453827 /* SpeedScheduleToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeedScheduleToday.entitlements; sourceTree = "<group>"; };
 		4CA0D2C2223A0B130072A9E3 /* timeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeView.swift; sourceTree = "<group>"; };
@@ -184,6 +196,8 @@
 				4C33CA4622374BDB00A52E0A /* ScheduleViewController.swift */,
 				4CD7399722429A730016B8ED /* Entry Subviews */,
 				4C33CA002236A73D00A52E0A /* ViewController.swift */,
+				4C4EE555225F9CA6000A5D9D /* Settings Subviews */,
+				4C4EE551225ED2E3000A5D9D /* SettingsViewController.swift */,
 				4C33CA022236A73D00A52E0A /* Main.storyboard */,
 				4C33CA052236A73D00A52E0A /* Assets.xcassets */,
 				4C33CA072236A73D00A52E0A /* LaunchScreen.storyboard */,
@@ -191,6 +205,18 @@
 				4C33CA0A2236A73D00A52E0A /* Info.plist */,
 			);
 			path = SpeedScheduleX;
+			sourceTree = "<group>";
+		};
+		4C4EE555225F9CA6000A5D9D /* Settings Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				4C4EE556225F9DE5000A5D9D /* settingsTableViewCell.swift */,
+				4C4EE558225FC2F5000A5D9D /* notificationsSettings.xib */,
+				4C4EE55A225FC536000A5D9D /* notificationsSettings.swift */,
+				4C32BB892260F8530051010E /* aboutSettings.xib */,
+				4C32BB872260F8440051010E /* aboutSettings.swift */,
+			);
+			path = "Settings Subviews";
 			sourceTree = "<group>";
 		};
 		4CA94693224552EE003FC20F /* Frameworks */ = {
@@ -363,12 +389,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C33CA3F2237190000A52E0A /* Aller_Std_Rg.ttf in Resources */,
+				4C4EE559225FC2F5000A5D9D /* notificationsSettings.xib in Resources */,
 				4CA0D2C7223AA75B0072A9E3 /* addClassPickerView.xib in Resources */,
 				4C33CA452237253D00A52E0A /* singleDayView.xib in Resources */,
 				4C0EADEA223CABD500F14D27 /* reference.rtf in Resources */,
 				4C33CA092236A73D00A52E0A /* LaunchScreen.storyboard in Resources */,
 				4C17F3C6223960A000061154 /* addClassView.xib in Resources */,
 				4C75219F2245987F000B0D0E /* Aller_Std_Bd.ttf in Resources */,
+				4C32BB8A2260F8530051010E /* aboutSettings.xib in Resources */,
 				4C33CA3D22370A5D00A52E0A /* longProgressView.xib in Resources */,
 				4CD73DB322415B9F0038438E /* HomeworkMenuView.xib in Resources */,
 				4C33CA062236A73D00A52E0A /* Assets.xcassets in Resources */,
@@ -443,6 +471,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C33CA4722374BDB00A52E0A /* ScheduleViewController.swift in Sources */,
+				4C4EE55B225FC536000A5D9D /* notificationsSettings.swift in Sources */,
 				4CD73DB122415B830038438E /* HomeworkMenuView.swift in Sources */,
 				4C2BB575224042C800B84E10 /* HomeworkTableViewCell.swift in Sources */,
 				4C33CA012236A73D00A52E0A /* ViewController.swift in Sources */,
@@ -455,10 +484,13 @@
 				4C17F3C42239604D00061154 /* addClassView.swift in Sources */,
 				4CD7399922429BC80016B8ED /* classPicker.swift in Sources */,
 				4CD7399B22429BE20016B8ED /* typePicker.swift in Sources */,
+				4C4EE557225F9DE5000A5D9D /* settingsTableViewCell.swift in Sources */,
 				4C0EADE8223C6B1200F14D27 /* colorFile.swift in Sources */,
 				4C0EADE4223AB19100F14D27 /* buildingView.swift in Sources */,
+				4C32BB882260F8440051010E /* aboutSettings.swift in Sources */,
 				4C33C9FF2236A73D00A52E0A /* AppDelegate.swift in Sources */,
 				4C33CA392237081500A52E0A /* longProgressView.swift in Sources */,
+				4C4EE552225ED2E3000A5D9D /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
