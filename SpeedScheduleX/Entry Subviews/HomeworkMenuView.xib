@@ -47,6 +47,7 @@
                 <outlet property="typePicker0" destination="BAt-x6-b0j" id="dlH-vz-4ev"/>
                 <outlet property="typeTop" destination="WGJ-HT-Hbp" id="qCq-Od-Kch"/>
                 <outlet property="typeView" destination="KmG-ve-P8g" id="sXJ-Zf-d2N"/>
+                <outlet property="verticalHeight" destination="DGU-3k-bw5" id="eT2-db-B82"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -54,7 +55,7 @@
             <rect key="frame" x="0.0" y="0.0" width="233" height="422"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V9x-jf-c7x">
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V9x-jf-c7x">
                     <rect key="frame" x="22" y="79" width="189" height="35"/>
                     <color key="backgroundColor" red="0.76410144567489624" green="0.87957096099853516" blue="0.97648674249649048" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
@@ -79,10 +80,10 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Assignment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwH-D6-wJ9">
-                    <rect key="frame" x="50.5" y="6" width="132" height="21"/>
+                    <rect key="frame" x="48" y="6" width="137" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="Q66-Sb-H3X"/>
-                        <constraint firstAttribute="width" constant="132" id="b8D-ga-vsh"/>
+                        <constraint firstAttribute="width" constant="137" id="b8D-ga-vsh"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Aller-Regular" family="Aller" pointSize="18"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -272,7 +273,6 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="0.56538955479452058" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="V9x-jf-c7x" firstAttribute="top" secondItem="qwH-D6-wJ9" secondAttribute="bottom" constant="52" id="2Nn-ku-QbS"/>
                 <constraint firstItem="aiB-Zn-KyT" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4Py-CM-gw3"/>
                 <constraint firstItem="l3K-Ct-fbr" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="5wQ-2P-R3s"/>
                 <constraint firstItem="l3K-Ct-fbr" firstAttribute="width" secondItem="5B5-w3-FDU" secondAttribute="width" id="7Uq-zk-xeL"/>

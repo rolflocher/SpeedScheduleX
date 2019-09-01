@@ -1291,38 +1291,43 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func scaleToDevice() {
         let deviceSize = UIScreen.main.bounds
-        let width = deviceSize.width
-        //let height = deviceSize.height
-        if (width == 667.0) {
-            print(width)
+        //let width = deviceSize.width
+        let height = deviceSize.height
+        var shouldHidePreview = true
+        if (height == 667.0) {
+            print(height)
         }
-        else if (width == 736.0) {
-            print(width)
+        else if (height == 736.0) {
+            print(height)
         }
-        else if (width == 568.0) {
-            print(width)
+        else if (height == 568.0) {
+            print(height)
         }
-        else if (width == 812.0) {
-            print(width)
+        else if (height == 812.0) {
+            print(height)
+            shouldHidePreview = false
         }
-        else if (width == 896.0) {
-            print(width)
+        else if (height == 896.0) {
+            print(height)
         }
-        else if (width == 414.0) { // iphone 6, 7 plus, 8 plus
-            print(width)
+        else if (height == 414.0) { // iphone 6, 7 plus, 8 plus
+            print(height)
         }
-        else if (width == 375.0) { // iphone 7, 8
-            print(width)
+        else if (height == 375.0) { // iphone 7, 8
+            print(height)
         }
-        else if (width == 320) { // iphone SE, 5
-            print(width)
+        else if (height == 320) { // iphone SE, 5
+            print(height)
         }
         else {
-            print(width)
+            print(height)
             print("unknown device height^")
         }
+        if shouldHidePreview {
+            homeworkMenu0.previewView.isHidden = true
+        }
         
-        let frameMargin = deviceSize.width * 0.01
+        //let frameMargin = deviceSize.width * 0.01
         
         menuScrollViewHeight.constant = deviceSize.height * 0.525
         menuScrollView.layoutIfNeeded()
@@ -1332,11 +1337,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         menuScrollView.contentSize = CGSize(width: 2 * menuScrollView.frame.width, height: 2 * deviceSize.height * 0.525)
         
+        homeworkMenu0.verticalHeight.constant = 52 * deviceSize.height / 812
+        
         //homeworkTable0.frame = CGRect(x: frameMargin, y: 25, width: menuScrollView.frame.width - 2 * frameMargin, height: deviceSize.height * 0.525 - 25)
         //homeworkMenu0.frame = CGRect(x: 0, y: deviceSize.height * 0.525, width: menuScrollView.frame.width, height: deviceSize.height * 0.525)
         
         //testTable0.frame = CGRect(x: menuScrollView.frame.width + 3 * frameMargin, y: 25, width: menuScrollView.frame.width - 2 * frameMargin, height: deviceSize.height * 0.525 - 25)
         //testMenu0.frame = CGRect(x: menuScrollView.frame.width, y: deviceSize.height * 0.525, width: menuScrollView.frame.width, height: deviceSize.height * 0.525)
+        
         
         
     }
@@ -1606,7 +1614,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         menuScrollView.isScrollEnabled = false
         testMenu0.titleLabel.text = "Add Test / Quiz"
         UIView.animate(withDuration: animationSpeed, animations: {
-            self.testMenu0.frame = CGRect(x: menuScrollView.frame.width, y: 0, width: menuScrollView.frame.width, height: menuScrollView.frame.height)
+            self.testMenu0.frame = CGRect(x: self.menuScrollView.frame.width, y: 0, width: self.menuScrollView.frame.width, height: self.menuScrollView.frame.height)
             self.addTestButton.alpha = 0
             self.testLabel.alpha = 0
             self.testOBLabel.alpha = 0

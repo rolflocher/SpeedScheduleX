@@ -74,6 +74,9 @@ class HomeworkMenuView: UIView {
     
     @IBOutlet var doneHeight: NSLayoutConstraint!
     
+    @IBOutlet var verticalHeight: NSLayoutConstraint!
+    
+    
     var isEditing = false
     
     //weak var homeworkDelegate0 : homeworkDelegate?
