@@ -53,6 +53,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet var menuScrollViewHeight: NSLayoutConstraint!
     
+    @IBOutlet var menuContentsWidth: NSLayoutConstraint!
+    
+    @IBOutlet var menuContentsHeight: NSLayoutConstraint!
     
     var classPickerClass : classPicker!
     var classPickerClass1 : classPicker!
@@ -834,10 +837,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func hideMenuView(sender: String) {
+        let usableFrame = menuScrollView.frame
         if sender == "hw" {
             homeworkTable0.isHidden = false
             UIView.animate(withDuration: animationSpeed, animations: {
-                self.homeworkMenu0.frame = CGRect(x: 0, y: 422, width: 233, height: 422)
+                self.homeworkMenu0.frame = CGRect(x: 0, y: usableFrame.height, width: usableFrame.width, height: usableFrame.height)
                 self.homeworkMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
                 self.homeworkTable0.alpha = 1
                 self.homeworkLabel.alpha = 1
@@ -866,7 +870,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         else if sender == "test" {
             testTable0.isHidden = false
             UIView.animate(withDuration: animationSpeed, animations: {
-                self.testMenu0.frame = CGRect(x: 233, y: 422, width: 233, height: 422)
+                self.testMenu0.frame = CGRect(x: usableFrame.width, y: usableFrame.height, width: usableFrame.width, height: usableFrame.height)
                 self.testMenu0.previewView.backgroundColor = #colorLiteral(red: 0.937607348, green: 0.9367406368, blue: 0.9586864114, alpha: 1)
                 self.testTable0.alpha = 1
                 self.testLabel.alpha = 1
@@ -1318,8 +1322,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             print("unknown device height^")
         }
         
-        menuScrollViewHeight.constant = deviceSize.height * 0.5
+        let frameMargin = deviceSize.width * 0.01
+        
+        menuScrollViewHeight.constant = deviceSize.height * 0.525
         menuScrollView.layoutIfNeeded()
+        
+        menuContentsHeight.constant = 2 * deviceSize.height * 0.525
+        menuContentsWidth.constant = 2 * menuScrollView.frame.width
+        
+        menuScrollView.contentSize = CGSize(width: 2 * menuScrollView.frame.width, height: 2 * deviceSize.height * 0.525)
+        
+        //homeworkTable0.frame = CGRect(x: frameMargin, y: 25, width: menuScrollView.frame.width - 2 * frameMargin, height: deviceSize.height * 0.525 - 25)
+        //homeworkMenu0.frame = CGRect(x: 0, y: deviceSize.height * 0.525, width: menuScrollView.frame.width, height: deviceSize.height * 0.525)
+        
+        //testTable0.frame = CGRect(x: menuScrollView.frame.width + 3 * frameMargin, y: 25, width: menuScrollView.frame.width - 2 * frameMargin, height: deviceSize.height * 0.525 - 25)
+        //testMenu0.frame = CGRect(x: menuScrollView.frame.width, y: deviceSize.height * 0.525, width: menuScrollView.frame.width, height: deviceSize.height * 0.525)
+        
+        
     }
     
     override func viewDidLoad() {
@@ -1398,7 +1417,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         homeworkTable0.clipsToBounds = true
         testTable0.clipsToBounds = true
         
-        menuScrollView.contentSize = CGSize(width:466, height:422)
+        //menuScrollView.contentSize = CGSize(width:466, height:422)
         
         let singleDayView0 = singleDayView.init(frame: CGRect(x: 0, y: 0, width: 128, height: 710))
         //singleDayView0.backgroundColor = colors[0]
@@ -1570,7 +1589,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         menuScrollView.isScrollEnabled = false
         homeworkMenu0.titleLabel.text = "Add Assignment"
         UIView.animate(withDuration: animationSpeed, animations: {
-            self.homeworkMenu0.frame = CGRect(x: 0, y: 0, width: 233, height: 422)
+            self.homeworkMenu0.frame = CGRect(x: 0, y: 0, width: self.menuScrollView.frame.width, height: self.menuScrollView.frame.height)
             self.addHomeworkButton.alpha = 0
             self.homeworkLabel.alpha = 0
             self.homeworkOBLabel.alpha = 0
@@ -1587,7 +1606,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         menuScrollView.isScrollEnabled = false
         testMenu0.titleLabel.text = "Add Test / Quiz"
         UIView.animate(withDuration: animationSpeed, animations: {
-            self.testMenu0.frame = CGRect(x: 233, y: 0, width: 233, height: 422)
+            self.testMenu0.frame = CGRect(x: menuScrollView.frame.width, y: 0, width: menuScrollView.frame.width, height: menuScrollView.frame.height)
             self.addTestButton.alpha = 0
             self.testLabel.alpha = 0
             self.testOBLabel.alpha = 0
